@@ -1,0 +1,21 @@
+.page-title{
+    font-family: var(--font-saira);
+    font-size: 72px;
+    color: white;
+    justify-content: center;
+}
+
+.to-follow{
+    width: 70vw;
+    display: flex;
+    position: relative;
+    left: -3em;
+    flex-direction: column;
+    padding: 0 1em;
+
+}
+
+.title-container{
+    display: flex;
+    justify-content: center;
+}

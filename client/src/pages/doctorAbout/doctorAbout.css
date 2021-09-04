@@ -2,3 +2,9 @@
     background-color: var(--green-secondary);
     height: 100vh;
 }
+
+.main-container{
+    display:flex;
+    justify-content:center;
+}
+
