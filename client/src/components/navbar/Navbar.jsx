@@ -4,27 +4,29 @@ import "./navbar.css";
 
 function Navbar() {
   return (
-    <div>
-      <div>
-        {/* <a href="/home" className="link">
-          <span className="logo-text-doc">Doc</span>
-          <span className="logo-text-ops">Ops</span>
-        </a> */}
+    <div className="nav-bar global-box-shadow">
+      <div className="nav-logo">
         <Logo />
-        <nav>
-          <ul>
-            <li>
-              <a href="/home" className="link">Home</a>
-            </li>
-            <li>
-              <a href="/login-page" className="link">Login</a>
-            </li>
-            <li>
-              <a href="/create-account" className="link">Create Account</a>
-            </li>
-          </ul>
-        </nav>
       </div>
+      <nav>
+        <ul className="nav-list">
+          <li>
+            <a href="/home" className="link">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/login-page" className="link">
+              Login
+            </a>
+          </li>
+          <li>
+            <a href="/create-account" className="link">
+              Create Account
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }

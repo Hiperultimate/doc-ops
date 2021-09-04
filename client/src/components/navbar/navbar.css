@@ -1,3 +1,29 @@
-.link{
-    text-decoration: none;
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-bar nav {
+  padding-right: 1em;
+  font-family: var(--font-inter);
+  font-weight: 600;
+}
+
+.nav-bar li {
+  padding-left: 1em;
+}
+
+.nav-logo {
+  padding-left: 1em;
 }

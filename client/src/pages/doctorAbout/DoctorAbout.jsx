@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar/Navbar.jsx";
 function DoctorAbout(){
     return(
         <div>
-            <Navbar />
+            <Navbar/>
             Doctor About Page 
         </div>
     )

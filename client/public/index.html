@@ -25,9 +25,23 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&family=Saira+Semi+Condensed:wght@200;400;700&display=swap");
-      body{
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&family=Saira+Semi+Condensed:wght@200;400;700&display=swap");
+      body {
         margin: 0;
+      }
+
+      :root {
+        --green: #7be495;
+        --pale-green: #cff4d1;
+
+        --font-inter: "Inter", sans-serif;
+        --font-saira: 'Saira Semi Condensed', sans-serif;
+      }
+
+      {% comment %} https://shadows.brumm.af/ {% endcomment %}
+      .global-box-shadow {    
+        box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
+          0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
       }
     </style>
     <title>DocOps</title>
