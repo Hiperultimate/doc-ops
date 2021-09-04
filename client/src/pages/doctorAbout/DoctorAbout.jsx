@@ -1,8 +1,9 @@
+import "./doctorAbout.css";
 import Navbar from "../../components/navbar/Navbar.jsx";
 
 function DoctorAbout(){
     return(
-        <div>
+        <div class="doctor-about">
             <Navbar/>
             Doctor About Page 
         </div>

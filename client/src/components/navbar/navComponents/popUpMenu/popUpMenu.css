@@ -1,0 +1,46 @@
+.popup-menu {
+  position: absolute;
+  right: 0;
+  top: 4em;
+  margin-right: 1em;
+  border-radius: 10px;
+  font-family: var(--font-saira);
+  font-size: 18px;
+  font-weight: 500;
+  background-color: white;
+}
+
+.popup-list {
+  list-style-type: none;
+  padding-left: 0em;
+  height: 240px;
+  width: 231px;
+  margin-top: 0;
+}
+
+.popup-list li {
+  padding-right: 1em;
+  position: relative;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.pop-up-items {
+  margin-left: 1.3em;
+  text-decoration: none;
+  color: black;
+}
+
+.popup-list li:not(:last-child) :after {
+  content: "";
+  cursor:context-menu;
+  background: black;
+  position: absolute;
+  bottom: 0;
+  left: 22px;
+  height: 1px;
+  width: 80%;
+}
+
+
+

@@ -4,7 +4,8 @@
 }
 
 .nav-list {
-  list-style-type: none;
+  /* list-style-type: none; */
+  
   display: flex;
 }
 
@@ -12,18 +13,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: white;
 }
 
 .nav-bar nav {
   padding-right: 1em;
-  font-family: var(--font-inter);
-  font-weight: 600;
+  font-family: var(--font-saira);
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.nav-bar li {
+.items {
   padding-left: 1em;
+  margin:1em 0em;
 }
 
 .nav-logo {
   padding-left: 1em;
+padding-top:0.2em;
 }
