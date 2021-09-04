@@ -1,5 +1,5 @@
 .logo-style{
-    font-family: 'Saira Semi Condensed', sans-serif;
+    font-family: var(--font-saira);
     font-weight: 800;
     font-size: 36px;
 }
