@@ -1,7 +1,9 @@
 import "./doctorDetails.css";
 import MainButton from "../../mainButton/MainButton.jsx";
 
-function DoctorDetails() {
+function DoctorDetails({experience, email, phoneNumber,specialization,treatments,consultationFee}) {
+
+  // Write function to reach to doctor chat here
   const onClickHandler = () => {
     console.log("henlo");
   };
@@ -11,31 +13,31 @@ function DoctorDetails() {
         <div className="experience info-padding">
           <span className="semi-title">Experience:</span>
           <br />
-          <span>1+ Years</span>
+          <span>{experience}</span>
         </div>
         <div className="email info-padding">
           <span className="semi-title">Email:</span>
           <br />
-          <span>alanokovTheDoctor@gmail.com</span>
+          <span>{email}</span>
         </div>
         <div className="phone-number info-padding">
           <span className="semi-title">Phone number:</span>
           <br />
-          <span>981273591</span>
+          <span>{phoneNumber}</span>
         </div>
         <div className="specialization info-padding">
           <span className="semi-title">Specialization:</span>
           <br />
-          <span>Surgeries, Anesthetics, Valorant, Punjabi</span>
+          <span>{specialization}</span>
         </div>
-        <div className="treatments info-padding">
+        <div className="treatments custom-info-padding">
           <span className="semi-title">Treatments:</span>
           <br />
           <span>
-            Wisdom tooth removal, Plaq Cleaning, Ear Destroyer, Stomach Remover.
+            {treatments}
           </span>
         </div>
-        <div className="chat-btn info-padding">
+        <div className="chat-btn custom-info-padding">
           <span className="semi-title">
             <MainButton buttonText="Chat Now" onClickHandler={onClickHandler} />
           </span>
@@ -43,7 +45,7 @@ function DoctorDetails() {
         <div className="consultation-fee info-padding">
           <span className="semi-title">Consultation Fee:</span>
           <br />
-          <span className="fee">Rs. 500</span>
+          <span className="fee">Rs. {consultationFee}</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,8 @@
+.bold{
+    font-weight: bold;
+}
+
+.align-check-cross{
+    position: relative;
+    bottom: -7px;
+}
