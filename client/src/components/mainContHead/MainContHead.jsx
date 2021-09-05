@@ -2,7 +2,7 @@ import "./mainContHead.css";
 
 function MainContHead({ titleName }) {
   return (
-    <div class="heading-bg added-item">
+    <div className="heading-bg added-item">
       <span className="main-cont-head global-box-shadow">{titleName}</span>
     </div>
   );

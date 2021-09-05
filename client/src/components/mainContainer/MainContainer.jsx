@@ -1,5 +1,4 @@
 import "./mainContainer.css";
-import MainContHead from "../mainContHead/MainContHead.jsx";
 
 /* 
     add className="added-item" to components which are being added to 
@@ -7,16 +6,12 @@ import MainContHead from "../mainContHead/MainContHead.jsx";
     automatically.
 */
 
-function MainContainer(){
+function MainContainer(props){
     return(
         <div className="back-board global-box-shadow">
-            <MainContHead titleName="Checking out" />
-            <MainContHead titleName="Checking in" />
-            <MainContHead titleName="Bruh" />
-            <MainContHead titleName="Moment" />
-            <div className="added-item">Main Container</div>
-            <div className="added-item">Main Container</div>
-            <div className="added-item">Main Container</div>
+            {props.AddComponents.map((items)=> {    // item = <Component titlename={"Value"} />
+                return(items);
+            })}
             <div className="added-item">Main Container</div>
         </div>
     );
