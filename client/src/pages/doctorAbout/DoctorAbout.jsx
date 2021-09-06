@@ -11,7 +11,7 @@ import ImageSlider from "../../components/imageSlider/ImageSlider.jsx";
 function DoctorAbout() {
   return (
     <div className="doctor-about">
-      <Navbar />
+      <Navbar isFixed={true}/>
       <div className="doctor-about-top-spacing" />
       <MainHeading titleName={"About"} />
       <div className="main-container">
