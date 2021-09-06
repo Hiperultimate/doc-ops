@@ -12,7 +12,7 @@ function DoctorClinicDetails({
   addressLatLong,
 }) {
   return (
-    <div className="clinic-details global-box-shadow">
+    <div className="clinic-details global-box-shadow added-item">
       <div className="container">
         <div className="clinic-details-grid">
           <div className="clinic-part">

@@ -6,11 +6,13 @@ import MainHeading from "../../components/mainHeading/MainHeading.jsx";
 import MainContHead from "../../components/mainContHead/MainContHead.jsx";
 import DoctorDetails from "../../components/doctorComponents/doctorDetails/DoctorDetails.jsx";
 import DoctorClinicDetails from "../../components/doctorComponents/doctorClinicDetails/DoctorClinicDetails.jsx";
+import ImageSlider from "../../components/imageSlider/ImageSlider.jsx";
 
 function DoctorAbout() {
   return (
     <div className="doctor-about">
       <Navbar />
+      <div className="doctor-about-top-spacing" />
       <MainHeading titleName={"About"} />
       <div className="main-container">
         <MainContainer
@@ -35,9 +37,20 @@ function DoctorAbout() {
               key={3}
               addressLatLong={[28.6394, 77.3653]}
             />,
+            <ImageSlider
+              imageList={[
+                "https://images.unsplash.com/photo-1485348616965-15c926318fbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
+                "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
+                "https://images.unsplash.com/photo-1564419965579-5da68ffdf3af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
+                "https://images.unsplash.com/photo-1606824722920-4c652a70f348?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
+              ]}
+              key={4}
+            />,
           ]}
         />
       </div>
+      <div className="doctor-about-top-spacing" />
       <Footer />
     </div>
   );

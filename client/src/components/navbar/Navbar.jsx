@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import Logo from "../logo/Logo.jsx";
 import LogoutNavOptions from "./navComponents/LogoutNavOptions.jsx";
 import LoginNavOptions from "./navComponents/loginNavOptions/LoginNavOptions.jsx";
@@ -11,9 +11,9 @@ function Navbar() {
     // const user = {};
   let [popUp, popUpState] = useState(false);
 
-  useEffect(() => {
-    console.log(popUp);
-  });
+  // useEffect(() => {
+  //   console.log(popUp);
+  // });
   return (
     <div className="nav-bar global-box-shadow">
       <div className="nav-logo">

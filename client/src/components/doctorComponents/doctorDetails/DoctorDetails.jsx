@@ -5,7 +5,7 @@ function DoctorDetails({experience, email, phoneNumber,specialization,treatments
 
   // Write function to reach to doctor chat here
   const onClickHandler = () => {
-    console.log("henlo");
+    console.log("Redirect to chat room session");
   };
   return (
     <div className="added-item doc-details global-box-shadow">

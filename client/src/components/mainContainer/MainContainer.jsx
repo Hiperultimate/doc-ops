@@ -12,7 +12,7 @@ function MainContainer(props){
             {props.AddComponents.map((items)=> {    // item = <Component titlename={"Value"} />
                 return(items);
             })}
-            <div className="added-item">Main Container</div>
+            {/* <div className="added-item">Main Container</div>  This is an example*/}
         </div>
     );
 }
