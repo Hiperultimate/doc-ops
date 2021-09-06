@@ -24,6 +24,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&family=Saira+Semi+Condensed:wght@200;400;700&family=Saira:wght@400;500;700&display=swap');
       body {
@@ -43,7 +54,7 @@
       }
       {% comment %} For creating grid https://grid.layoutit.com/  {% endcomment %}
       {% comment %} For creating shadows https://shadows.brumm.af/ {% endcomment %}
-      .global-box-shadow {    
+      .global-box-shadow {
         box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
           0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
       }

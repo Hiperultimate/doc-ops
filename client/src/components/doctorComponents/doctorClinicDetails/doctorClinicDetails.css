@@ -4,18 +4,35 @@
   font-family: var(--font-saira);
 }
 
+.clinic-part {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 0.5fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "clinic-name clinic-name"
+    "clinic-address clinic-address"
+    "online-consultation online-consultation"
+    "opening-hours opening-hours";
+}
+
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 0.45fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 0.4fr 0.3fr 0.75fr 0.75fr;
+  grid-template-rows: 1fr 1fr 0.5fr 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    "clinic-name clinic-name . display-map display-map display-map"
-    "clinic-address clinic-address . display-map display-map display-map"
-    "online-consultation online-consultation . display-map display-map display-map"
-    "opening-hours opening-hours . display-map display-map display-map";
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map";
 }
+
+.display-full-map { grid-area: display-full-map; }
+
+.clinic-details-grid { grid-area: clinic-details-grid; }
+
 
 .clinic-name {
   grid-area: clinic-name;
@@ -26,18 +43,12 @@
 }
 
 .online-consultation {
-  margin-top: 3em;
-  margin-bottom: 1em;
   grid-area: online-consultation;
 }
 
 .opening-hours {
   grid-area: opening-hours;
   margin-bottom: 3em;
-}
-
-.display-map {
-  grid-area: display-map;
 }
 
 .clinic-part {

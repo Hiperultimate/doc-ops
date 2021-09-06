@@ -20,17 +20,21 @@ function DoctorAbout() {
               experience={"1+ Years"}
               email={"alanokovTheDoctor@gmail.com"}
               phoneNumber={"981273591"}
-              specialization={"Surgeries, Anesthetics, Valorant, Punjabi"}  //Might need to parse according to the input later on
+              specialization={"Surgeries, Anesthetics, Valorant, Punjabi"} //Might need to parse according to the input later on
               treatments={
                 "Wisdom tooth removal, Plaq Cleaning, Ear Destroyer, Stomach Remover"
               }
               consultationFee={"2100"}
               key={2}
             />,
-            <DoctorClinicDetails clinicName={"ATS Doctors"}
-            clinicAddress={"Rotripur-2301 New Delhi"}
-            onlineConsultation={true} //Check if value is in string or bool - if yes, then add change in DoctorClinicDetails component as well
-            openingHours={"Monday - Friday 12PM - 8PM"} key={3}/>,
+            <DoctorClinicDetails
+              clinicName={"ATS Doctors"}
+              clinicAddress={"Rotripur-2301 New Delhi"}
+              onlineConsultation={true} //Check if value is in string or bool - if yes, then add change in DoctorClinicDetails component as well
+              openingHours={"Monday - Friday 12PM - 8PM"}
+              key={3}
+              addressLatLong={[28.6394, 77.3653]}
+            />,
           ]}
         />
       </div>
