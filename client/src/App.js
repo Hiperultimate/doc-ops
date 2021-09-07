@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages/home/Home.jsx";
+import Login from "./pages/login/Login.jsx";
 import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 
 // On production, manage API keys to follow the site url
@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/login">
-          <Home />
+          <Login />
         </Route>
         <Route path="/about">
           <DoctorAbout />

@@ -1,14 +1,15 @@
 import React from 'react';
+import "./login.css";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 
-function Home(){
+function Login(){
     return(
         <div>
-            Home page component.
+            Login page component.
             <img src={TheLifeSavers} alt="" />
         </div>
     );
 }
 
 
-export default Home;
+export default Login;
