@@ -1,0 +1,60 @@
+.clinic-details {
+  background-color: white;
+  border-radius: 10px;
+  font-family: var(--font-saira);
+}
+
+.clinic-part {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 0.5fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "clinic-name clinic-name"
+    "clinic-address clinic-address"
+    "online-consultation online-consultation"
+    "opening-hours opening-hours";
+}
+
+.doctor-components-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.4fr 0.3fr 0.75fr 0.75fr;
+  grid-template-rows: 1fr 1fr 0.5fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map"
+    "clinic-details-grid clinic-details-grid clinic-details-grid display-full-map display-full-map";
+}
+
+.display-full-map { grid-area: display-full-map; }
+
+.clinic-details-grid { grid-area: clinic-details-grid; }
+
+
+.clinic-name {
+  grid-area: clinic-name;
+}
+
+.clinic-address {
+  grid-area: clinic-address;
+}
+
+.online-consultation {
+  grid-area: online-consultation;
+}
+
+.opening-hours {
+  grid-area: opening-hours;
+  margin-bottom: 3em;
+}
+
+.clinic-part {
+  padding: 2em 2em;
+}
+
+.actual-clinic-name {
+  font-size: 36px;
+}

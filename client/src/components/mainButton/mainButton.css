@@ -1,0 +1,10 @@
+.main-button {
+  color: white;
+  font-family: var(--font-saira);
+  background-color: var(--green-third);
+  width: 289px;
+  height: 48px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}

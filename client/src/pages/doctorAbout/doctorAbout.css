@@ -1,0 +1,12 @@
+.doctor-about{
+    background-color: var(--green-secondary);
+}
+
+.main-container{
+    display:flex;
+    justify-content:center;
+}
+
+.doctor-about-top-spacing{
+    padding: 3em;
+}

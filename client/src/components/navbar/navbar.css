@@ -1,0 +1,40 @@
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.wrapper{
+  top: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  z-index: 999999;
+}
+
+.nav-list {
+  display: flex;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.nav-bar nav {
+  padding-right: 1em;
+  font-family: var(--font-saira);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.items {
+  padding-left: 1em;
+  margin:1em 0em;
+}
+
+.nav-logo {
+  padding-left: 1em;
+padding-top:0.2em;
+}

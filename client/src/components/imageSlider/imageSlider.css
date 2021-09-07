@@ -1,0 +1,14 @@
+.slides .slick-prev:before,
+.slides .slick-next:before {
+  z-index: 4;
+  color: var(--green-third);
+}
+
+.set-image {
+  height: 360px;
+  border-radius: 10px;
+}
+
+.slick-slide {
+  margin: 0 0.5em;
+}

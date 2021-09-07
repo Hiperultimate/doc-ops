@@ -1,0 +1,66 @@
+.doc-details {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.doctor-detail-container {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 2fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "experience . consultation-fee"
+    "email phone-number consultation-fee"
+    "specialization specialization ."
+    "treatments treatments chat-btn";
+  padding: 2em 2em;
+  font-family: var(--font-saira);
+  font-size: 14px;
+}
+
+.semi-title {
+  font-weight: bold;
+}
+
+.experience {
+  grid-area: experience;
+}
+
+.email {
+  grid-area: email;
+}
+
+.phone-number {
+  grid-area: phone-number;
+}
+
+.specialization {
+  grid-area: specialization;
+}
+
+.treatments {
+  grid-area: treatments;
+}
+
+.chat-btn {
+  grid-area: chat-btn;
+  text-align: center;
+}
+
+.consultation-fee {
+  grid-area: consultation-fee;
+  text-align: center;
+}
+
+.info-padding {
+  padding-bottom: 2em;
+  padding-right: 2em;
+}
+
+.custom-info-padding {
+  padding-right: 2em;
+}
+
+.fee{
+    font-size: 36px;
+}
