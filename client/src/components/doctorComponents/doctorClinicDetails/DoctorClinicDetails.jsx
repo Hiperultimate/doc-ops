@@ -13,7 +13,7 @@ function DoctorClinicDetails({
 }) {
   return (
     <div className="clinic-details global-box-shadow added-item">
-      <div className="container">
+      <div className="doctor-components-grid">
         <div className="clinic-details-grid">
           <div className="clinic-part">
             <div className="clinic-name">

@@ -8,12 +8,8 @@ import "./navbar.css";
 
 function Navbar({ isFixed }) {
   const user = { username: "Zambalia Zankras Zakozi" };
-  // const user = {};
   let [popUp, popUpState] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(popUp);
-  // });
   return (
     <div
       className="wrapper"

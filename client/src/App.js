@@ -1,4 +1,4 @@
-import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/home/Home.jsx";
 import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 
@@ -6,9 +6,16 @@ import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 
 function App() {
   return (
-    <div>
-      <DoctorAbout />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Route path="/about">
+          <DoctorAbout />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
