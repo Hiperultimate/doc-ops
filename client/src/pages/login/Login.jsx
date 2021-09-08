@@ -6,7 +6,7 @@ function Login(){
     return(
         <div>
             Login page component.
-            <img src={TheLifeSavers} alt="" />
+            <img src={TheLifeSavers} alt="backgroud-img1" />
         </div>
     );
 }

@@ -36,14 +36,14 @@ function DoctorClinicDetails({
                   src={CheckSvg}
                   style={{ marginLeft: "4px" }}
                   className="align-check-cross"
-                  alt=""
+                  alt="check-icon"
                 />
               ) : (
                 <img
                   src={CrossSvg}
                   style={{ marginLeft: "4px" }}
                   className="align-check-cross"
-                  alt=""
+                  alt="cross-icon"
                 />
               )}
             </div>
