@@ -1,8 +1,9 @@
+import "./home.css";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import MainContainer from "../../components/mainContainer/MainContainer.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import DoctorCard from "../../components/doctorComponents/doctorCard/DoctorCard.jsx";
-import "./home.css";
+import Search from "../../components/search/Search.jsx";
 
 function Home() {
   // NOTE: doc1, doc2 are temporary for front-end development purposes
@@ -43,8 +44,13 @@ function Home() {
   return (
     <div className="home-page">
       <Navbar isFixed={true} />
+      <div style={{paddingBottom: "3em"}} />
+      <Search searchStyle={{
+        width: "45vw",
+      }}/>
+      <div style={{paddingBottom: "1em"}} />
       <MainContainer
-        mainWrapperClass="main-container home-top-spacing"
+        mainWrapperClass="main-container"
         mainContainerStyle={{
           minHeight: "720px",
           width: "45vw",

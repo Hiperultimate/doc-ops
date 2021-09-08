@@ -39,7 +39,7 @@ function DoctorDetails({experience, email, phoneNumber,specialization,treatments
         </div>
         <div className="chat-btn custom-info-padding">
           <span className="semi-title">
-            <MainButton buttonText="Chat Now" onClickHandler={onClickHandler} />
+            <MainButton buttonText="Chat Now" onClickHandler={onClickHandler} arrow={false}/>
           </span>
         </div>
         <div className="consultation-fee info-padding">
