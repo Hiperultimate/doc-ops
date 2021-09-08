@@ -38,8 +38,13 @@ function DoctorCard({ addCardClass, doctorObject }) {
 
   const displayTreatments = treatments.slice(0,3).join(", ");
   const displaySpecialization = specialization.slice(0,3).join(", ");
+
+  const onClickHandler = () => {
+    console.log("To doctor about page.");
+  };
+
   return (
-    <div className={`${addCardClass} card-style global-box-shadow`}>
+    <div className={`${addCardClass} card-style global-box-shadow`} onClick={onClickHandler}>
       <div className="card-grid">
         <div className="card-doctor-name">{doctorName}</div>
         <div className="clinic-address">{clinicAddress}</div>

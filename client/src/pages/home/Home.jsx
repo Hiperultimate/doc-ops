@@ -34,25 +34,12 @@ function Home() {
     doctorName: "Sekiro",
     clinicAddress: "Sempo Temple Column - 98123 ",
     onlineConsulation: false,
-    treatments: [
-      "Wisdom tooth removal",
-      "Plaq Cleaning",
-      "Wonder tooth removal",
-      "tendon surgery",
-      "bone lengthening surgery",
-      "plastic surgery",
-    ],
-    specialization: [
-      "Surgeries",
-      "Allergy & Clinical Immunology",
-      "Anesthesiology",
-      "Community Medicine/Public Health",
-      "Dermatology, Venereology and Leprosy",
-    ],
+    treatments: ["Plastic Surgery"],
+    specialization: ["Surgeries", "Allergy Immunology"],
     consultationFee: 700,
   };
-  
-  const users = [doc1, doc2];
+  let doctorKey = 0;
+  const doctorObjects = [doc1, doc2];
   return (
     <div className="home-page">
       <Navbar isFixed={true} />
@@ -63,13 +50,13 @@ function Home() {
           width: "45vw",
           padding: "0.5em 0.5em",
         }}
-        AddComponents={[
+        AddComponents={doctorObjects.map((doctor) => (
           <DoctorCard
             addCardClass={"added-item"}
-            doctorObject={users[0]}
-            key={1}
-          />,
-        ]}
+            doctorObject={doctor}
+            key={doctorKey++}
+          />
+        ))}
       />
       <Footer />
     </div>
