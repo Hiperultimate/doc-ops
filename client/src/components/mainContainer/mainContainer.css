@@ -11,3 +11,5 @@
 .added-item:not(:last-child){
     margin-bottom: 1em;
 }
+
+/* Check out main-container class in index.css for wrapping */

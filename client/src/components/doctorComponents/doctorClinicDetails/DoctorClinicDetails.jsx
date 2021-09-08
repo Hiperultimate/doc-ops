@@ -24,8 +24,8 @@ function DoctorClinicDetails({
             <div className="clinic-address">
               <img
                 src={LocationSvg}
-                style={{ position: "relative", bottom: "-5px" }}
-                alt=""
+                style={{ position: "relative", bottom: "-6px", left: "-2px" }}
+                alt="location-icon"
               />
               {clinicAddress}
             </div>

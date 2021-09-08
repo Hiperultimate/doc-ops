@@ -1,13 +1,15 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login/Login.jsx";
+import Home from "./pages/home/Home.jsx";
 import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
-
-// On production, manage API keys to follow the site url
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route path="/login">
           <Login />
         </Route>

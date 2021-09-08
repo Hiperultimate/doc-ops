@@ -1,5 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&family=Saira+Semi+Condensed:wght@200;400;700&family=Saira:wght@400;500;700&display=swap");
 
+:root {
+  --green: #7be495;
+  --green-secondary: #5fcf80;
+  --green-third: #219653;
+  --pale-green: #cff4d1;
+  --grey-one: #e7e7e7;
+
+  --font-grey: #6B6B6B;
+  --font-inter: "Inter", sans-serif;
+  --font-saira: "Saira", sans-serif;
+  --font-saira-semi: "Saira Semi Condensed", sans-serif;
+}
+
+.global-box-shadow {
+  box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
+    0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
+}
+
 body {
   margin: 0;
 }
@@ -19,20 +37,9 @@ body {
   padding: 2em;
 }
 
-:root {
-  --green: #7be495;
-  --green-secondary: #5fcf80;
-  --green-third: #219653;
-  --pale-green: #cff4d1;
-  --grey-one: #e7e7e7;
-
-  --font-inter: "Inter", sans-serif;
-  --font-saira: "Saira", sans-serif;
-  --font-saira-semi: "Saira Semi Condensed", sans-serif;
-}
-.global-box-shadow {
-  box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
-    0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
+.main-container{
+  display:flex;
+  justify-content:center;
 }
 
 /* For creating grid https://grid.layoutit.com/  
