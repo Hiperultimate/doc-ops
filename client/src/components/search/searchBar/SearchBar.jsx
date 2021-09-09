@@ -3,7 +3,7 @@ import SearchSvg from "../../../svgs/search.svg";
 import SortSvg from "../../../svgs/bi_sort-down-alt.svg";
 import SortBy from "./sortBy/SortBy.jsx";
 
-function SearchBar({SortState, FilterState}) {
+function SearchBar({SortState, FilterState, SortByState}) {
   const {SortOption, SwitchSortOption} = SortState;
   const {SwitchFilterOption} = FilterState;
 
@@ -25,7 +25,7 @@ function SearchBar({SortState, FilterState}) {
           placeholder="Search"
         />
         <img onClick={onClickHandler} src={SortSvg} className="bar-sort-icon" alt="sort-icon" />
-        {SortOption && <SortBy />}
+        {SortOption && <SortBy SortState={SortState} SortByState={SortByState}/>}
       </div>
     </div>
   );

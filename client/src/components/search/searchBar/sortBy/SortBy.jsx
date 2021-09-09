@@ -1,20 +1,29 @@
 import "./sortBy.css";
 
-function SortBy() {
-  const onClickHandler = () => {
-    console.log("handle sort by");
+function SortBy({SortByState, SortState }) {
+  const {ChangeSortBy} = SortByState;
+  const {SwitchSortOption} = SortState;
+
+  const onClickNearest = () => {
+    ChangeSortBy("Nearest");
+    SwitchSortOption(false);
+  };
+
+  const onClickLowest = () => {
+    ChangeSortBy("Lowest");
+    SwitchSortOption(false);
   };
   
   return (
     <div className="sort-by-holder global-box-shadow">
       <ul className="sort-by-list">
         <li>
-          <div onClick={onClickHandler} className="sort-by-items">
+          <div onClick={onClickNearest} className="sort-by-items">
             Sort by Nearest
           </div>
         </li>
         <li>
-          <div onClick={onClickHandler} className="sort-by-items">
+          <div onClick={onClickLowest} className="sort-by-items">
             Sort by Lowest Cost
           </div>
         </li>

@@ -7,6 +7,7 @@ import FilterSearch from "./filterSearch/FilterSearch.jsx";
 function Search({ searchStyle }) {
   const [SortOption, SwitchSortOption] = useState(false);
   const [FilterOption, SwitchFilterOption] = useState(false);
+  const [SortByVal, ChangeSortBy] = useState("");
 
   return (
     <div className="search-content-space">
@@ -19,6 +20,9 @@ function Search({ searchStyle }) {
           FilterState={{
             SwitchFilterOption: SwitchFilterOption,
           }}
+          SortByState={{
+            ChangeSortBy: ChangeSortBy,
+          }}
         />
         <FilterSearch
           FilterState={{
@@ -27,6 +31,10 @@ function Search({ searchStyle }) {
           }}
           SortState={{
             SwitchSortOption: SwitchSortOption,
+          }}
+          SortByState={{
+            SortByVal: SortByVal,
+            ChangeSortBy: ChangeSortBy,
           }}
         />
       </div>

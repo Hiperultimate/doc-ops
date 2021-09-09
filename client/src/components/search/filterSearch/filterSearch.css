@@ -1,2 +1,103 @@
-.filter-search-container{
+.filter-search-container {
+  position: relative;
+}
+
+.filter-search-menu {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 8px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "location-text location-input location-input location-input ."
+    "consultation-fee-text consultation-fee-input consultation-fee-input consultation-fee-input ."
+    "specialization-text specialization-input specialization-input specialization-input ."
+    "treatment-text treatment-input treatment-input treatment-input .";
+  background-color: white;
+  border-radius: 10px;
+  right: -8px;
+  top: 3.9em;
+  width: 45vw;
+  padding: 0.5em;
+  font-family: var(--font-saira);
+  z-index: 200;
+}
+
+.location-text {
+  grid-area: location-text;
+}
+
+.consultation-fee-text {
+  grid-area: consultation-fee-text;
+}
+
+.specialization-text {
+  grid-area: specialization-text;
+}
+
+.treatment-text {
+  grid-area: treatment-text;
+}
+
+.location-input {
+  grid-area: location-input;
+}
+
+.consultation-fee-input {
+  grid-area: consultation-fee-input;
+}
+
+.specialization-input {
+  grid-area: specialization-input;
+}
+
+.treatment-input {
+  grid-area: treatment-input;
+}
+
+.semi-title-style {
+  position: relative;
+  float: right;
+  font-size: 14px;
+  margin-right: 15px;
+  top: 12%;
+}
+
+.input-bg-style {
+  background-color: var(--grey-two);
+}
+
+.input-field-style {
+  width: 100%;
+  background-color: var(--grey-two);
+}
+
+.location-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+.specialization-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+.treatment-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.contain-range {
+  height: 1em;
+  width: 5em;
+}
+
+.slider-container{
+  margin-left: 20px;
+  margin-right: 20px;
 }

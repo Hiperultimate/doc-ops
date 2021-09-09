@@ -6,8 +6,9 @@
   --green-third: #219653;
   --pale-green: #cff4d1;
   --grey-one: #e7e7e7;
+  --grey-two: #eeeeee;
 
-  --font-grey: #6B6B6B;
+  --font-grey: #6b6b6b;
   --font-inter: "Inter", sans-serif;
   --font-saira: "Saira", sans-serif;
   --font-saira-semi: "Saira Semi Condensed", sans-serif;
@@ -37,9 +38,15 @@ body {
   padding: 2em;
 }
 
-.main-container{
-  display:flex;
-  justify-content:center;
+.main-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Check in filterSearch.css if its style is added on the classname on other pages as well or not */
+.input-field-style {
+  border: none;
+  outline: none;
 }
 
 /* For creating grid https://grid.layoutit.com/  
