@@ -1,7 +1,6 @@
 .search-align{
     display: flex;
     flex-direction: row;
-    padding: 5px;
 }
 
 .search-content-space{
@@ -11,5 +10,7 @@
 
 .search-bar-flex{
     flex: 90%;
+    position: relative;
+    left: -8px;
 }
 

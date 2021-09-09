@@ -5,11 +5,9 @@ function PopUpMenu() {
     <div className="popup-menu global-box-shadow">
       <ul className="popup-list">
         <li>
-          <div className="underlines">
-            <a href="home" className="pop-up-items">
-              Home
-            </a>
-          </div>
+          <a href="home" className="pop-up-items">
+            Home
+          </a>
         </li>
         <li>
           <a href="sessions" className="pop-up-items">
