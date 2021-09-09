@@ -1,9 +1,13 @@
 import "./filterSearch.css";
 import Button from "../../mainButton/MainButton.jsx";
 
-function FilterSearch() {
+function FilterSearch({FilterState , SortState}) {
+  const {FilterOption,SwitchFilterOption} = FilterState;
+  const {SwitchSortOption} = SortState;
+
   const onClickHandler = () => {
-    console.log("Filter button pressed");
+    SwitchFilterOption(!FilterOption);
+    SwitchSortOption(false);
   };
   return (
     <div className="filter-search-container">
