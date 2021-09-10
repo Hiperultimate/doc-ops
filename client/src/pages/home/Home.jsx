@@ -54,13 +54,24 @@ function Home() {
   const [feeValue, changeFee] = useState([0, 500]);
 
   //State for MultiSelect.jsx in FilterSearch.jsx
-  const [specializations, EditSpecializations] = useState([
+  const fetchSpecializations = [
     "Cancer Specialist",
     "Anesthesiology",
     "Cardiologists",
     "Dermatologists",
     "Family Physicians",
-  ]);
+  ];
+  const fetchTreatments = [
+    "Anesthesiologists",
+    "Cardiologists",
+    "Dermatologists",
+    "Endocrinologists",
+    "Gastroenterologists",
+    "Geriatric Medicine Specialists",
+  ];
+  //Fetch data from database in these values.
+  const [specializations, EditSpecializations] = useState([]);
+  const [treatments, EditTreatments] = useState([]);
 
   return (
     <div className="home-page">
@@ -94,6 +105,12 @@ function Home() {
           specializations: specializations,
           EditSpecializations: EditSpecializations,
         }}
+        TreatmentState={{
+          treatments: treatments,
+          EditTreatments: EditTreatments,
+        }}
+        SpecializationsData={fetchSpecializations}
+        TreatmentsData={fetchTreatments}
       />
       <div style={{ paddingBottom: "1em" }} />
       <MainContainer

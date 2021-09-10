@@ -1,17 +1,15 @@
 import "react-widgets/styles.css";
-import {useState} from "react";
+import "./multiSelect.css";
 import Multiselect from "react-widgets/Multiselect";
 
-function MultiSelect({options}) {
-    const [fetchData, changeData] = useState([...options]); //Contains an array
+function MultiSelect({ options, placeholder, stateValue, handleState }) {
   return (
-
-      <Multiselect
-        defaultValue={[]}
-        data={fetchData}
-        placeholder={"Enter Specialization..."}
-      />
-
+    <Multiselect
+      defaultValue={stateValue}
+      data={options}
+      placeholder={placeholder}
+      onChange={(value) => handleState(value)}
+    />
   );
 }
 

@@ -3,7 +3,6 @@ import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MapIconSvg from "../../../svgs/map-pin.svg";
 import FilterArrowSvg from "../../../svgs/filter-arrow.svg";
-import PlusSvg from "../../../svgs/plus.svg";
 import Button from "../../mainButton/MainButton.jsx";
 import MultiSelect from "./multiSelect/MultiSelect.jsx";
 
@@ -21,14 +20,16 @@ function FilterSearch({
   LocationState,
   FeeState,
   SpecializationState,
+  TreatmentState,
+  SpecializationsData,
+  TreatmentsData,
 }) {
   const { FilterOption, SwitchFilterOption } = FilterState;
   const { SwitchSortOption } = SortState;
-  const { SortByVal, ChangeSortBy } = SortByState;
   const { locationVal, locationChange } = LocationState;
   const { feeValue, changeFee } = FeeState;
-  const {specializations, EditSpecializations} = SpecializationState;
-
+  const { specializations, EditSpecializations } = SpecializationState;
+  const { treatments, EditTreatments } = TreatmentState;
   const locationChangeHandler = (e) => {
     locationChange(e.currentTarget.value);
   };
@@ -41,6 +42,7 @@ function FilterSearch({
     SwitchFilterOption(!FilterOption);
     SwitchSortOption(false);
   };
+
   return (
     <div className="filter-search-container">
       <Button
@@ -102,27 +104,22 @@ function FilterSearch({
           </div>
           <div className="specialization-input">
             <div className="specialization-row input-bg-style">
-              {/* <img src={PlusSvg} alt="plus-ico" /> */}
               <MultiSelect
-                options={specializations}
+                options={SpecializationsData}
+                placeholder={"Enter Specialization..."}
+                stateValue={specializations}
+                handleState={EditSpecializations}
               />
-              {/* <input
-                type="text"
-                className="input-field-style"
-                placeholder="Enter Specialization..."
-              /> */}
-              {/* <img src={FilterArrowSvg} alt="arrow-ico" /> */}
             </div>
           </div>
           <div className="treatment-input">
             <div className="treatment-row input-bg-style">
-              <img src={PlusSvg} alt="plus-ico" />
-              <input
-                type="text"
-                className="input-field-style"
-                placeholder="Enter Treatments..."
+              <MultiSelect
+                options={TreatmentsData}
+                placeholder={"Enter Treatments..."}
+                stateValue={treatments}
+                handleState={EditTreatments}
               />
-              <img src={FilterArrowSvg} alt="arrow-ico" />
             </div>
           </div>
         </div>
