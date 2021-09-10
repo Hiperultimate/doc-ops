@@ -66,7 +66,7 @@ function DoctorCard({ addCardClass, doctorObject }) {
         </div>
         <div className="consultation-fee">
           <span>Consultation Fee:</span>
-          <span className="consult-fee-style">Rs. {consultationFee}</span>
+          <span className="consult-fee-style">₹ {consultationFee}</span>
         </div>
         <div className="card-btn"><img src={CardArrowSvg} className="card-btn-style" alt="doctor-about-btn" /></div>
       </div>

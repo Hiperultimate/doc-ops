@@ -6,6 +6,7 @@ import MapIconSvg from "../../../svgs/map-pin.svg";
 import FilterArrowSvg from "../../../svgs/filter-arrow.svg";
 import PlusSvg from "../../../svgs/plus.svg";
 import Button from "../../mainButton/MainButton.jsx";
+import MultiSelect from "./multiSelect/MultiSelect.jsx";
 
 const ThemedSlider = withStyles({
   root: {
@@ -86,8 +87,8 @@ function FilterSearch({ FilterState, SortState, SortByState }) {
                 valueLabelDisplay="auto"
                 onChange={feeChangeHandler}
                 marks={[
-                  { value: 0, label: "Rs.0" },
-                  { value: 5000, label: "Rs.5000" },
+                  { value: 0, label: "₹ 0" },
+                  { value: 5000, label: "₹ 5000" },
                 ]}
               />
             </div>
@@ -95,11 +96,12 @@ function FilterSearch({ FilterState, SortState, SortByState }) {
           <div className="specialization-input">
             <div className="specialization-row input-bg-style">
               <img src={PlusSvg} alt="plus-ico" />
-              <input
+              <MultiSelect options={["Cancer Specialist", "Anesthesiology", "Cardiologists", "Dermatologists", "Family Physicians"]}/>
+              {/* <input
                 type="text"
                 className="input-field-style"
                 placeholder="Enter Specialization..."
-              />
+              /> */}
               <img src={FilterArrowSvg} alt="arrow-ico" />
             </div>
           </div>

@@ -45,7 +45,7 @@ function DoctorDetails({experience, email, phoneNumber,specialization,treatments
         <div className="consultation-fee info-padding">
           <span className="semi-title">Consultation Fee:</span>
           <br />
-          <span className="fee">Rs. {consultationFee}</span>
+          <span className="fee">₹ {consultationFee}</span>
         </div>
       </div>
     </div>
