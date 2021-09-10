@@ -1,4 +1,5 @@
 import "./home.css";
+import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import MainContainer from "../../components/mainContainer/MainContainer.jsx";
 import Footer from "../../components/footer/Footer.jsx";
@@ -40,15 +41,61 @@ function Home() {
     consultationFee: 700,
   };
   let doctorKey = 0;
+
   const doctorObjects = [doc1, doc2];
+
+  // States for Search.jsx
+  const [SortOption, SwitchSortOption] = useState(false);
+  const [FilterOption, SwitchFilterOption] = useState(false);
+  const [SortByVal, ChangeSortBy] = useState("");
+
+  //States for FilterSearch.jsx
+  const [locationVal, locationChange] = useState("");
+  const [feeValue, changeFee] = useState([0, 500]);
+
+  //State for MultiSelect.jsx in FilterSearch.jsx
+  const [specializations, EditSpecializations] = useState([
+    "Cancer Specialist",
+    "Anesthesiology",
+    "Cardiologists",
+    "Dermatologists",
+    "Family Physicians",
+  ]);
+
   return (
     <div className="home-page">
       <Navbar isFixed={true} />
-      <div style={{paddingBottom: "3em"}} />
-      <Search searchStyle={{
-        width: "45vw",
-      }}/>
-      <div style={{paddingBottom: "1em"}} />
+      <div style={{ paddingBottom: "3em" }} />
+      <Search
+        searchStyle={{
+          width: "45vw",
+        }}
+        SortState={{
+          SortOption: SortOption,
+          SwitchSortOption: SwitchSortOption,
+        }}
+        FilterState={{
+          FilterOption: FilterOption,
+          SwitchFilterOption: SwitchFilterOption,
+        }}
+        SortValState={{
+          SortByVal: SortByVal,
+          ChangeSortBy: ChangeSortBy,
+        }}
+        LocationState={{
+          locationVal: locationVal,
+          locationChange: locationChange,
+        }}
+        FeeState={{
+          feeValue: feeValue,
+          changeFee: changeFee,
+        }}
+        SpecializationState={{
+          specializations: specializations,
+          EditSpecializations: EditSpecializations,
+        }}
+      />
+      <div style={{ paddingBottom: "1em" }} />
       <MainContainer
         mainWrapperClass="main-container"
         mainContainerStyle={{

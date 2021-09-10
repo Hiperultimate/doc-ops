@@ -1,5 +1,4 @@
 import "./filterSearch.css";
-import { useState } from "react";
 import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MapIconSvg from "../../../svgs/map-pin.svg";
@@ -15,12 +14,20 @@ const ThemedSlider = withStyles({
   },
 })(Slider);
 
-function FilterSearch({ FilterState, SortState, SortByState }) {
+function FilterSearch({
+  FilterState,
+  SortState,
+  SortByState,
+  LocationState,
+  FeeState,
+  SpecializationState,
+}) {
   const { FilterOption, SwitchFilterOption } = FilterState;
   const { SwitchSortOption } = SortState;
   const { SortByVal, ChangeSortBy } = SortByState;
-  const [locationVal, locationChange] = useState("");
-  const [feeValue, changeFee] = useState([0, 500]);
+  const { locationVal, locationChange } = LocationState;
+  const { feeValue, changeFee } = FeeState;
+  const {specializations, EditSpecializations} = SpecializationState;
 
   const locationChangeHandler = (e) => {
     locationChange(e.currentTarget.value);
@@ -95,14 +102,16 @@ function FilterSearch({ FilterState, SortState, SortByState }) {
           </div>
           <div className="specialization-input">
             <div className="specialization-row input-bg-style">
-              <img src={PlusSvg} alt="plus-ico" />
-              <MultiSelect options={["Cancer Specialist", "Anesthesiology", "Cardiologists", "Dermatologists", "Family Physicians"]}/>
+              {/* <img src={PlusSvg} alt="plus-ico" /> */}
+              <MultiSelect
+                options={specializations}
+              />
               {/* <input
                 type="text"
                 className="input-field-style"
                 placeholder="Enter Specialization..."
               /> */}
-              <img src={FilterArrowSvg} alt="arrow-ico" />
+              {/* <img src={FilterArrowSvg} alt="arrow-ico" /> */}
             </div>
           </div>
           <div className="treatment-input">
