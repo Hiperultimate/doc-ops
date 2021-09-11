@@ -9,6 +9,8 @@ function MultiSelect({ options, placeholder, stateValue, handleState }) {
       data={options}
       placeholder={placeholder}
       onChange={(value) => handleState(value)}
+      filter='contains'
+      showPlaceholderWithValues={true}
     />
   );
 }
