@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MapIconSvg from "../../../svgs/map-pin.svg";
 import FilterArrowSvg from "../../../svgs/filter-arrow.svg";
 import Button from "../../mainButton/MainButton.jsx";
-import MultiSelect from "./multiSelect/MultiSelect.jsx";
+import MultiSelect from "../../multiSelect/MultiSelect.jsx";
 
 const ThemedSlider = withStyles({
   root: {
