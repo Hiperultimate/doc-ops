@@ -47,10 +47,10 @@ function Home() {
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
   const [FilterOption, SwitchFilterOption] = useState(false);
-  const [SortByVal, ChangeSortBy] = useState("");
+  const [setSortBy, ChangeSortBy] = useState("");
 
   //States for FilterSearch.jsx
-  const [locationVal, locationChange] = useState("");
+  const [setLocation, locationChange] = useState("");
   const [feeValue, changeFee] = useState([0, 500]);
 
   //State for MultiSelect.jsx in FilterSearch.jsx
@@ -61,6 +61,7 @@ function Home() {
     "Dermatologists",
     "Family Physicians",
   ];
+  
   const fetchTreatments = [
     "Anesthesiologists",
     "Cardiologists",
@@ -90,11 +91,11 @@ function Home() {
           SwitchFilterOption: SwitchFilterOption,
         }}
         SortValState={{
-          SortByVal: SortByVal,
+          setSortBy: setSortBy,
           ChangeSortBy: ChangeSortBy,
         }}
         LocationState={{
-          locationVal: locationVal,
+          setLocation: setLocation,
           locationChange: locationChange,
         }}
         FeeState={{

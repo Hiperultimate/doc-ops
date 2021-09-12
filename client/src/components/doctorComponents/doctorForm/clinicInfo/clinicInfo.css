@@ -1,0 +1,23 @@
+.clinic-info {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.file-input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.opening-hours label {
+  color: white;
+  font-family: var(--font-saira);
+  background-color: var(--green-third);
+  width: 289px;
+  height: 48px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
