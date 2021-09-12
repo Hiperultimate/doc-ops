@@ -1,7 +1,6 @@
 .clinic-info {
   background-color: white;
   border-radius: 10px;
-  padding: 1em;
 }
 
 .file-input {
@@ -11,13 +10,94 @@
   position: absolute;
 }
 
-.opening-hours label {
+.clinic-pictures-form {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-left-text {
+  margin: auto;
+}
+
+.clinic-pictures-form label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   font-family: var(--font-saira);
   background-color: var(--green-third);
-  width: 289px;
+  width: 200px;
   height: 48px;
   border-radius: 10px;
   cursor: pointer;
   border: none;
+  box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
+    0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "clinic-form-part map-part";
+}
+
+.clinic-form-part {
+  grid-area: clinic-form-part;
+}
+
+.map-part {
+  grid-area: map-part;
+}
+
+.clinic-grid {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr auto;
+  gap: 7px 7px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "clinic-name ."
+    "clinic-address clinic-address"
+    "clinic-consultation-fee clinic-online-consultation"
+    "clinic-treatments-offered clinic-treatments-offered"
+    "clinic-specialization clinic-specialization"
+    "clinic-opening-hours clinic-pictures";
+}
+
+.clinic-name {
+  grid-area: clinic-name;
+}
+
+.clinic-address {
+  grid-area: clinic-address;
+}
+
+.clinic-consultation-fee {
+  grid-area: clinic-consultation-fee;
+}
+
+.clinic-online-consultation {
+  grid-area: clinic-online-consultation;
+}
+
+.clinic-treatments-offered {
+  grid-area: clinic-treatments-offered;
+}
+
+.clinic-specialization {
+  grid-area: clinic-specialization;
+}
+
+.clinic-opening-hours {
+  margin-top: 7px;
+  grid-area: clinic-opening-hours;
+}
+
+.clinic-pictures {
+  margin-top: 7px;
+  grid-area: clinic-pictures;
 }
