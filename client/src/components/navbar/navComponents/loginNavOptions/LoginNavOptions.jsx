@@ -8,7 +8,7 @@ function LoginNavOptions({ username , givePopUp }) {
       <a href="/about" className="link items">
         {username}
       </a>
-      <img className="menu-btn" onClick={() => popUpState(!popUp)} src={MenuBtn} alt="" />
+      <img className="menu-btn" onClick={() => popUpState(!popUp)} src={MenuBtn} alt="menu-btn" />
     </>
   );
 }

@@ -1,0 +1,44 @@
+.sort-by-holder {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 54px;
+  width: 168px;
+  font-family: var(--font-saira);
+  font-size: 14px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.sort-by-list {
+  list-style-type: none;
+  padding-left: 0em;
+  margin-top: 0;
+}
+
+.sort-by-list li {
+  padding: 1em;
+  position: relative;
+  cursor: pointer;
+}
+
+.sort-by-items {
+  color: black;
+}
+
+.sort-by-list li:last-child {
+    padding-bottom: 0;
+}
+
+.sort-by-list li:not(:last-child) :after {
+  content: "";
+  cursor: context-menu;
+  background: black;
+  position: absolute;
+  bottom: 0;
+  left: 17px;
+  height: 1px;
+  width: 80%;
+}

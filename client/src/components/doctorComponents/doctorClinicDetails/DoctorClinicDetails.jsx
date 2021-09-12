@@ -24,8 +24,8 @@ function DoctorClinicDetails({
             <div className="clinic-address">
               <img
                 src={LocationSvg}
-                style={{ position: "relative", bottom: "-5px" }}
-                alt=""
+                style={{ position: "relative", bottom: "-6px", left: "-2px" }}
+                alt="location-icon"
               />
               {clinicAddress}
             </div>
@@ -36,14 +36,14 @@ function DoctorClinicDetails({
                   src={CheckSvg}
                   style={{ marginLeft: "4px" }}
                   className="align-check-cross"
-                  alt=""
+                  alt="check-icon"
                 />
               ) : (
                 <img
                   src={CrossSvg}
                   style={{ marginLeft: "4px" }}
                   className="align-check-cross"
-                  alt=""
+                  alt="cross-icon"
                 />
               )}
             </div>

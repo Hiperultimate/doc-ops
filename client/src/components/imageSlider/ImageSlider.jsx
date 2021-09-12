@@ -21,7 +21,7 @@ function ImageSlider({ imageList }) {
         {imageList.map((imageLink) => {
           return (
             <div key={imageCount++}>
-              <img className="set-image" src={`${imageLink}`} alt=""/>
+              <img className="set-image" src={`${imageLink}`} alt="clinic-img"/>
             </div>
           );
         })}

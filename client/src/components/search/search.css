@@ -1,0 +1,16 @@
+.search-align{
+    display: flex;
+    flex-direction: row;
+}
+
+.search-content-space{
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar-flex{
+    flex: 90%;
+    position: relative;
+    left: -8px;
+}
+

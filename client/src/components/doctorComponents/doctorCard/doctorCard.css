@@ -1,0 +1,73 @@
+.card-style {
+  background-color: white;
+  border-radius: 10px;
+  font-family: var(--font-saira);
+  cursor: pointer;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr 0.2fr 2fr 0.3fr;
+  grid-template-rows: 1fr 1fr 0.6fr 0.6fr 0.6fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  padding: 1.3em 1.3em;
+  grid-template-areas:
+    "card-doctor-name card-doctor-name card-doctor-name . . ."
+    "clinic-address clinic-address clinic-address . consultation-fee card-btn"
+    "online-consultation online-consultation online-consultation . consultation-fee card-btn"
+    "treatments treatments treatments . consultation-fee card-btn"
+    "specialization specialization specialization . consultation-fee .";
+}
+
+.card-doctor-name {
+  grid-area: card-doctor-name;
+  font-size: 24px;
+}
+
+.clinic-address {
+  grid-area: clinic-address;
+  color: var(--font-grey);
+  font-size: 14px;
+}
+
+.online-consultation {
+  grid-area: online-consultation;
+}
+
+.treatments {
+  grid-area: treatments;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.specialization {
+  grid-area: specialization;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.consultation-fee {
+  margin-top: 1em;
+  grid-area: consultation-fee;
+}
+
+.card-btn {
+  grid-area: card-btn;
+}
+
+.consult-fee-style{
+  font-size: 36px;
+  margin-left: 8px;
+}
+
+.card-pad-style{
+  margin-left: 8px;
+}
+
+.card-btn-style{
+  margin-top: 1.2em;
+  margin-left: 2em;
+}
