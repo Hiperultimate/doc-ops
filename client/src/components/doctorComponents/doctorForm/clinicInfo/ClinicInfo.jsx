@@ -2,8 +2,49 @@ import "./clinicInfo.css";
 import InputField from "../../../inputField/InputField.jsx";
 import MainButton from "../../../mainButton/MainButton.jsx";
 import DisplayMap from "../../../displayMap/DisplayMap.jsx";
+import DropdownList from "react-widgets/DropdownList";
+import MultiSelect from "../../../multiSelect/MultiSelect.jsx";
 
-function ClinicInfo() {
+// Have to set name for Multiselect field for forms
+function ClinicInfo({
+
+  clinicNameHook,
+  clinicAddressHook,
+  clinicConsultationFeeHook,
+  clinicOnlineConsultationHook,
+  treatmentsOfferedHook,
+  specilizationHook,
+  openingHoursHook,
+  clinicPicturesHook,
+}) {
+  const treatments = [
+    "Wisdom tooth removal",
+    "Plaq Cleaning",
+    " Wonder tooth removal",
+    "tendon surgery",
+    "bone lengthening surgery",
+    "plastic surgery",
+  ];
+  const specialization = [
+    "Surgeries",
+    "Allergy & Clinical Immunology",
+    "Anesthesiology",
+    "Community Medicine/Public Health",
+    "Dermatology, Venereology and Leprosy",
+  ];
+
+  
+  const { clinicName, setClinicName } = clinicNameHook;
+  const { clinicAddress, setClinicAddress } = clinicAddressHook;
+  const { clinicConsultationFee, setClinicConsultationFee } =
+    clinicConsultationFeeHook;
+  const { clinicOnlineConsultation, setClinicOnlineConsultation } =
+    clinicOnlineConsultationHook;
+  const { treatmentsOffered, setTreatmentsOffered } = treatmentsOfferedHook;
+  const { specilization, setSpecilization } = specilizationHook;
+  const { openingHours, setOpeningHours } = openingHoursHook;
+  const { clinicPictures, setClinicPictures } = clinicPicturesHook;
+
   return (
     <div className="clinic-info global-box-shadow">
       <div className="map-grid">
@@ -15,7 +56,9 @@ function ClinicInfo() {
                 heading={"Name"}
                 placeholder={"Enter clinic's name"}
                 type={"text"}
-                fieldName={"clinic-name"}
+                fieldName={"clinicName"}
+                setChange={setClinicName}
+                value={clinicName}
               />
             </div>
             <div className="clinic-address">
@@ -24,7 +67,9 @@ function ClinicInfo() {
                 heading={"Address"}
                 placeholder={"Enter address"}
                 type={"text"}
-                fieldName={"clinic-address"}
+                fieldName={"clinicAddress"}
+                setChange={setClinicAddress}
+                value={clinicAddress}
               />
             </div>
             <div className="clinic-consultation-fee">
@@ -32,36 +77,45 @@ function ClinicInfo() {
                 wrapperClass={"input-dimention"}
                 heading={"Consultation Fee"}
                 placeholder={"Enter consultation fee"}
-                type={"text"}
-                fieldName={"consultation-fee"}
+                type={"number"}
+                scaleText={"₹"}
+                scaleTextPos={"left"}
+                fieldName={"consultationFee"}
+                setChange={setClinicConsultationFee}
+                value={clinicConsultationFee}
               />
             </div>
             <div className="clinic-online-consultation">
-              <InputField
-                wrapperClass={"input-dimention"}
-                heading={"Online Consultation"}
-                placeholder={"This will be a drop down field"}
-                type={"text"}
-                fieldName={"online-consultation"}
-              />
+              <span className="input-heading">Online Consultation</span>
+              <div className="input-container">
+                <DropdownList
+                  defaultValue={"False"}
+                  data={["True", "False"]}
+                  onChange={(value) => setClinicOnlineConsultation(value)}
+                />
+              </div>
             </div>
             <div className="clinic-treatments-offered">
-              <InputField
-                wrapperClass={"input-dimention"}
-                heading={"Treatments Offered"}
-                placeholder={"this will be a multi select field"}
-                type={"text"}
-                fieldName={"doctor-treatments"}
-              />
+              <span className="input-heading">Treatments Offered</span>
+              <div className="input-container">
+                <MultiSelect
+                  options={[...treatments]}
+                  placeholder={"Enter Treatments"}
+                  stateValue={treatmentsOffered}
+                  handleState={setTreatmentsOffered}
+                />
+              </div>
             </div>
             <div className="clinic-specialization">
-              <InputField
-                wrapperClass={"input-dimention"}
-                heading={"Specializations"}
-                placeholder={"this will be a multi select field"}
-                type={"text"}
-                fieldName={"doctor-specializations"}
-              />
+              <span className="input-heading">Specializations</span>
+              <div className="input-container">
+                <MultiSelect
+                  options={[...specialization]}
+                  placeholder={"Enter Specializations"}
+                  stateValue={specilization}
+                  handleState={setSpecilization}
+                />
+              </div>
             </div>
             <div className="clinic-opening-hours">
               <div className="opening-hours-form">
@@ -69,7 +123,7 @@ function ClinicInfo() {
                 <MainButton
                   buttonText="Enter Opening Hours"
                   arrow={true}
-                  btnStyle={{ width: "200px" , marginLeft: "7px"}}
+                  btnStyle={{ width: "200px", marginLeft: "7px" }}
                   onClickHander
                 />
               </div>

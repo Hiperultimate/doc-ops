@@ -8,7 +8,14 @@ function InputField({
   type,
   wrapperClass,
   fieldName,
+  setChange,
+  value,
 }) {
+
+  const onChange = (event) => {
+    setChange(event.target.value);
+  }
+
   return (
     <div className={`input-field ${wrapperClass}`}>
       <span className="input-heading">{heading}</span>
@@ -23,7 +30,14 @@ function InputField({
             : { display: "flex", flexDirection: "row-reverse" }
         }
       >
-        <input className="input-box" type={type} placeholder={placeholder} name={fieldName} />
+        <input
+          className="input-box"
+          type={type}
+          placeholder={placeholder}
+          name={fieldName}
+          onChange={onChange}
+          value={value}
+        />
         <span
           className="scale-text"
           style={

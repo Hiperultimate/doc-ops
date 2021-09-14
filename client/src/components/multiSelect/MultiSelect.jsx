@@ -2,7 +2,7 @@ import "react-widgets/styles.css";
 import "./multiSelect.css";
 import Multiselect from "react-widgets/Multiselect";
 
-function MultiSelect({ options, placeholder, stateValue, handleState }) {
+function MultiSelect({ options, placeholder, stateValue, handleState}) {
   return (
     <Multiselect
       defaultValue={stateValue}

@@ -1,7 +1,16 @@
 import "./doctorInfo.css";
 import InputField from "../../../inputField/InputField.jsx";
 
-function DoctorInfo() {
+function DoctorInfo({
+  doctorNameHook,
+  doctorEmailHook,
+  doctorPhoneHook,
+  doctorExperienceHook,
+}) {
+  const { doctorName, setDoctorName } = doctorNameHook;
+  const { doctorEmail, setDoctorEmail } = doctorEmailHook;
+  const { doctorPhone, setDoctorPhone } = doctorPhoneHook;
+  const { doctorExperience, setDoctorExperience } = doctorExperienceHook;
   return (
     <div className="doctor-basic-info global-box-shadow">
       <form>
@@ -12,7 +21,9 @@ function DoctorInfo() {
               heading={"Name"}
               placeholder={"Enter full name"}
               type={"text"}
-              fieldName={"doctor-name"}
+              fieldName={"doctorName"}
+              setChange={setDoctorName}
+              value={doctorName}
             />
           </div>
           <div className="doctor-email">
@@ -21,7 +32,9 @@ function DoctorInfo() {
               heading={"Email-ID"}
               placeholder={"Enter email-id"}
               type={"email"}
-              fieldName={"doctor-email"}
+              fieldName={"doctorEmail"}
+              setChange={setDoctorEmail}
+              value={doctorEmail}
             />
           </div>
           <div className="doctor-phone">
@@ -30,7 +43,9 @@ function DoctorInfo() {
               heading={"Phone"}
               placeholder={"Enter phone number"}
               type={"number"}
-              fieldName={"doctor-phone"}
+              fieldName={"doctorPhone"}
+              setChange={setDoctorPhone}
+              value={doctorPhone}
             />
           </div>
           <div className="work-experience">
@@ -40,8 +55,10 @@ function DoctorInfo() {
               placeholder={"Enter work experience"}
               scaleText={"yrs"}
               scaleTextPos={"right"}
-              type={"text"}
-              fieldName={"doctor-experience"}
+              type={"number"}
+              fieldName={"doctorExperience"}
+              setChange={setDoctorExperience}
+              value={doctorExperience}
             />
           </div>
         </div>
