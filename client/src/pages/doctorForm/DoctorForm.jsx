@@ -6,7 +6,7 @@ import MainContainer from "../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../components/mainContHead/MainContHead.jsx";
 import DoctorInfo from "../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
 import ClinicInfo from "../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
-
+import ImageSlider from "../../components/imageSlider/ImageSlider.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 
 function DoctorForm() {
@@ -87,9 +87,9 @@ function DoctorForm() {
             }}
             key={4}
           />,
+          <ImageSlider imageList={[]} key={5} />,
         ]}
       />
-
 
       <Footer />
     </div>

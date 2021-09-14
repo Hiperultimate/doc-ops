@@ -15,17 +15,26 @@ function ImageSlider({ imageList }) {
     variableWidth: true,
     className: "slides",
   };
+  console.log(imageList);
   return (
     <div className="global-box-shadow box-attributes added-item">
-      <Slider {...settings}>
-        {imageList.map((imageLink) => {
-          return (
-            <div key={imageCount++}>
-              <img className="set-image" src={`${imageLink}`} alt="clinic-img"/>
-            </div>
-          );
-        })}
-      </Slider>
+      {imageList.length < 1 ? (
+        <div>No uploaded images found</div>
+      ) : (
+        <Slider {...settings}>
+          {imageList.map((imageLink) => {
+            return (
+              <div key={imageCount++}>
+                <img
+                  className="set-image"
+                  src={`${imageLink}`}
+                  alt="clinic-img"
+                />
+              </div>
+            );
+          })}
+        </Slider>
+      )}
     </div>
   );
 }
