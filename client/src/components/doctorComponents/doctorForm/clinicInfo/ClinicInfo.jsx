@@ -87,7 +87,7 @@ function ClinicInfo({
             </div>
             <div className="clinic-online-consultation">
               <span className="input-heading">Online Consultation</span>
-              <div className="input-container">
+              <div className="consultation-input-container">
                 <DropdownList
                   defaultValue={"False"}
                   data={["True", "False"]}

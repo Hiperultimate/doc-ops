@@ -82,13 +82,11 @@
 .specialization-row {
   display: flex;
   flex-direction: row;
-  padding: 0.5em;
   border-radius: 10px;
 }
 .treatment-row {
   display: flex;
   flex-direction: row;
-  padding: 0.5em;
   border-radius: 10px;
 }
 

@@ -1,3 +1,15 @@
 .rw-widget{
     width: 100%;
 }
+
+.rw-widget-input{
+    box-shadow: none;
+    background-color: #eee;
+    border: none;
+    padding: 9px;
+    border-radius: 10px;
+}
+
+.rw-multiselect-tag{
+    background-color: white;
+}

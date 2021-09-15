@@ -87,7 +87,7 @@
   border-radius: 10px;
   width: auto;
   /* height: 38px; */
-  padding: 9px;
+  /* padding: 9px; */
   background-color: var(--grey-two);
 }
 
@@ -117,4 +117,11 @@
 .clinic-pictures {
   margin-top: 7px;
   grid-area: clinic-pictures;
+}
+
+.consultation-input-container{
+  padding: 6.5px;
+  border-radius: 10px;
+  width: auto;
+background-color: var(--grey-two);
 }
