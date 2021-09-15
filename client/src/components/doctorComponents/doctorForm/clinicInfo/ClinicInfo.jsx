@@ -131,7 +131,7 @@ function ClinicInfo({
             <div className="clinic-pictures">
               <div className="clinic-pictures-form">
                 <span className="btn-left-text">Clinic Pictures</span>
-                <label htmlFor="myfile">Select Images</label>
+                <label htmlFor="myfile">Upload Pictures</label>
                 <input
                   type="file"
                   className="file-input"

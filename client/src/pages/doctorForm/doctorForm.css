@@ -1,4 +1,16 @@
-.doctor-form{
-    font-family: var(--font-saira);
-    background-color: var(--green-secondary);
+.doctor-form {
+  font-family: var(--font-saira);
+  background-color: var(--green-secondary);
+}
+
+.doctor-form-submit {
+  color: white;
+  font-family: var(--font-saira);
+  background-color: var(--green-third);
+  width: 289px;
+  height: 48px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  margin-top: 2em;
 }
