@@ -77,7 +77,7 @@ function Home() {
   return (
     <div className="home-page">
       <Navbar isFixed={true} />
-      <div style={{ paddingBottom: "3em" }} />
+      <div style={{ paddingBottom: "5em" }} />
       <Search
         searchStyle={{
           width: "45vw",
@@ -129,6 +129,7 @@ function Home() {
           />
         ))}
       />
+      <div style={{ paddingBottom: "5em" }} />
       <Footer />
     </div>
   );

@@ -31,9 +31,10 @@ function DoctorForm() {
   };
 
   return (
+    <> 
+        <Navbar isFixed={true} />
     <form onSubmit={handleFormSubmit}>
       <div className="doctor-form">
-        <Navbar isFixed={true} />
         <MainHeading titleName={"Account Settings"} />
         <MainContainer
           mainWrapperClass="main-container"
@@ -115,9 +116,10 @@ function DoctorForm() {
           ]}
         />
 
-        <Footer />
       </div>
     </form>
+        <Footer />
+    </>
   );
 }
 
