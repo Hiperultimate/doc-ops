@@ -1,6 +1,8 @@
 .doctor-form {
   font-family: var(--font-saira);
   background-color: var(--green-secondary);
+  padding-top: 5em;
+  padding-bottom: 5em;
 }
 
 .doctor-form-submit {
