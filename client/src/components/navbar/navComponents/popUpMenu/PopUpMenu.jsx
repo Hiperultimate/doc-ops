@@ -5,7 +5,7 @@ function PopUpMenu() {
     <div className="popup-menu global-box-shadow">
       <ul className="popup-list">
         <li>
-          <a href="home" className="pop-up-items">
+          <a href="/" className="pop-up-items">
             Home
           </a>
         </li>

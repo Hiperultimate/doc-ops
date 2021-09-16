@@ -47,10 +47,10 @@ function Home() {
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
   const [FilterOption, SwitchFilterOption] = useState(false);
-  const [setSortBy, ChangeSortBy] = useState("");
+  const [SortBy, setSortBy] = useState("");
 
   //States for FilterSearch.jsx
-  const [setLocation, locationChange] = useState("");
+  const [location, setLocation] = useState("");
   const [feeValue, changeFee] = useState([0, 500]);
 
   //State for MultiSelect.jsx in FilterSearch.jsx
@@ -91,12 +91,12 @@ function Home() {
           SwitchFilterOption: SwitchFilterOption,
         }}
         SortValState={{
+          SortBy: SortBy,
           setSortBy: setSortBy,
-          ChangeSortBy: ChangeSortBy,
         }}
         LocationState={{
+          location: location,
           setLocation: setLocation,
-          locationChange: locationChange,
         }}
         FeeState={{
           feeValue: feeValue,

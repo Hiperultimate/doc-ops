@@ -86,8 +86,6 @@
 .input-container{
   border-radius: 10px;
   width: auto;
-  /* height: 38px; */
-  /* padding: 9px; */
   background-color: var(--grey-two);
 }
 

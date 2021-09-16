@@ -7,7 +7,6 @@ import MultiSelect from "../../../multiSelect/MultiSelect.jsx";
 
 // Have to set name for Multiselect field for forms
 function ClinicInfo({
-
   clinicNameHook,
   clinicAddressHook,
   clinicConsultationFeeHook,
