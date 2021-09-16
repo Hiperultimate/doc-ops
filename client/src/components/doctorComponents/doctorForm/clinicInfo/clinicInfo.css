@@ -118,8 +118,11 @@
 }
 
 .consultation-input-container {
-  padding: 6.5px;
   border-radius: 10px;
   width: auto;
   background-color: var(--grey-two);
+}
+
+.clinic-online-consultation{
+  height: 80px;
 }
