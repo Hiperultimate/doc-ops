@@ -1,4 +1,11 @@
-.main-button {
+.doctor-form {
+  font-family: var(--font-saira);
+  background-color: var(--green-secondary);
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.doctor-form-submit {
   color: white;
   font-family: var(--font-saira);
   background-color: var(--green-third);
@@ -7,15 +14,5 @@
   border-radius: 10px;
   cursor: pointer;
   border: none;
+  margin-top: 2em;
 }
-
-.btn-arrow{
-  position: relative;
-  height: 12px;
-  width: 18px;
-  bottom: -5px;
-  right: 10px;
-  vertical-align: middle;
-  float: right;
-}
-

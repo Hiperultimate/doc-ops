@@ -47,10 +47,10 @@ function Home() {
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
   const [FilterOption, SwitchFilterOption] = useState(false);
-  const [SortByVal, ChangeSortBy] = useState("");
+  const [SortBy, setSortBy] = useState("");
 
   //States for FilterSearch.jsx
-  const [locationVal, locationChange] = useState("");
+  const [location, setLocation] = useState("");
   const [feeValue, changeFee] = useState([0, 500]);
 
   //State for MultiSelect.jsx in FilterSearch.jsx
@@ -61,6 +61,7 @@ function Home() {
     "Dermatologists",
     "Family Physicians",
   ];
+  
   const fetchTreatments = [
     "Anesthesiologists",
     "Cardiologists",
@@ -76,7 +77,7 @@ function Home() {
   return (
     <div className="home-page">
       <Navbar isFixed={true} />
-      <div style={{ paddingBottom: "3em" }} />
+      <div style={{ paddingBottom: "5em" }} />
       <Search
         searchStyle={{
           width: "45vw",
@@ -90,12 +91,12 @@ function Home() {
           SwitchFilterOption: SwitchFilterOption,
         }}
         SortValState={{
-          SortByVal: SortByVal,
-          ChangeSortBy: ChangeSortBy,
+          SortBy: SortBy,
+          setSortBy: setSortBy,
         }}
         LocationState={{
-          locationVal: locationVal,
-          locationChange: locationChange,
+          location: location,
+          setLocation: setLocation,
         }}
         FeeState={{
           feeValue: feeValue,
@@ -128,6 +129,7 @@ function Home() {
           />
         ))}
       />
+      <div style={{ paddingBottom: "5em" }} />
       <Footer />
     </div>
   );

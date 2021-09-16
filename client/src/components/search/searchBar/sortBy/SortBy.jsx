@@ -1,16 +1,16 @@
 import "./sortBy.css";
 
 function SortBy({SortByState, SortState }) {
-  const {ChangeSortBy} = SortByState;
+  const {setSortBy} = SortByState;
   const {SwitchSortOption} = SortState;
 
   const onClickNearest = () => {
-    ChangeSortBy("Nearest");
+    setSortBy("Nearest");
     SwitchSortOption(false);
   };
 
   const onClickLowest = () => {
-    ChangeSortBy("Lowest");
+    setSortBy("Lowest");
     SwitchSortOption(false);
   };
   

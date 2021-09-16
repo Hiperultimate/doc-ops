@@ -1,0 +1,125 @@
+.clinic-info {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 3em;
+}
+
+.file-input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.clinic-pictures-form {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-left-text {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.clinic-pictures-form label {
+  margin-left: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--font-saira);
+  background-color: var(--green-third);
+  width: 200px;
+  height: 48px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2.3px 0.3px rgba(0, 0, 0, 0.066),
+    0 3.5px 0.9px rgba(0, 0, 0, 0.097), 0 5px 4px rgba(0, 0, 0, 0.11);
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "clinic-form-part map-part";
+}
+
+.clinic-form-part {
+  grid-area: clinic-form-part;
+}
+
+.map-part {
+  grid-area: map-part;
+}
+
+.clinic-grid {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto auto;
+  gap: 7px 7px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "clinic-name ."
+    "clinic-address clinic-address"
+    "clinic-consultation-fee clinic-online-consultation"
+    "clinic-treatments-offered clinic-treatments-offered"
+    "clinic-specialization clinic-specialization"
+    "clinic-opening-hours clinic-pictures";
+}
+
+.clinic-name {
+  grid-area: clinic-name;
+}
+
+.clinic-address {
+  grid-area: clinic-address;
+}
+
+.clinic-consultation-fee {
+  grid-area: clinic-consultation-fee;
+}
+
+.input-container{
+  border-radius: 10px;
+  width: auto;
+  background-color: var(--grey-two);
+}
+
+.rw-list-option.rw-state-selected{
+  background-color:#E9ECEF;
+  border-color: #E9ECEF;
+  color: black;
+}
+
+.clinic-online-consultation {
+  grid-area: clinic-online-consultation;
+}
+
+.clinic-treatments-offered {
+  grid-area: clinic-treatments-offered;
+}
+
+.clinic-specialization {
+  grid-area: clinic-specialization;
+}
+
+.clinic-opening-hours {
+  margin-top: 7px;
+  grid-area: clinic-opening-hours;
+}
+
+.clinic-pictures {
+  margin-top: 7px;
+  grid-area: clinic-pictures;
+}
+
+.consultation-input-container{
+  padding: 6.5px;
+  border-radius: 10px;
+  width: auto;
+background-color: var(--grey-two);
+}

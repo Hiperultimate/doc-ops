@@ -6,7 +6,7 @@ import CardArrowSvg from "../../../svgs/card-arrow.svg";
 /* 
 To display doctor information in homepage in a card style layout
 
-parameters
+Parameters
 ----------
 addCardClass : str, optional 
     Add custom styling to the card by adding className name to this attribute.

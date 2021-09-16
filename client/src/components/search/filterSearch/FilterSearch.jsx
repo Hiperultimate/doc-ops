@@ -26,12 +26,12 @@ function FilterSearch({
 }) {
   const { FilterOption, SwitchFilterOption } = FilterState;
   const { SwitchSortOption } = SortState;
-  const { locationVal, locationChange } = LocationState;
+  const { location, setLocation } = LocationState;
   const { feeValue, changeFee } = FeeState;
   const { specializations, EditSpecializations } = SpecializationState;
   const { treatments, EditTreatments } = TreatmentState;
   const locationChangeHandler = (e) => {
-    locationChange(e.currentTarget.value);
+    setLocation(e.currentTarget.value);
   };
 
   const feeChangeHandler = (e, newFee) => {
@@ -81,7 +81,7 @@ function FilterSearch({
                 id="location-text-box"
                 type="text"
                 placeholder="Enter Location..."
-                value={locationVal}
+                value={location}
                 onChange={locationChangeHandler}
               />
               <img src={FilterArrowSvg} alt="arrow-ico" />
