@@ -5,7 +5,7 @@ import MultiSelect from "../../multiSelect/MultiSelect.jsx";
 
 function PatientMedicalInfo() {
   return (
-    <div className="patient-medical-info">
+    <div className="patient-medical-info global-box-shadow">
       <div class="medical-info-grid">
         <div class="patient-weight">
           <InputField

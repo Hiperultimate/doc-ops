@@ -26,7 +26,7 @@ function PatientForm() {
                 type="submit"
                 key={5}
               >
-                Submit
+                Save
               </button>,
             ]}
           />
