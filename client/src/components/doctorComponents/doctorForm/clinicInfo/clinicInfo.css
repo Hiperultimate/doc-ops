@@ -83,15 +83,15 @@
   grid-area: clinic-consultation-fee;
 }
 
-.input-container{
+.input-container {
   border-radius: 10px;
   width: auto;
   background-color: var(--grey-two);
 }
 
-.rw-list-option.rw-state-selected{
-  background-color:#E9ECEF;
-  border-color: #E9ECEF;
+.rw-list-option.rw-state-selected {
+  background-color: #e9ecef;
+  border-color: #e9ecef;
   color: black;
 }
 
@@ -117,9 +117,9 @@
   grid-area: clinic-pictures;
 }
 
-.consultation-input-container{
+.consultation-input-container {
   padding: 6.5px;
   border-radius: 10px;
   width: auto;
-background-color: var(--grey-two);
+  background-color: var(--grey-two);
 }

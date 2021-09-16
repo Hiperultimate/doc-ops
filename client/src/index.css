@@ -49,5 +49,9 @@ body {
   outline: none;
 }
 
+.input-dimension {
+  height: 80px;
+}
+
 /* For creating grid https://grid.layoutit.com/  
   For creating shadows https://shadows.brumm.af/  */
