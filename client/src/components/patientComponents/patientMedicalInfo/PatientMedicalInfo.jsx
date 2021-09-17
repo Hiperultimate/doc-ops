@@ -3,11 +3,22 @@ import InputField from "../../inputField/InputField.jsx";
 import DropdownList from "react-widgets/DropdownList";
 import MultiSelect from "../../multiSelect/MultiSelect.jsx";
 
-function PatientMedicalInfo() {
+function PatientMedicalInfo({
+  patientWeightState,
+  patientHeightState,
+  patientGenderState,
+  patientBloodgroupState,
+  patientAllergiesState,
+}) {
+  const { patientWeight, setPatientWeight } = patientWeightState;
+  const { patientHeight, setPatientHeight } = patientHeightState;
+  const { patientGender, setPatientGender } = patientGenderState;
+  const { patientBloodgroup, setPatientBloodgroup } = patientBloodgroupState;
+  const { patientAllergies, setPatientAllergies } = patientAllergiesState;
   return (
     <div className="patient-medical-info global-box-shadow">
-      <div class="medical-info-grid">
-        <div class="patient-weight">
+      <div className="medical-info-grid">
+        <div className="patient-weight">
           <InputField
             heading={"Weight"}
             placeholder={"Enter your weight"}
@@ -16,11 +27,11 @@ function PatientMedicalInfo() {
             fieldName={"patient-weight"}
             scaleText={"Kg"}
             scaleTextPos={"right"}
-            setChange
-            value
+            setChange={setPatientWeight}
+            value={patientWeight}
           />
         </div>
-        <div class="patient-height">
+        <div className="patient-height">
           <InputField
             heading={"Height"}
             placeholder={"Enter your height"}
@@ -29,33 +40,33 @@ function PatientMedicalInfo() {
             fieldName={"patient-height"}
             scaleText={"cm"}
             scaleTextPos={"right"}
-            setChange
-            value
+            setChange={setPatientHeight}
+            value={patientHeight}
           />
         </div>
-        <div class="patient-gender">
+        <div className="patient-gender">
           <span className="input-heading">Gender</span>
           <DropdownList
             placeholder={"Enter your gender"}
             data={["Male", "Female", "Prefer not to say"]}
-            // onChange={(value) => setPatientGender(value)}
+            onChange={(value) => setPatientGender(value)}
           />
         </div>
-        <div class="patient-bloodgroup">
+        <div className="patient-bloodgroup">
           <span className="input-heading">Bloodgroup</span>
           <DropdownList
             placeholder={"Enter your bloodgroup"}
             data={["A", "A+", "AB+", "B", "B+", "B-"]}
-            // onChange={(value) => setBloodgroup(value)}
+            onChange={(value) => setPatientBloodgroup(value)}
           />
         </div>
-        <div class="patient-allergies">
+        <div className="patient-allergies">
           <span className="input-heading">Allergies</span>
           <MultiSelect
             options={["Egg", "Banana", "Dust", "Grass"]}
             placeholder={"Enter allergies..."}
-            stateValue={[]}
-            handleState
+            stateValue={patientAllergies}
+            handleState={setPatientAllergies}
           />
         </div>
       </div>

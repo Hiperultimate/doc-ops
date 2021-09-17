@@ -2,71 +2,83 @@ import "./patientBasicInfo.css";
 import DisplayMap from "../../displayMap/DisplayMap.jsx";
 import InputField from "../../inputField/InputField.jsx";
 
-function PatientBasicInfo() {
+function PatientBasicInfo({
+  patientNameState,
+  patientDOBState,
+  patientAddressState,
+  patientEmailState,
+  patientPhoneState,
+}) {
+  const { patientName, setPatientName } = patientNameState;
+  const { patientDOB, setPatientDOB } = patientDOBState;
+  const { patientAddress, setPatientAddress } = patientAddressState;
+  const { patientEmail, setPatientEmail } = patientEmailState;
+  const { patientPhone, setPatientPhone } = patientPhoneState;
+
   return (
     <div className="patient-basic-info global-box-shadow">
-      <div class="patient-map-grid">
-        <div class="patient-address-map">
+      <div className="patient-map-grid">
+        <div className="patient-address-map">
           <DisplayMap
             addressLatLong={[1.3521, 103.8198]}
             mapBorderRadius={"0 10px 10px 0"}
           />
         </div>
-        <div class="info-grid-area">
-          <div class="basic-info-grid">
-            <div class="patient-name">
+        <div className="info-grid-area">
+          <div className="basic-info-grid">
+            <div className="patient-name">
               <InputField
                 heading={"Name"}
                 placeholder={"Enter name"}
                 type={"text"}
                 wrapperClass={"input-dimension"}
                 fieldName={"patient-name"}
-                setChange
-                value
+                setChange={setPatientName}
+                value={patientName}
               />
             </div>
-            <div class="patient-dob">
+            <div className="patient-dob">
               <InputField
                 heading={"Date Of Birth"}
                 placeholder={"Enter date of birth"}
                 type={"date"}
                 wrapperClass={"input-dimension"}
                 fieldName={"patient-dob"}
-                setChange
-                value
+                setChange={setPatientDOB}
+                value={patientDOB}
               />
             </div>
-            <div class="patient-address">
+            <div className="patient-address">
               <InputField
                 heading={"Address"}
                 placeholder={"Enter your address"}
                 type={"text"}
                 wrapperClass={"input-dimension"}
                 fieldName={"patient-address"}
-                setChange
-                value
+                setChange={setPatientAddress}
+                value={patientAddress}
               />
             </div>
-            <div class="patient-email">
+            <div className="patient-email">
               <InputField
                 heading={"Email"}
                 placeholder={"Enter email"}
                 type={"email"}
                 wrapperClass={"input-dimension"}
                 fieldName={"patient-email"}
-                setChange
-                value
+                setChange={setPatientEmail}
+                value={patientEmail}
               />
             </div>
-            <div class="patient-phone">
+            <div className="patient-phone">
               <InputField
                 heading={"Phone"}
                 placeholder={"Enter phone number"}
                 type={"number"}
                 wrapperClass={"input-dimension"}
                 fieldName={"patient-phone"}
-                setChange
-                value
+                setChange={setPatientPhone}
+                value={patientPhone}
               />
             </div>
           </div>
