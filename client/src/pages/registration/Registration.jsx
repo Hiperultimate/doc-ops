@@ -3,6 +3,7 @@ import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import MainHeading from "../../components/mainHeading/MainHeading.jsx";
 import PatientRegister from "./registationForms/patientRegister/PatientRegister.jsx";
+import DoctorRegister from "./registationForms/doctorRegister/DoctorRegister.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 
 function Registration() {
@@ -52,7 +53,8 @@ function Registration() {
             I'm a Patient
           </button>
         </div>
-        <PatientRegister />
+        {formType === 1 && <DoctorRegister />}
+        {formType === 2 && <PatientRegister />}
       </div>
       <Footer />
     </>

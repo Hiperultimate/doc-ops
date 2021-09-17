@@ -3,11 +3,15 @@
   font-family: var(--font-saira);
 }
 
+.title-container{
+    padding-top: 2em;
+}
+
 .select-form{
     display: flex;
     flex-direction : row;
     justify-content : center;
-    padding-bottom: 2em;
+    padding-top: 4em;
 }
 
 .select-btn{
@@ -20,10 +24,10 @@
 }
 
 .doctorFormBtn{
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .patientFormBtn{
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 5px 5px 0px;
 
 }
