@@ -9,8 +9,8 @@ function ContactInfo({
   contactAddressMap,
 }) {
   return (
-    <div class="contact-grid global-box-shadow">
-      <div class="contact-grid-area">
+    <div className="contact-grid global-box-shadow">
+      <div className="contact-grid-area">
         <div className="contact-info-container">
           <div className="contact-single-field">
             <span className="info-sub-head">Date of Birth:</span>
@@ -30,7 +30,7 @@ function ContactInfo({
           </div>
         </div>
       </div>
-      <div class="map-grid-area">
+      <div className="map-grid-area">
         <DisplayMap
           addressLatLong={contactAddressMap}
           mapBorderRadius={"0px 10px 10px 0px"}
