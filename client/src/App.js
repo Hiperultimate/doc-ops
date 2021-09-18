@@ -3,6 +3,7 @@ import Login from "./pages/login/Login.jsx";
 import Home from "./pages/home/Home.jsx";
 import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
+import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           <Login />
         </Route>
         <Route path="/about">
-          <DoctorAbout />
+          {/* <DoctorAbout /> */}
+          <PatientAbout />
         </Route>
         <Route path="/form">
           <DoctorForm />
