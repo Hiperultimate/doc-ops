@@ -1,0 +1,59 @@
+.patient-basic-info {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 4em;
+}
+
+.basic-info-grid {
+  display: grid;
+  padding: 1em;
+  margin: 3em 0em;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 8px 8px; 
+  grid-auto-flow: row;
+  grid-template-areas:
+    "patient-name patient-dob"
+    "patient-address patient-address"
+    "patient-email patient-phone";
+}
+
+.patient-name {
+  grid-area: patient-name;
+}
+
+.patient-dob {
+  grid-area: patient-dob;
+}
+
+.patient-address {
+  grid-area: patient-address;
+}
+
+.patient-email {
+  grid-area: patient-email;
+}
+
+.patient-phone {
+  grid-area: patient-phone;
+}
+
+.patient-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "info-grid-area info-grid-area patient-address-map"
+    "info-grid-area info-grid-area patient-address-map"
+    "info-grid-area info-grid-area patient-address-map";
+}
+
+.patient-address-map {
+  grid-area: patient-address-map;
+}
+
+.info-grid-area {
+  grid-area: info-grid-area;
+}

@@ -1,0 +1,18 @@
+.patient-form {
+  background-color: var(--green-secondary);
+  padding-top: 5em;
+  padding-bottom: 5em;
+  font-family: var(--font-saira);
+}
+
+.patient-form-submit {
+  color: white;
+  font-family: var(--font-saira);
+  background-color: var(--green-third);
+  width: 289px;
+  height: 48px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  margin-top: 2em;
+}

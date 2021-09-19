@@ -110,7 +110,7 @@ function DoctorForm() {
                 type="submit"
                 key={6}
               >
-                Submit
+                Save
               </button>,
             ]}
           />

@@ -49,5 +49,13 @@ body {
   outline: none;
 }
 
+.input-dimension {
+  height: 80px;
+}
+
+::placeholder{
+  color : #999999;
+}
+
 /* For creating grid https://grid.layoutit.com/  
   For creating shadows https://shadows.brumm.af/  */
