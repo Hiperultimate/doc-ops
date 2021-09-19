@@ -6,17 +6,24 @@ import PatientRegister from "./registationForms/patientRegister/PatientRegister.
 import DoctorRegister from "./registationForms/doctorRegister/DoctorRegister.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 
+const FormType = Object.freeze({
+  DOCTOR: 1,
+  PATIENT: 2,
+});
+
 function Registration() {
-  // 1 -> Doctor Form
-  // 2 -> Patient Form
-  const [formType, setFormType] = useState(2);
+  const [formType, setFormType] = useState(FormType.PATIENT);
 
   const someFunc = (e) => {
-    if (e.target.id === "doctor-btn") {
-      setFormType(1);
-    }
-    if (e.target.id === "patient-btn") {
-      setFormType(2);
+    switch (e.target.id) {
+      case "doctor-btn":
+        setFormType(FormType.DOCTOR);
+        break;
+      case "patient-btn":
+        setFormType(FormType.PATIENT);
+        break;
+      default:
+        setFormType(FormType.PATIENT);
     }
   };
 

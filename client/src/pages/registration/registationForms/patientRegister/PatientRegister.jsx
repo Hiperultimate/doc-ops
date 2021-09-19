@@ -1,4 +1,3 @@
-import "./patientRegister.css";
 import { useState } from "react";
 import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
