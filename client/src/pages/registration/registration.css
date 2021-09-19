@@ -1,0 +1,32 @@
+.registration-page {
+  background-color: var(--green-secondary);
+  font-family: var(--font-saira);
+}
+
+.title-container{
+    padding-top: 2em;
+}
+
+.select-form{
+    display: flex;
+    flex-direction : row;
+    justify-content : center;
+    padding-top: 4em;
+}
+
+.select-btn{
+    height: 45px;
+    width: 200px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-saira);
+    background-color: white;
+}
+
+.doctorFormBtn{
+    border-radius: 5px 0px 0px 5px;
+}
+
+.patientFormBtn{
+    border-radius: 0px 5px 5px 0px;
+}
