@@ -16,7 +16,7 @@ function DoctorInfo({
       <div className="doctor-basic-info-grid">
         <div className="doctor-name">
           <InputField
-            wrapperClass={"input-dimention"}
+            wrapperClass={"input-dimension"}
             heading={"Name"}
             placeholder={"Enter full name"}
             type={"text"}
@@ -27,7 +27,7 @@ function DoctorInfo({
         </div>
         <div className="doctor-email">
           <InputField
-            wrapperClass={"input-dimention"}
+            wrapperClass={"input-dimension"}
             heading={"Email"}
             placeholder={"Enter email"}
             type={"email"}
@@ -38,7 +38,7 @@ function DoctorInfo({
         </div>
         <div className="doctor-phone">
           <InputField
-            wrapperClass={"input-dimention"}
+            wrapperClass={"input-dimension"}
             heading={"Phone"}
             placeholder={"Enter phone number"}
             type={"number"}
@@ -49,7 +49,7 @@ function DoctorInfo({
         </div>
         <div className="work-experience">
           <InputField
-            wrapperClass={"input-dimention"}
+            wrapperClass={"input-dimension"}
             heading={"Work Experience"}
             placeholder={"Enter work experience"}
             scaleText={"yrs"}

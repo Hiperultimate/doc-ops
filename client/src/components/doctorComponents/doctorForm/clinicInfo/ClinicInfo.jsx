@@ -51,7 +51,7 @@ function ClinicInfo({
           <div className="clinic-grid">
             <div className="clinic-name">
               <InputField
-                wrapperClass={"input-dimention"}
+                wrapperClass={"input-dimension"}
                 heading={"Name"}
                 placeholder={"Enter clinic's name"}
                 type={"text"}
@@ -62,7 +62,7 @@ function ClinicInfo({
             </div>
             <div className="clinic-address">
               <InputField
-                wrapperClass={"input-dimention"}
+                wrapperClass={"input-dimension"}
                 heading={"Address"}
                 placeholder={"Enter address"}
                 type={"text"}
@@ -73,7 +73,7 @@ function ClinicInfo({
             </div>
             <div className="clinic-consultation-fee">
               <InputField
-                wrapperClass={"input-dimention"}
+                wrapperClass={"input-dimension"}
                 heading={"Consultation Fee"}
                 placeholder={"Enter consultation fee"}
                 type={"number"}
