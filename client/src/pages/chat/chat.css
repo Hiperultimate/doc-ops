@@ -1,0 +1,42 @@
+.chat-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px - 4px);
+}
+
+.chat-nav {
+  box-shadow: outset 0 0 20px grey;
+  overflow-y: scroll;
+  width: 30vw;
+  background-color: #f1f1f1;
+}
+
+.chat-text-area {
+  width: 100%;
+  background: #DBDBDB;
+}
+
+.set-prescription {
+  width: 30vw;
+  background-color: #f1f1f1;
+}
+
+.chat-nav::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.chat-nav::-webkit-scrollbar-track {
+  background: #EBEBEB;
+}
+
+/* Handle */
+.chat-nav::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #B5B5B5;
+}
+
+/* Handle on hover */
+.chat-nav::-webkit-scrollbar-thumb:hover {
+  background: #949494;
+}

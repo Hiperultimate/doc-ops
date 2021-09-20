@@ -1,0 +1,44 @@
+.select-chat-container {
+  font-family: var(--font-saira);
+  background-color: white;
+  border-radius: 10px;
+  margin: 5px;
+  margin-bottom: 15px;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "select-chat-username unread-messages"
+    "display-info unread-messages";
+}
+
+.select-chat-username {
+  font-size: 24px;
+  grid-area: select-chat-username;
+}
+
+.unread-messages {
+  margin: auto;
+  grid-area: unread-messages;
+}
+
+.unread-style{
+  border-radius: 5px;
+  /* width: 1.5em; */
+  padding: 5px;
+  margin: auto;
+  text-align: center;
+  background-color: #359D9E;
+  color: white;
+}
+
+.display-info {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  grid-area: display-info;
+}

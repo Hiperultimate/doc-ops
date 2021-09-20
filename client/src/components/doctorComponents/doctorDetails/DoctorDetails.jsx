@@ -1,8 +1,14 @@
 import "./doctorDetails.css";
 import MainButton from "../../mainButton/MainButton.jsx";
 
-function DoctorDetails({experience, email, phoneNumber,specialization,treatments,consultationFee}) {
-
+function DoctorDetails({
+  experience,
+  email,
+  phoneNumber,
+  specialization,
+  treatments,
+  consultationFee,
+}) {
   // Write function to reach to doctor chat here
   const onClickHandler = () => {
     console.log("Redirect to chat room session");
@@ -33,13 +39,15 @@ function DoctorDetails({experience, email, phoneNumber,specialization,treatments
         <div className="treatments custom-info-padding">
           <span className="semi-title">Treatments:</span>
           <br />
-          <span>
-            {treatments}
-          </span>
+          <span>{treatments}</span>
         </div>
         <div className="chat-btn custom-info-padding">
           <span className="semi-title">
-            <MainButton buttonText="Chat Now" onClickHandler={onClickHandler} arrow={false}/>
+            <MainButton
+              buttonText="Chat Now"
+              onClickHandler={onClickHandler}
+              arrow={false}
+            />
           </span>
         </div>
         <div className="consultation-fee info-padding">
