@@ -2,13 +2,19 @@
   display: flex;
   flex-direction: row;
   height: calc(100vh - 60px - 4px);
+  font-family: var(--font-saira);
 }
 
 .chat-nav {
-  box-shadow: outset 0 0 20px grey;
   overflow-y: scroll;
   width: 30vw;
   background-color: #f1f1f1;
+}
+
+.empty-chat-nav{
+  position: relative;
+  bottom: -4em;
+  color: #8D8D8D;
 }
 
 .chat-text-area {
