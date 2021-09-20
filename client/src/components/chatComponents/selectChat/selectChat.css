@@ -1,5 +1,6 @@
 .select-chat-container {
   font-family: var(--font-saira);
+  cursor: pointer;
   background-color: white;
   border-radius: 10px;
   margin: 5px;
@@ -25,13 +26,12 @@
   grid-area: unread-messages;
 }
 
-.unread-style{
+.unread-style {
   border-radius: 5px;
-  /* width: 1.5em; */
   padding: 5px;
   margin: auto;
   text-align: center;
-  background-color: #359D9E;
+  background-color: #359d9e;
   color: white;
 }
 
@@ -41,4 +41,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   grid-area: display-info;
+}
+
+.selected-chat {
+  background-color: #1fca74;
+  color: white;
+}
+
+.chat-arrow-svg{
+  position: relative;
+  top: 4px;
+  margin: auto;
 }
