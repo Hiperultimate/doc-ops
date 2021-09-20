@@ -23,9 +23,9 @@ function SelectChat({ userName, unreadMessageCount, viewType, displayInfo }) {
   }
   return (
     <>
-      <div onClick={onClickHandler} class={`select-chat-container global-box-shadow ${isSelected && "selected-chat"}`}>
-        <div class="select-chat-username">{userName}</div>
-          <div class="unread-messages">
+      <div onClick={onClickHandler} className={`select-chat-container global-box-shadow ${isSelected && "selected-chat"}`}>
+        <div className="select-chat-username">{userName}</div>
+          <div className="unread-messages">
             {isSelected === false ? 
             unreadMessageCount !== "0" && <div
               className="unread-style"
@@ -35,7 +35,7 @@ function SelectChat({ userName, unreadMessageCount, viewType, displayInfo }) {
             </div> : <img className="chat-arrow-svg" src={ChatArrow} alt="chat-arrow-svg"/> }
             
           </div>
-        <div class="display-info">
+        <div className="display-info">
           {viewType === 1 ? "Specialization: " : "Diagnosis: "}
           {viewType === 1 ? displayInfo.join(", ") : displayInfo}
         </div>

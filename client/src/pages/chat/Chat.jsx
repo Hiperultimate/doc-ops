@@ -2,6 +2,7 @@ import "./chat.css";
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import SelectChat from "../../components/chatComponents/selectChat/SelectChat.jsx";
+import ChatHead from "../../components/chatComponents/chatHead/ChatHead.jsx";
 
 const DisplayType = Object.freeze({
   DOCTOR: 1,
@@ -17,6 +18,7 @@ const DisplayType = Object.freeze({
 */
 
 function Chat() {
+  let chatID = 0;
   const [displayType, setDisplayType] = useState(DisplayType.PATIENT);
   const fetchChatUsers = [
     {
@@ -59,7 +61,10 @@ function Chat() {
     <>
       <Navbar isFixed={true} />
       <div className="chat-container">
-        <div className="chat-nav" style={fetchChatUsers.length <= 0 ? {textAlign: "center"} : {}}>
+        <div
+          className="chat-nav"
+          style={fetchChatUsers.length <= 0 ? { textAlign: "center" } : {}}
+        >
           {fetchChatUsers.length <= 0 ? (
             <span className="empty-chat-nav">No users found...</span>
           ) : (
@@ -70,12 +75,15 @@ function Chat() {
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
                   viewType={displayType}
+                  key={chatID++}
                 />
               );
             })
           )}
         </div>
-        <div className="chat-text-area">Chat text area</div>
+        <div className="chat-text-area">
+          <ChatHead userName={"Alanakov Banovoichi"} />
+        </div>
         <div className="set-prescription">Give Prescription</div>
       </div>
     </>
