@@ -1,4 +1,6 @@
 import "./selectChat.css";
+import {useState} from "react";
+import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 /* 
   viewType: 
@@ -13,20 +15,26 @@ import "./selectChat.css";
 */
 
 function SelectChat({ userName, unreadMessageCount, viewType, displayInfo }) {
+  // A temporary solution for front end development
+  const [isSelected,setisSelected] = useState(false); 
+
+  const onClickHandler = () => {
+    setisSelected(prevState => !prevState);
+  }
   return (
     <>
-      <div class="select-chat-container global-box-shadow">
+      <div onClick={onClickHandler} class={`select-chat-container global-box-shadow ${isSelected && "selected-chat"}`}>
         <div class="select-chat-username">{userName}</div>
-        {unreadMessageCount !== "0" && (
           <div class="unread-messages">
-            <div
+            {isSelected === false ? 
+            unreadMessageCount !== "0" && <div
               className="unread-style"
               style={unreadMessageCount.length < 3 ? { width: "1.5em" } : {}}
             >
               {unreadMessageCount}
-            </div>
+            </div> : <img className="chat-arrow-svg" src={ChatArrow} alt="chat-arrow-svg"/> }
+            
           </div>
-        )}
         <div class="display-info">
           {viewType === 1 ? "Specialization: " : "Diagnosis: "}
           {viewType === 1 ? displayInfo.join(", ") : displayInfo}
