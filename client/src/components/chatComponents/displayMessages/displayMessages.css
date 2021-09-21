@@ -1,0 +1,25 @@
+.chat-box {
+  overflow-y: scroll;
+  width: 100%;
+  height: 78%;
+}
+
+.chat-box::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.chat-box::-webkit-scrollbar-track {
+  background: #DBDBDB;
+}
+
+/* Handle */
+.chat-box::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #b5b5b5;
+}
+
+/* Handle on hover */
+.chat-box::-webkit-scrollbar-thumb:hover {
+  background: #949494;
+}
