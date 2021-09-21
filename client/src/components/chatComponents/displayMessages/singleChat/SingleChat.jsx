@@ -11,8 +11,8 @@ whosChat values: "sender" , "receiver"
 
 function SingleChat({ whosChat, sentAt, messageText }) {
   return (
-    <div class="message-container">
-      <div class="msg-sent-at">
+    <div className="message-container">
+      <div className="msg-sent-at">
         <span
           className={`sent-at ${
             whosChat === "sender" ? "right-pos" : "left-pos"
@@ -21,7 +21,7 @@ function SingleChat({ whosChat, sentAt, messageText }) {
           {sentAt}
         </span>
       </div>
-      <div class="msg-box">
+      <div className="msg-box">
         <span
           className={`message-text global-box-shadow ${
             whosChat === "sender"

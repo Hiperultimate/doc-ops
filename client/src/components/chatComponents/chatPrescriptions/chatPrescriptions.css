@@ -1,0 +1,46 @@
+.prescription-heading-container {
+  position: relative;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 0px;
+}
+
+.prescription-line-seperator {
+  left: 50%;
+  position: absolute;
+  top: 100%;
+  transform: translate(-50%, -50%);
+  height:0px;
+  width: 95%;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.close-session-btn{
+    padding: 1em 2em;
+    border-radius: 10px;
+    background-color: #F79090;
+    border: none;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+.close-session-btn span{
+    font-family: var(--font-saira);
+    color:white;
+    font-size: 18px;
+}
+
+.add-prescription-btn{
+    padding: 1em;
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 1em;
+}
+
+.chat-options{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
