@@ -39,7 +39,7 @@ function DisplayMessages() {
       <SingleChat
         whosChat={"receiver"}
         sentAt={"7:10 AM"}
-        messageText={"And my name a john LOLLLL"}
+        messageText={"Officia cillum veniam officia Lorem labore sit adipisicing esse ea. Excepteur id enim ipsum excepteur eu commodo ut. Nostrud veniam non quis sunt reprehenderit ut pariatur irure aliqua tempor. Excepteur magna labore mollit nostrud esse consectetur. Minim exercitation officia eiusmod dolore adipisicing. Elit cillum qui aliquip id deserunt."}
       />
       <SingleChat
         whosChat={"sender"}
