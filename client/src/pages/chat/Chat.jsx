@@ -4,6 +4,7 @@ import Navbar from "../../components/navbar/Navbar.jsx";
 import SelectChat from "../../components/chatComponents/selectChat/SelectChat.jsx";
 import ChatHead from "../../components/chatComponents/chatHead/ChatHead.jsx";
 import TypingBar from "../../components/chatComponents/typingBar/TypingBar.jsx";
+import DisplayMessages from "../../components/chatComponents/displayMessages/DisplayMessages.jsx";
 
 const DisplayType = Object.freeze({
   DOCTOR: 1,
@@ -84,6 +85,7 @@ function Chat() {
         </div>
         <div className="chat-text-area">
           <ChatHead userName={"Alanakov Banovoichi"} />
+          <DisplayMessages />
           <TypingBar />
         </div>
         <div className="set-prescription">Give Prescription</div>
