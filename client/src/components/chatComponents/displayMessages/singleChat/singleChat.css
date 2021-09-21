@@ -36,6 +36,8 @@
 .message-text {
   padding: 1em;
   border-radius: 10px;
+  word-wrap: break-word;
+  max-width: 400px;
 }
 
 .right-message-style {

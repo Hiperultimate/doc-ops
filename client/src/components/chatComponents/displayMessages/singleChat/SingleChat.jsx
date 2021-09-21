@@ -23,7 +23,7 @@ function SingleChat({ whosChat, sentAt, messageText }) {
       </div>
       <div class="msg-box">
         <span
-          className={`message-text ${
+          className={`message-text global-box-shadow ${
             whosChat === "sender"
               ? "right-pos right-message-style"
               : "left-pos left-message-style"
