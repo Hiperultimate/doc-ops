@@ -1,7 +1,30 @@
-.right-pos{
-    float: right;
+.message-container{
+    margin: 1em;
 }
 
-.left-pos{
-    float: left;
+.right-pos {
+  float: right;
+}
+
+.left-pos {
+  float: left;
+}
+
+.sent-at {
+  color: #757575;
+}
+
+.message-text{
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.right-message-style {
+  background-color: #858585;
+  color: white;
+}
+
+.left-message-style {
+  background-color: #359d9e;
+  color: white;
 }
