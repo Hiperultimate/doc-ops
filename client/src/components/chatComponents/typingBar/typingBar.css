@@ -1,0 +1,31 @@
+.chat-bar-container{
+    display:flex;
+    flex-direction: row;
+    padding: 0.5em;
+    padding-bottom: 1em;
+    height: 50px;
+}
+
+.chat-type-bar{
+    width:100%;
+    padding-left: 1em;
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+    font-family: var(--font-saira);
+    font-size: 14px;
+}
+
+.send-icon-container{
+    background-color: #5FCF80;
+    width: 60px;
+    border-radius:0px 10px 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-icon{
+    cursor: pointer;
+    position: relative;
+    left: -5px;
+}
