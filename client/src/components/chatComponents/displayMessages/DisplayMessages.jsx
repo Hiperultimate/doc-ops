@@ -1,7 +1,14 @@
 import "./displayMessages.css";
+import {useEffect, useRef } from "react";
 import SingleChat from "./singleChat/SingleChat.jsx";
 
 function DisplayMessages() {
+  const fieldRef = useRef(null);
+
+  useEffect(()=> {
+    fieldRef.current.scrollIntoView();
+  })
+
   return (
     <div className="chat-box">
       <SingleChat
@@ -104,7 +111,7 @@ function DisplayMessages() {
         sentAt={"7:10 AM"}
         messageText={"And my name a john LOLLLL"}
       />
-      
+      <div ref={fieldRef} id={"scroll-to-bottom"}/>
     </div>
   );
 }
