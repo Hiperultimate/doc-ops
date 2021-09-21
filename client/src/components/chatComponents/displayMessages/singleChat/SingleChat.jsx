@@ -11,9 +11,27 @@ whosChat values: "sender" , "receiver"
 
 function SingleChat({ whosChat, sentAt, messageText }) {
   return (
-    <div className="message-container">
-      <span className={`sent-at ${whosChat === "sender" ? "right-pos" : "left-pos"}`}>{sentAt}</span><br/>
-      <span className={`message-text ${whosChat === "sender" ? "right-pos right-message-style" : "left-pos left-message-style"}`}>{messageText}</span><br/>
+    <div class="message-container">
+      <div class="msg-sent-at">
+        <span
+          className={`sent-at ${
+            whosChat === "sender" ? "right-pos" : "left-pos"
+          }`}
+        >
+          {sentAt}
+        </span>
+      </div>
+      <div class="msg-box">
+        <span
+          className={`message-text ${
+            whosChat === "sender"
+              ? "right-pos right-message-style"
+              : "left-pos left-message-style"
+          }`}
+        >
+          {messageText}
+        </span>
+      </div>
     </div>
   );
 }
