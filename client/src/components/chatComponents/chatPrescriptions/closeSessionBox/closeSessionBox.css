@@ -1,0 +1,118 @@
+.close-session-box {
+  z-index: 11;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 700px;
+  background-color: white;
+  border-radius: 10px;
+  font-family: var(--font-saira);
+}
+
+.back-drop {
+  z-index: 10;
+  height: calc(100vh - 64px);
+  width: 100%;
+  position: absolute;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.close-session-svg {
+  cursor: pointer;
+  padding: 0.5em;
+  margin-left: 95%;
+  padding-bottom: 0;
+}
+
+.close-session-input {
+  height: 50px;
+  width: 290px;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+}
+
+.close-session-grid {
+  padding: 0.5em 1em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "diagnosis-text diagnosis-input-container diagnosis-input-container end-date-text end-date-text"
+    "comments-text comment-input-container comment-input-container . ."
+    "medication-text medication-list medication-list medication-list ."
+    ". medication-list medication-list medication-list ."
+    ". . close-without-diagnosis-btn close-without-diagnosis-btn session-close-btn";
+}
+
+.diagnosis-text {
+  grid-area: diagnosis-text;
+}
+
+.comments-text {
+  grid-area: comments-text;
+}
+
+.medication-text {
+  grid-area: medication-text;
+}
+
+.comment-input-container {
+  grid-area: comment-input-container;
+}
+
+.diagnosis-input-container {
+  grid-area: diagnosis-input-container;
+}
+
+.end-date-text {
+  grid-area: end-date-text;
+}
+
+.medication-list {
+  grid-area: medication-list;
+}
+
+.medication-list table, td, th {
+  border: 1px solid black;
+}
+.medication-list table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.medication-list td,th{
+  padding: 1em;
+}
+
+.close-without-diagnosis-btn {
+  grid-area: close-without-diagnosis-btn;
+}
+
+.close-without-diagnosis-btn > button {
+  font-family: var(--font-saira);
+  padding: 1em 2em;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  border: none;
+  cursor: pointer;
+}
+
+.session-close-btn {
+  grid-area: session-close-btn;
+}
+
+.session-close-btn > button {
+  font-family: var(--font-saira);
+  color: white;
+  padding: 1em 2em;
+  border-radius: 10px;
+  background-color: #f79090;
+  border: none;
+  cursor: pointer;
+}
