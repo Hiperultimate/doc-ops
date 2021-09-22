@@ -6,7 +6,28 @@
 }
 
 .prescription-container{
+  overflow-y: scroll;
   height: calc(100vh - 205px);
+}
+
+.prescription-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.prescription-container::-webkit-scrollbar-track {
+  background: #EBEBEB;
+}
+
+/* Handle */
+.prescription-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #B5B5B5;
+}
+
+/* Handle on hover */
+.prescription-container::-webkit-scrollbar-thumb:hover {
+  background: #949494;
 }
 
 .prescription-line-seperator {
@@ -56,6 +77,12 @@
     border: none;
     cursor: pointer;
     margin-right: 1em;
+}
+
+.plus-icon-svg{
+  position:relative;
+  left: 1px;
+  bottom: -2px;
 }
 
 .chat-options{
