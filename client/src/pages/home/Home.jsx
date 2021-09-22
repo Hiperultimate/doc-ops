@@ -118,7 +118,7 @@ function Home() {
         mainWrapperClass="main-container"
         mainContainerStyle={{
           minHeight: "720px",
-          width: "45vw",
+          width: "75vw",
           padding: "0.5em 0.5em",
         }}
         AddComponents={doctorObjects.map((doctor) => (

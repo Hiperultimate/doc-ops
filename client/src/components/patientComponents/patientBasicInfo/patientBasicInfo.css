@@ -6,7 +6,7 @@
 
 .basic-info-grid {
   display: grid;
-  padding: 1em;
+  padding: 1em 2em;
   margin: 3em 0em;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;

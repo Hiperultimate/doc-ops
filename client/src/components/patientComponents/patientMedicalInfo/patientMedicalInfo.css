@@ -5,7 +5,7 @@
 
 .medical-info-grid {
   display: grid;
-  padding: 1em;
+  padding: 2em;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 8px 8px;
