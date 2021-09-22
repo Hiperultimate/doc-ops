@@ -22,43 +22,45 @@ const DisplayType = Object.freeze({
 
 function Chat() {
   let chatID = 0;
-  const [displayType, setDisplayType] = useState(DisplayType.PATIENT);
-  const fetchChatUsers = [
-    {
-      userName: "Alanakov Bavonoichi",
-      unreadMessageCount: "5",
-      displayInfo: "Common Cold",
-    },
-    {
-      userName: "Suzukaze Nozuaki",
-      unreadMessageCount: "103",
-      displayInfo: "Uncommon Cold",
-    },
-    {
-      userName: "Rasnek Poker",
-      unreadMessageCount: "0",
-      displayInfo: "Rare Cold",
-    },
-    {
-      userName: "Fantasma Rais",
-      unreadMessageCount: "0",
-      displayInfo: "Epic Cold",
-    },
-    {
-      userName: "Zankarea Zeus",
-      unreadMessageCount: "21",
-      displayInfo: "Legendary Cold",
-    },
-  ];
+  // Note: when changing the state make sure to uncomment the correct type of chat users below.
+  const [displayType, setDisplayType] = useState(DisplayType.DOCTOR);
+  // Doctor view of patient chat entry example
+  // const fetchChatUsers = [
+  //   {
+  //     userName: "Alanakov Bavonoichi",
+  //     unreadMessageCount: "5",
+  //     displayInfo: "Common Cold",
+  //   },
+  //   {
+  //     userName: "Suzukaze Nozuaki",
+  //     unreadMessageCount: "103",
+  //     displayInfo: "Uncommon Cold",
+  //   },
+  //   {
+  //     userName: "Rasnek Poker",
+  //     unreadMessageCount: "0",
+  //     displayInfo: "Rare Cold",
+  //   },
+  //   {
+  //     userName: "Fantasma Rais",
+  //     unreadMessageCount: "0",
+  //     displayInfo: "Epic Cold",
+  //   },
+  //   {
+  //     userName: "Zankarea Zeus",
+  //     unreadMessageCount: "21",
+  //     displayInfo: "Legendary Cold",
+  //   },
+  // ];
 
   // Patient view of doctor chat entry example
-  //   const fetchChatUsers = [
-  //     {
-  //       userName: "Alanakov Bavonoichi",
-  //       unreadMessageCount: "5",
-  //       displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
-  //     },
-  //   ];
+    const fetchChatUsers = [
+      {
+        userName: "Alanakov Bavonoichi",
+        unreadMessageCount: "5",
+        displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
+      },
+    ];
 
   return (
     <>
@@ -90,7 +92,7 @@ function Chat() {
           <TypingBar />
         </div>
         <div className="set-prescription">
-          <ChatPrescriptions />
+          <ChatPrescriptions displayType={displayType}/>
           
         </div>
       </div>
