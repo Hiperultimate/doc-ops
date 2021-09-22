@@ -1,0 +1,54 @@
+.prescription-tile-container {
+    background-color: white;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  gap: 4px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "medicine-name medicine-name duration"
+    "quantity quantity ."
+    "frequency frequency edit-icon";
+}
+
+.medicine-name {
+    font-size: 24px;
+  grid-area: medicine-name;
+}
+
+.frequency {
+  grid-area: frequency;
+}
+
+.quantity {
+  grid-area: quantity;
+}
+
+.duration {
+    color: #6B6B6B;
+  grid-area: duration;
+}
+
+.duration-text{
+    float:right;
+    position:relative;
+    top:5px;
+}
+
+.edit-icon {
+  grid-area: edit-icon;
+}
+
+.svg-icons{
+  padding-right: 0.5em;
+  position: relative;
+  top: 3px;
+}
+
+.edit-ico{
+    cursor: pointer;
+    float:right;
+}
