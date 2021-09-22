@@ -5,10 +5,29 @@
   padding: 10px 0px;
 }
 
+.prescription-container{
+  height: calc(100vh - 205px);
+}
+
 .prescription-line-seperator {
   left: 50%;
   position: absolute;
   top: 100%;
+  transform: translate(-50%, -50%);
+  height:0px;
+  width: 95%;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.session-option-container{
+  position:relative;
+  padding-top: 1em;
+}
+
+.session-line-seperator{
+  left: 50%;
+  position: absolute;
+  top: 0;
   transform: translate(-50%, -50%);
   height:0px;
   width: 95%;

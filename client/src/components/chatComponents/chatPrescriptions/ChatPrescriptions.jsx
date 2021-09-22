@@ -12,9 +12,18 @@ function ChatPrescriptions() {
       <div className="prescription-container">
         <PrescriptionCard />
       </div>
-      <div className="chat-options">
-          <button className="close-session-btn global-box-shadow"><span>Close Session</span></button>
-          <button className="add-prescription-btn global-box-shadow"><img src={PlusSvg} alt="plus-svg" /></button>
+
+      <div className="session-option-container">
+        <span className="session-line-seperator" />
+
+        <div className="chat-options">
+          <button className="close-session-btn global-box-shadow">
+            <span>Close Session</span>
+          </button>
+          <button className="add-prescription-btn global-box-shadow">
+            <img src={PlusSvg} alt="plus-svg" />
+          </button>
+        </div>
       </div>
     </div>
   );
