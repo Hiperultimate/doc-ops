@@ -1,6 +1,7 @@
 import "./chat.css";
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
+import CloseSessionBox from "../../components/chatComponents/chatPrescriptions/closeSessionBox/CloseSessionBox.jsx";
 import SelectChat from "../../components/chatComponents/selectChat/SelectChat.jsx";
 import ChatHead from "../../components/chatComponents/chatHead/ChatHead.jsx";
 import TypingBar from "../../components/chatComponents/typingBar/TypingBar.jsx";
@@ -65,6 +66,7 @@ function Chat() {
   return (
     <>
       <Navbar isFixed={true} />
+      <CloseSessionBox />
       <div className="chat-container">
         <div
           className="chat-nav"
