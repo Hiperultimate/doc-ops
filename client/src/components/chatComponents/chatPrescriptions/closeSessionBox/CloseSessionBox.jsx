@@ -19,14 +19,14 @@ function CloseSessionBox({ CloseSessionState }) {
             <input
               className="close-session-input"
               type="text"
-              placeholder="Enter diagnosis"
+              placeholder="Enter diagnosis..."
             />
           </div>
           <div className="diagnosis-input-container">
             <input
               className="close-session-input"
               type="text"
-              placeholder="Any special notes to give..."
+              placeholder="Additional notes..."
             />
           </div>
           <div className="end-date-text">21 Sept, 2021 - 30 December</div>
