@@ -84,6 +84,28 @@
 
 .medication-list {
   grid-area: medication-list;
+  max-height: 520px;
+  overflow-y: scroll;
+}
+
+.medication-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.medication-list::-webkit-scrollbar-track {
+  background: #EBEBEB;
+}
+
+/* Handle */
+.medication-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #B5B5B5;
+}
+
+/* Handle on hover */
+.medication-list::-webkit-scrollbar-thumb:hover {
+  background: #949494;
 }
 
 .medication-list table {
@@ -142,6 +164,10 @@
 
 .session-close-btn {
   grid-area: session-close-btn;
+}
+
+.diagnosis-btn-right{
+  float:right;
 }
 
 .session-close-btn > button {
