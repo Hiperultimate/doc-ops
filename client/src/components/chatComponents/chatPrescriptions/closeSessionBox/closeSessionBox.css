@@ -34,6 +34,7 @@
   padding-left: 15px;
   padding-right: 15px;
   border: none;
+  font-family: var(--font-saira);
 }
 
 .close-session-grid {
@@ -53,14 +54,20 @@
 
 .diagnosis-text {
   grid-area: diagnosis-text;
+  margin: auto;
 }
 
 .comments-text {
   grid-area: comments-text;
+  margin: auto;
+
 }
 
 .medication-text {
   grid-area: medication-text;
+  margin: auto;
+  position: relative;
+  top: 10px;
 }
 
 .comment-input-container {

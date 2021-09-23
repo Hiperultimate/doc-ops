@@ -1,12 +1,13 @@
 import "./closeSessionBox.css";
 import CrossBgSvg from "../../../../svgs/cross-bg.svg";
 
-function CloseSessionBox({ CloseSessionState }) {
+function CloseSessionBox({ closeSessionState, setCloseSessionState }) {
   return (
-    <>
+    closeSessionState && <>
       <div className="back-drop" />
       <div className="close-session-box">
         <img
+          onClick={()=> setCloseSessionState(false)}
           className="close-session-svg"
           src={CrossBgSvg}
           alt="cross-btn-svg"
@@ -32,32 +33,32 @@ function CloseSessionBox({ CloseSessionState }) {
           <div className="end-date-text">21 Sept, 2021 - 30 December</div>
           <div className="medication-list">
             <table>
-                <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Frequency</th>
-                <th>Duration</th>
-              </tr>
-              <tr>
-                <td>Chemo</td>
-                <td>Once a day</td>
-                <td>31 Oct - 30 Dec</td>
-              </tr>
-              <tr>
-                <td>Pain Killers</td>
-                <td>Once a week</td>
-                <td>15 Oct - 30 Dec</td>
-              </tr>
-              <tr>
-                <td>Drug 2</td>
-                <td>3 times a day</td>
-                <td>31 Sept - 30 Dec</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th>Frequency</th>
+                  <th>Duration</th>
+                </tr>
+                <tr>
+                  <td>Chemo</td>
+                  <td>Once a day</td>
+                  <td>31 Oct - 30 Dec</td>
+                </tr>
+                <tr>
+                  <td>Pain Killers</td>
+                  <td>Once a week</td>
+                  <td>15 Oct - 30 Dec</td>
+                </tr>
+                <tr>
+                  <td>Drug 2</td>
+                  <td>3 times a day</td>
+                  <td>31 Sept - 30 Dec</td>
+                </tr>
               </tbody>
             </table>
           </div>
           <div className="close-without-diagnosis-btn">
-            <button className="global-box-shadow">
+            <button onClick={()=> setCloseSessionState(false)} className="global-box-shadow">
               Close Session Without Diagnosis
             </button>
           </div>

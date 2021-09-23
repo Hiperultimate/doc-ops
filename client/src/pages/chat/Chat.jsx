@@ -23,6 +23,8 @@ const DisplayType = Object.freeze({
 
 function Chat() {
   let chatID = 0;
+  
+  const [closeSessionState, setCloseSessionState] = useState(false);
   // Note: when changing the state make sure to uncomment the correct type of chat users below.
   const [displayType, setDisplayType] = useState(DisplayType.DOCTOR);
   // Doctor view of patient chat entry example
@@ -66,7 +68,7 @@ function Chat() {
   return (
     <>
       <Navbar isFixed={true} />
-      <CloseSessionBox />
+      <CloseSessionBox closeSessionState={closeSessionState} setCloseSessionState={setCloseSessionState}/>
       <div className="chat-container">
         <div
           className="chat-nav"
@@ -94,7 +96,7 @@ function Chat() {
           <TypingBar />
         </div>
         <div className="set-prescription">
-          <ChatPrescriptions displayType={displayType}/>
+          <ChatPrescriptions displayType={displayType} setCloseSessionState={setCloseSessionState}/>
           
         </div>
       </div>
