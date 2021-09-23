@@ -23,8 +23,10 @@ const DisplayType = Object.freeze({
 
 function Chat() {
   let chatID = 0;
-  
+
   const [closeSessionState, setCloseSessionState] = useState(false);
+  const [closeSessionDiagnosis, setCloseSessionDiagnosis] = useState("");
+  const [closeSessionComments, setCloseSessionComments] = useState("");
   // Note: when changing the state make sure to uncomment the correct type of chat users below.
   const [displayType, setDisplayType] = useState(DisplayType.DOCTOR);
   // Doctor view of patient chat entry example
@@ -57,18 +59,31 @@ function Chat() {
   // ];
 
   // Patient view of doctor chat entry example
-    const fetchChatUsers = [
-      {
-        userName: "Alanakov Bavonoichi",
-        unreadMessageCount: "5",
-        displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
-      },
-    ];
+  const fetchChatUsers = [
+    {
+      userName: "Alanakov Bavonoichi",
+      unreadMessageCount: "5",
+      displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
+    },
+  ];
 
   return (
     <>
       <Navbar isFixed={true} />
-      <CloseSessionBox closeSessionState={closeSessionState} setCloseSessionState={setCloseSessionState}/>
+      <CloseSessionBox
+        closeSessionDiagnosisState={{
+          closeSessionDiagnosis: closeSessionDiagnosis,
+          setCloseSessionDiagnosis: setCloseSessionDiagnosis,
+        }}
+        closeSessionCommentsState={{
+          closeSessionComments: closeSessionComments,
+          setCloseSessionComments: setCloseSessionComments,
+        }}
+        closeSessionPassState={{
+          closeSessionState: closeSessionState,
+          setCloseSessionState: setCloseSessionState
+        }}
+      />
       <div className="chat-container">
         <div
           className="chat-nav"
@@ -96,8 +111,10 @@ function Chat() {
           <TypingBar />
         </div>
         <div className="set-prescription">
-          <ChatPrescriptions displayType={displayType} setCloseSessionState={setCloseSessionState}/>
-          
+          <ChatPrescriptions
+            displayType={displayType}
+            setCloseSessionState={setCloseSessionState}
+          />
         </div>
       </div>
     </>
