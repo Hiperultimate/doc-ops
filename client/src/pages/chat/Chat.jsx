@@ -7,6 +7,7 @@ import ChatHead from "../../components/chatComponents/chatHead/ChatHead.jsx";
 import TypingBar from "../../components/chatComponents/typingBar/TypingBar.jsx";
 import DisplayMessages from "../../components/chatComponents/displayMessages/DisplayMessages.jsx";
 import ChatPrescriptions from "../../components/chatComponents/chatPrescriptions/ChatPrescriptions.jsx";
+import AddPrescription from "../../components/chatComponents/chatPrescriptions/addPrescription/AddPrescription.jsx";
 
 const DisplayType = Object.freeze({
   DOCTOR: 1,
@@ -27,6 +28,7 @@ function Chat() {
   const [closeSessionState, setCloseSessionState] = useState(false);
   const [closeSessionDiagnosis, setCloseSessionDiagnosis] = useState("");
   const [closeSessionComments, setCloseSessionComments] = useState("");
+  const [addPrescriptionState, setAddPrescriptionState] = useState(false);
   // Note: when changing the state make sure to uncomment the correct type of chat users below.
   const [displayType, setDisplayType] = useState(DisplayType.DOCTOR);
   // Doctor view of patient chat entry example
@@ -81,7 +83,13 @@ function Chat() {
         }}
         closeSessionPassState={{
           closeSessionState: closeSessionState,
-          setCloseSessionState: setCloseSessionState
+          setCloseSessionState: setCloseSessionState,
+        }}
+      />
+      <AddPrescription
+        AddPrescriptionState={{
+          addPrescriptionState: addPrescriptionState,
+          setAddPrescriptionState: setAddPrescriptionState,
         }}
       />
       <div className="chat-container">
@@ -114,6 +122,7 @@ function Chat() {
           <ChatPrescriptions
             displayType={displayType}
             setCloseSessionState={setCloseSessionState}
+            setAddPrescriptionState={setAddPrescriptionState}
           />
         </div>
       </div>

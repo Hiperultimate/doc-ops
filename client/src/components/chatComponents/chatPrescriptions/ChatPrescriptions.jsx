@@ -7,7 +7,7 @@ const DisplayType = Object.freeze({
   PATIENT: 2,
 });
 
-function ChatPrescriptions({ displayType , setCloseSessionState}) {
+function ChatPrescriptions({ displayType , setCloseSessionState ,setAddPrescriptionState}) {
   return (
     <div>
       <div className="prescription-heading-container">
@@ -46,7 +46,7 @@ function ChatPrescriptions({ displayType , setCloseSessionState}) {
             <button onClick={() => setCloseSessionState(true)} className="close-session-btn global-box-shadow">
               <span>Close Session</span>
             </button>
-            <button className="add-prescription-btn global-box-shadow">
+            <button onClick={()=> setAddPrescriptionState(true)} className="add-prescription-btn global-box-shadow">
               <img className="plus-icon-svg" src={PlusSvg} alt="plus-svg" />
             </button>
           </div>
