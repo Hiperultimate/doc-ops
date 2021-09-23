@@ -1,5 +1,6 @@
 import "./doctorDetails.css";
 import MainButton from "../../mainButton/MainButton.jsx";
+import { useHistory  } from 'react-router-dom';
 
 function DoctorDetails({
   experience,
@@ -9,9 +10,10 @@ function DoctorDetails({
   treatments,
   consultationFee,
 }) {
+  const history = useHistory();
   // Write function to reach to doctor chat here
   const onClickHandler = () => {
-    console.log("Redirect to chat room session");
+    history.push("/chat");
   };
   return (
     <div className="added-item doc-details global-box-shadow">
