@@ -11,7 +11,7 @@
 
 .create-prescription-input {
   height: 50px;
-  width: 290px;
+  width: 310px;
   border-radius: 10px;
   background-color: #eeeeee;
   padding-left: 15px;
@@ -24,7 +24,7 @@
   padding: 1em;
   font-family: var(--font-saira);
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto 1fr;
   grid-template-rows: auto auto auto auto auto;
   gap: 8px 8px;
   grid-auto-flow: row;
@@ -44,22 +44,24 @@
 }
 
 .amount-text {
-    margin: auto;
+  margin: auto;
   grid-area: amount-text;
 }
 
 .frequency-text {
-    margin: auto;
+  margin: auto;
   grid-area: frequency-text;
 }
 
 .duration-text {
-    margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   grid-area: duration-text;
 }
 
 .medicine-text {
-    margin: auto;
+  margin: auto;
   grid-area: medicine-text;
 }
 
@@ -76,10 +78,16 @@
 }
 
 .duration-date-from {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   grid-area: duration-date-from;
 }
 
 .duration-date-to {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   grid-area: duration-date-to;
 }
 
@@ -87,15 +95,24 @@
   grid-area: create-prescription-btn;
 }
 
-.create-prescription-btn > button{
-    color: white;
-    padding: 1em 2em;
-    background-color: #5FCF80;
-    border-radius: 10px;
-    border: none;
-    min-width: 120px;
-} 
+.create-prescription-btn > button {
+  color: white;
+  padding: 1em 2em;
+  background-color: #5fcf80;
+  border-radius: 10px;
+  border: none;
+  min-width: 120px;
+}
 
 .create-btn-right {
   float: right;
+}
+
+.create-prescription-date-input {
+  border: none;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  /* height: 50px;
+  padding: 0px 0.5em; */
+  padding: 1em;
 }
