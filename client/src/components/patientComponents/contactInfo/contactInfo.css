@@ -13,8 +13,8 @@
 }
 
 .contact-grid {
-    background-color: white;
-    border-radius: 10px;
+  background-color: white;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr 0.75fr;
   grid-template-rows: 1fr;
