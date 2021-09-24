@@ -1,0 +1,51 @@
+.patient-medical-info{
+    font-family: var(--font-saira);
+}
+
+.info-sub-head {
+  font-weight: bold;
+  padding-right: 1em;
+}
+
+.contact-single-field {
+  margin: 1em 0em;
+}
+
+.patient-medical-info-grid {
+  background-color: white;
+  border-radius: 10px;
+  padding: 3em 2em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "patient-gender patient-age patient-bloodgroup ."
+    "patient-height patient-weight . ."
+    "patient-allergies patient-allergies . .";
+}
+
+.patient-gender {
+  grid-area: patient-gender;
+}
+
+.patient-age {
+  grid-area: patient-age;
+}
+
+.patient-bloodgroup {
+  grid-area: patient-bloodgroup;
+}
+
+.patient-height {
+  grid-area: patient-height;
+}
+
+.patient-weight {
+  grid-area: patient-weight;
+}
+
+.patient-allergies {
+  grid-area: patient-allergies;
+}

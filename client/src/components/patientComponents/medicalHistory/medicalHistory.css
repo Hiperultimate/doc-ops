@@ -1,0 +1,59 @@
+.medical-info-grid {
+  background-color: white;
+  padding: 2em;
+  border-radius: 10px;
+  font-family: var(--font-saira);
+  margin-bottom: 1em;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-rows: auto auto auto;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "disease-name-heading . cure-duration"
+    "doctor-comments doctor-comments ."
+    "display-medicines display-medicines .";
+}
+
+.disease-name-heading {
+  position: relative;
+  top: -0.4em;
+  font-size: 36px;
+  grid-area: disease-name-heading;
+}
+
+.doctor-comments {
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  grid-area: doctor-comments;
+}
+
+.display-medicines {
+  grid-area: display-medicines;
+}
+
+.cure-duration {
+  grid-area: cure-duration;
+}
+
+.medicine-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas: "med-name med-frequency med-duration";
+}
+
+.med-name {
+  grid-area: med-name;
+}
+
+.med-frequency {
+  grid-area: med-frequency;
+}
+
+.med-duration {
+  grid-area: med-duration;
+}

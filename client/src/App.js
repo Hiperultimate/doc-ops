@@ -4,6 +4,7 @@ import Home from "./pages/home/Home.jsx";
 import Registration from "./pages/registration/Registration.jsx";
 import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
+import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
           <Login />
         </Route>
         <Route path="/about">
-          <DoctorAbout />
+          {/* <DoctorAbout /> */}
+          <PatientAbout />
         </Route>
         <Route path="/form">
           {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
