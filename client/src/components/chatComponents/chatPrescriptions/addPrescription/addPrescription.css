@@ -114,3 +114,7 @@
   background-color: #eeeeee;
   padding: 1em;
 }
+
+.create-pres-btn{
+  cursor: pointer;
+}
