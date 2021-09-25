@@ -17,9 +17,20 @@ const DisplayType = Object.freeze({
 /* 
 
     displayInfo:
-    For PATIENT : string ; eg "Common Cold"
-    For DOCTOR : array ; eg ["Surgeries", "Anesthetics", "Valorant", "Punjabi"]
-
+    For PATIENT : string ; 
+        eg "Common Cold"
+        {
+          userName: "Alanakov Bavonoichi",
+          unreadMessageCount: "5",
+          displayInfo: "Common Cold",
+        }
+    For DOCTOR : array ; 
+        eg ["Surgeries", "Anesthetics", "Valorant", "Punjabi"]
+        {
+          userName: "Alanakov Bavonoichi",
+          unreadMessageCount: "5",
+          displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
+        }
 */
 
 function Chat() {
@@ -29,38 +40,7 @@ function Chat() {
   const [closeSessionDiagnosis, setCloseSessionDiagnosis] = useState("");
   const [closeSessionComments, setCloseSessionComments] = useState("");
   const [addPrescriptionState, setAddPrescriptionState] = useState(false);
-  // Note: when changing the state make sure to uncomment the correct type of chat users below.
   const [displayType, setDisplayType] = useState(DisplayType.DOCTOR);
-  // Doctor view of patient chat entry example
-  // const fetchChatUsers = [
-  //   {
-  //     userName: "Alanakov Bavonoichi",
-  //     unreadMessageCount: "5",
-  //     displayInfo: "Common Cold",
-  //   },
-  //   {
-  //     userName: "Suzukaze Nozuaki",
-  //     unreadMessageCount: "103",
-  //     displayInfo: "Uncommon Cold",
-  //   },
-  //   {
-  //     userName: "Rasnek Poker",
-  //     unreadMessageCount: "0",
-  //     displayInfo: "Rare Cold",
-  //   },
-  //   {
-  //     userName: "Fantasma Rais",
-  //     unreadMessageCount: "0",
-  //     displayInfo: "Epic Cold",
-  //   },
-  //   {
-  //     userName: "Zankarea Zeus",
-  //     unreadMessageCount: "21",
-  //     displayInfo: "Legendary Cold",
-  //   },
-  // ];
-
-  // Patient view of doctor chat entry example
   const fetchChatUsers = [
     {
       userName: "Alanakov Bavonoichi",
@@ -98,7 +78,7 @@ function Chat() {
           style={fetchChatUsers.length <= 0 ? { textAlign: "center" } : {}}
         >
           {fetchChatUsers.length <= 0 ? (
-            <span className="empty-chat-nav">No users found...</span>
+            <span className="empty-chat-nav">No users found</span>
           ) : (
             fetchChatUsers.map((chatUsers) => {
               return (

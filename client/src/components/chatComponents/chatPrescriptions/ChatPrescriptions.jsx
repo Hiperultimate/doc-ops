@@ -1,5 +1,6 @@
 import "./chatPrescriptions.css";
 import PlusSvg from "../../../svgs/plus.svg";
+import MedicineBox from "../../../svgs/medicine-box.svg";
 import PrescriptionCard from "./prescriptionCard/PrescriptionCard.jsx";
 
 const DisplayType = Object.freeze({
@@ -44,18 +45,29 @@ function ChatPrescriptions({
         <span className="prescription-line-seperator" />
       </div>
       <div className="prescription-container">
-        {fetchPrescriptionData.map((prescription) => {
-          return (
-            <PrescriptionCard
-              medicineName={prescription.medicineName}
-              frequency={prescription.frequency}
-              quantity={prescription.quantity}
-              duration={prescription.duration}
-              displayType={displayType}
-              key={prescription.id}
-            />
-          );
-        })}
+        {fetchPrescriptionData.length === 0 ? (
+          <div className="empty-prescription-list">
+            <img src={MedicineBox} alt="medicine-box-svg" />
+            {displayType === DisplayType.DOCTOR ? (
+              <span>Add Prescription</span>
+            ) : (
+              <span>Empty prescription list</span>
+            )}
+          </div>
+        ) : (
+          fetchPrescriptionData.map((prescription) => {
+            return (
+              <PrescriptionCard
+                medicineName={prescription.medicineName}
+                frequency={prescription.frequency}
+                quantity={prescription.quantity}
+                duration={prescription.duration}
+                displayType={displayType}
+                key={prescription.id}
+              />
+            );
+          })
+        )}
       </div>
       {displayType === DisplayType.DOCTOR && (
         <div className="session-option-container">
