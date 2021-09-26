@@ -8,7 +8,7 @@ import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 
 function App() {
-  const user = { userType: "patient" };  // Simulating signed in user data 
+  const user = { userType: "doctor" };  // Simulating signed in user data 
   return (
     <Router>
       <Switch>

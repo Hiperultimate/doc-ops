@@ -14,6 +14,7 @@ function ClinicInfo({
   treatmentsOfferedHook,
   specilizationHook,
   openingHoursHook,
+  closingHoursHook,
   clinicPicturesHook,
 }) {
   const treatments = [
@@ -42,6 +43,7 @@ function ClinicInfo({
   const { treatmentsOffered, setTreatmentsOffered } = treatmentsOfferedHook;
   const { specilization, setSpecilization } = specilizationHook;
   const { openingHours, setOpeningHours } = openingHoursHook;
+  const { closingHours, setClosingHours } = closingHoursHook;
   const { clinicPictures, setClinicPictures } = clinicPicturesHook;
 
   return (
@@ -118,13 +120,24 @@ function ClinicInfo({
             </div>
             <div className="clinic-opening-hours">
               <div className="opening-hours-form">
-                <span className="btn-left-text">Opening Hours</span>
-                <MainButton
-                  buttonText="Enter Opening Hours"
-                  arrow={true}
-                  btnStyle={{ width: "200px", marginLeft: "7px" }}
-                  onClickHander
-                />
+                <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Enter Opening Hours"}
+                placeholder={"Enter Opening Hours"}
+                type={"date"}
+                fieldName={"openingHours"}
+                setChange={setOpeningHours}
+                value={openingHours}
+              />
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Enter Closing Hours"}
+                placeholder={"Enter Closing Hours"}
+                type={"date"}
+                fieldName={"closingHours"}
+                setChange={setClosingHours}
+                value={closingHours}
+              />
               </div>
             </div>
             <div className="clinic-pictures">

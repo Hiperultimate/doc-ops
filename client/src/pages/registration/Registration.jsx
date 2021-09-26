@@ -12,7 +12,7 @@ const FormType = Object.freeze({
 });
 
 function Registration() {
-  const [formType, setFormType] = useState(FormType.PATIENT);
+  const [formType, setFormType] = useState(FormType.DOCTOR);
 
   const someFunc = (e) => {
     switch (e.target.id) {
