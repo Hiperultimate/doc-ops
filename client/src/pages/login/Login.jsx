@@ -3,10 +3,12 @@ import { useState } from "react";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
+import Eye from "../../svgs/Eye.svg";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <div className="login-page">
@@ -50,9 +52,15 @@ function Login() {
           <input
             className="login-field"
             placeholder="Password"
-            onChange={setPassword}
-            type="password"
+            type={passwordVisible ? "text" : "password"}
+            onChange={(event) => setPassword(event.target.value)}
             value={password}
+          />
+          <img
+            src={Eye}
+            className="password-eye-svg"
+            alt="show password"
+            onClick={() => setPasswordVisible(!passwordVisible)}
           />
           <a href="/" className="login-forgot-password login-link">
             Forgot Password?

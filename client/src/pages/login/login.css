@@ -115,6 +115,14 @@
   border-color: var(--green-third);
 }
 
+.password-eye-svg {
+  position: fixed;
+  margin-top: 30px;
+  margin-left: -30px;
+  color: var(--grey-one);
+  cursor: pointer;
+}
+
 .login-content a {
   text-decoration: none;
 }
