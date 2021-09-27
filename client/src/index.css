@@ -7,6 +7,8 @@
   --pale-green: #cff4d1;
   --grey-one: #e7e7e7;
   --grey-two: #eeeeee;
+  --bluish-green: #359d9e;
+  --bluish-green-dark: #215273;
 
   --font-grey: #6b6b6b;
   --font-inter: "Inter", sans-serif;
@@ -53,8 +55,8 @@ body {
   height: 80px;
 }
 
-::placeholder{
-  color : #999999;
+::placeholder {
+  color: #999999;
 }
 
 /* For creating grid https://grid.layoutit.com/  

@@ -1,0 +1,114 @@
+.login-page {
+  font-family: var(--font-saira);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "welcome welcome login-section"
+    "welcome welcome login-section"
+    "welcome welcome login-section";
+}
+
+.welcome {
+  grid-area: welcome;
+  background-color: #e6fde7;
+}
+
+.nav-brand {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--bluish-green);
+  margin-top: 2vh;
+  margin-left: 2vw;
+}
+
+.welcome-content {
+  position: relative;
+  top: 10vh;
+  left: 10vw;
+}
+
+.welcome-heading {
+  font-size: 3.5rem;
+}
+
+.welcome-sub-heading {
+  font-size: 1.3rem;
+  color: var(--font-grey);
+}
+
+.floor-eclipse {
+  position: relative;
+  background-color: rgba(123, 228, 149, 0.4);
+  height: 50vh;
+  width: 60vw;
+  top: 30vh;
+  left: -20vw;
+  border-radius: 50%;
+}
+
+.life-savers-svg {
+  position: relative;
+  height: 70vh;
+  top: -50vh;
+}
+
+.life-savers-stethoscope-svg {
+  position: relative;
+  height: 25vh;
+  top: -52vh;
+  left: 4vw;
+}
+
+.login-section {
+  grid-area: login-section;
+}
+
+.login-content {
+  position: relative;
+  top: 15vh;
+  left: 5vw;
+
+  height: 70vh;
+  width: 20vw;
+}
+
+.life-savers-avatar-svg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  height: 20vh;
+}
+
+.login-field {
+  margin: 20px;
+  margin-bottom: 5px;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.login-button {
+  background-color: var(--green-third);
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.login-link {
+  float: right;
+  color: var(--green-third);
+}
+
+.login-sub-text {
+  float: right;
+  color: var(--green-secondary);
+}
