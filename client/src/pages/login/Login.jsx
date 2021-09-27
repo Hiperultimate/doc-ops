@@ -1,6 +1,5 @@
 import "./login.css";
 import { useState } from "react";
-import InputField from "../../components/inputField/InputField.jsx";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
@@ -42,26 +41,30 @@ function Login() {
             className="life-savers-avatar-svg"
             alt="avatar svg"
           />
-          <InputField
-            placeholder={"Username"}
-            wrapperClass={"login-field"}
-            setChange={setUsername}
+          <input
+            className="login-field"
+            placeholder="Username"
+            onChange={(event) => setUsername(event.target.value)}
             value={username}
           />
-          <InputField
-            placeholder={"Password"}
-            wrapperClass={"login-field"}
-            type={"password"}
-            setChange={setPassword}
+          <input
+            className="login-field"
+            placeholder="Password"
+            onChange={setPassword}
+            type="password"
             value={password}
           />
-          <div className="login-link">Forgot Password?</div>
+          <a href="/" className="login-forgot-password login-link">
+            Forgot Password?
+          </a>
           <button className={"login-field login-button"} type="submit">
             Login
           </button>
-          <div className="login-sub-text">
+          <div className="login-registration-prompt">
             Don't have an account? &nbsp;
-            <span className="login-link"> Sign Up </span>
+            <a href="/registration" className="login-link">
+              Sign Up
+            </a>
           </div>
         </div>
       </div>

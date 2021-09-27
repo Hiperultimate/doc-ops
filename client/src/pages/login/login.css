@@ -18,6 +18,7 @@
 .welcome {
   grid-area: welcome;
   background-color: #e6fde7;
+  overflow: hidden;
 }
 
 .nav-brand {
@@ -68,12 +69,18 @@
 
 .login-section {
   grid-area: login-section;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-areas:
+    ". . ."
+    ". login-content ."
+    ". . .";
 }
 
 .login-content {
-  position: relative;
-  top: 15vh;
-  left: 5vw;
+  grid-area: login-content;
 
   height: 70vh;
   width: 20vw;
@@ -88,27 +95,47 @@
 }
 
 .login-field {
-  margin: 20px;
+  margin-top: 20px;
   margin-bottom: 5px;
-  height: 2.5rem;
+  padding: 10px;
+  padding-left: 25px;
+  font-size: 16px;
   width: 100%;
+  border-radius: 10px;
+}
+
+.login-content input {
+  color: var(--green-third);
+  border-style: solid;
+  border-color: var(--grey-one);
+  box-sizing: border-box;
+}
+
+.login-content input:focus {
+  border-color: var(--green-third);
+}
+
+.login-content a {
+  text-decoration: none;
+}
+
+.login-link {
+  color: var(--green-third);
+}
+
+.login-forgot-password {
+  float: right;
 }
 
 .login-button {
   background-color: var(--green-third);
   color: white;
-  font-size: 16px;
-  border-radius: 10px;
   cursor: pointer;
   border: none;
 }
 
-.login-link {
-  float: right;
-  color: var(--green-third);
-}
-
-.login-sub-text {
-  float: right;
+.login-registration-prompt {
+  margin-top: 20px;
   color: var(--green-secondary);
+  text-align: center;
 }
