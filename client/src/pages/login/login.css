@@ -1,0 +1,141 @@
+.login-page {
+  font-family: var(--font-saira);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "welcome welcome login-section"
+    "welcome welcome login-section"
+    "welcome welcome login-section";
+}
+
+.welcome {
+  grid-area: welcome;
+  background-color: #e6fde7;
+  overflow: hidden;
+}
+
+.nav-brand {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--bluish-green);
+  margin-top: 2vh;
+  margin-left: 2vw;
+}
+
+.welcome-content {
+  position: relative;
+  top: 10vh;
+  left: 10vw;
+}
+
+.welcome-heading {
+  font-size: 3.5rem;
+}
+
+.welcome-sub-heading {
+  font-size: 1.3rem;
+  color: var(--font-grey);
+}
+
+.floor-eclipse {
+  position: relative;
+  background-color: rgba(123, 228, 149, 0.4);
+  height: 50vh;
+  width: 60vw;
+  top: 30vh;
+  left: -20vw;
+  border-radius: 50%;
+}
+
+.life-savers-svg {
+  position: relative;
+  height: 70vh;
+  top: -50vh;
+}
+
+.life-savers-stethoscope-svg {
+  position: relative;
+  height: 25vh;
+  top: -52vh;
+  left: 4vw;
+}
+
+.login-section {
+  grid-area: login-section;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-areas:
+    ". . ."
+    ". login-content ."
+    ". . .";
+}
+
+.login-content {
+  grid-area: login-content;
+
+  height: 70vh;
+  width: 20vw;
+}
+
+.life-savers-avatar-svg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  height: 20vh;
+}
+
+.login-field {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  padding: 10px;
+  padding-left: 25px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.login-content input {
+  color: var(--green-third);
+  border-style: solid;
+  border-color: var(--grey-one);
+  box-sizing: border-box;
+}
+
+.login-content input:focus {
+  border-color: var(--green-third);
+}
+
+.login-content a {
+  text-decoration: none;
+}
+
+.login-link {
+  color: var(--green-third);
+}
+
+.login-forgot-password {
+  float: right;
+}
+
+.login-button {
+  background-color: var(--green-third);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.login-registration-prompt {
+  margin-top: 20px;
+  color: var(--green-secondary);
+  text-align: center;
+}
