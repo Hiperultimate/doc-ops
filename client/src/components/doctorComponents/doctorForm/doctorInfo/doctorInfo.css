@@ -7,13 +7,14 @@
 
 .doctor-basic-info-grid {
   display: grid;
-  grid-template-columns: minmax(auto, 335px) minmax(auto, 335px) minmax(auto, 335px);
-  grid-template-rows: auto auto;
+  grid-template-columns: minmax(auto, 335px) minmax(auto, 335px) 1fr;
+  grid-template-rows: auto auto auto;
   gap: 10px 20px;
   grid-auto-flow: row;
   grid-template-areas:
-    "doctor-name doctor-email password-field"
-    "doctor-phone work-experience confirm-password-field";
+    "doctor-name doctor-email ."
+    "password-field confirm-password-field ."
+    "doctor-phone work-experience .";
 }
 
 .doctor-name {
