@@ -10,6 +10,8 @@ function DoctorRegister() {
   const [doctorEmail, setDoctorEmail] = useState("");
   const [doctorPhone, setDoctorPhone] = useState("");
   const [doctorExperience, setDoctorExperience] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [clinicName, setClinicName] = useState("");
   const [clinicAddress, setClinicAddress] = useState("");
   const [clinicConsultationFee, setClinicConsultationFee] = useState("");
@@ -47,6 +49,14 @@ function DoctorRegister() {
               doctorExperienceHook={{
                 doctorExperience: doctorExperience,
                 setDoctorExperience: setDoctorExperience,
+              }}
+              doctorPasswordHook={{
+                password: password,
+                setPassword: setPassword,
+              }}
+              doctorConfirmPasswordHook={{
+                confirmPassword: confirmPassword,
+                setConfirmPassword: setConfirmPassword,
               }}
               key={2}
             />,

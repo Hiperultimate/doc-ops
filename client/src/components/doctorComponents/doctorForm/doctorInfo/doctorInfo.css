@@ -7,13 +7,13 @@
 
 .doctor-basic-info-grid {
   display: grid;
-  grid-template-columns: minmax(auto, 335px) minmax(auto, 335px) 1fr;
+  grid-template-columns: minmax(auto, 335px) minmax(auto, 335px) minmax(auto, 335px);
   grid-template-rows: auto auto;
   gap: 10px 20px;
   grid-auto-flow: row;
   grid-template-areas:
-    "doctor-name doctor-email ."
-    "doctor-phone work-experience .";
+    "doctor-name doctor-email password-field"
+    "doctor-phone work-experience confirm-password-field";
 }
 
 .doctor-name {
@@ -30,4 +30,11 @@
 
 .work-experience {
   grid-area: work-experience;
+}
+
+.password-field{
+  grid-area: password-field;
+}
+.confirm-password-field{
+  grid-area: confirm-password-field;
 }
