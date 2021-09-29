@@ -1,7 +1,5 @@
 .chat-box {
   overflow-y: scroll;
-  /* border: 1px solid rgb(0, 0, 0, 0.1); */
-  /* border-style: solid none solid none; */
   width: 100%;
   height: calc(100vh - 258px);
 }

@@ -21,11 +21,11 @@
   margin: 1em;
 }
 
-.right-pos {
+.sender-text-pos {
   float: right;
 }
 
-.left-pos {
+.receiver-text-pos {
   float: left;
 }
 

@@ -15,16 +15,15 @@ const DisplayType = Object.freeze({
 });
 
 /* 
-
     displayInfo:
-    For PATIENT : string ; 
+    For DisplayType.PATIENT : string ; 
         eg "Common Cold"
         {
           userName: "Alanakov Bavonoichi",
           unreadMessageCount: "5",
           displayInfo: "Common Cold",
         }
-    For DOCTOR : array ; 
+    For DisplayType.Doctor : array ; 
         eg ["Surgeries", "Anesthetics", "Valorant", "Punjabi"]
         {
           userName: "Alanakov Bavonoichi",

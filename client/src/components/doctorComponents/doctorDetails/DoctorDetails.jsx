@@ -11,10 +11,11 @@ function DoctorDetails({
   consultationFee,
 }) {
   const history = useHistory();
-  // Write function to reach to doctor chat here
+
   const onClickHandler = () => {
     history.push("/chat");
   };
+  
   return (
     <div className="added-item doc-details global-box-shadow">
       <div className="doctor-detail-container">

@@ -11,22 +11,6 @@
   background-color: #f1f1f1;
 }
 
-.empty-chat-nav{
-  position: relative;
-  bottom: -4em;
-  color: #8D8D8D;
-}
-
-.chat-text-area {
-  width: 100%;
-  background: #DBDBDB;
-}
-
-.set-prescription {
-  width: 35vw;
-  background-color: #f1f1f1;
-}
-
 .chat-nav::-webkit-scrollbar {
   width: 10px;
 }
@@ -45,4 +29,20 @@
 /* Handle on hover */
 .chat-nav::-webkit-scrollbar-thumb:hover {
   background: #949494;
+}
+
+.empty-chat-nav{
+  position: relative;
+  bottom: -4em;
+  color: #8D8D8D;
+}
+
+.chat-text-area {
+  width: 100%;
+  background: #DBDBDB;
+}
+
+.set-prescription {
+  width: 35vw;
+  background-color: #f1f1f1;
 }

@@ -22,8 +22,8 @@ function PrescriptionCard({
             medicineName={medicineName}
             quantity={quantity}
             frequency={frequency}
-            durationFrom={duration} //Need to format duration
-            durationTo={duration} //Need to format duration
+            durationFrom={duration}
+            durationTo={duration}
             editPrescriptionState={{
               editPrescription: editPrescription,
               setEditPrescription: setEditPrescription,
