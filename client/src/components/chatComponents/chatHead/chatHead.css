@@ -1,0 +1,57 @@
+.chat-head-container {
+  background-color: #1fca74;
+  color: white;
+  border-radius: 10px;
+  height: 4em;
+  margin: 0.5em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.about-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.about-container::after {
+  content: "";
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  margin-left: 1em;
+  height: 100%;
+}
+
+.chat-head-about {
+  color: white;
+}
+
+.chat-head-about:link {
+  text-decoration: none;
+}
+
+.chat-head-about:link {
+  text-decoration: none;
+}
+
+.chat-head-about:visited {
+  text-decoration: none;
+}
+
+.chat-head-about:hover {
+  text-decoration: underline;
+}
+
+.chat-head-about:active {
+  text-decoration: underline;
+}
+
+.head-name {
+  font-size: 24px;
+}

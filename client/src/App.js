@@ -6,6 +6,7 @@ import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
 import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
 import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
+import Chat from "./pages/chat/Chat.jsx";
 
 function App() {
   const user = { userType: "doctor" };  // Simulating signed in user data 
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Registration />
+        </Route>
+        <Route path="/chat">
+          <Chat />
         </Route>
       </Switch>
     </Router>
