@@ -69,19 +69,13 @@
 
 .login-section {
   grid-area: login-section;
-
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 1fr auto 1fr;
-  grid-template-areas:
-    ". . ."
-    ". login-content ."
-    ". . .";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .login-content {
-  grid-area: login-content;
-
   height: 70vh;
   width: 20vw;
 }
