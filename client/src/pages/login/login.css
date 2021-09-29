@@ -118,8 +118,8 @@
 
 .password-eye-svg {
   position: fixed;
-  margin-top: 30px;
-  margin-left: -30px;
+  margin-top: 35px;
+  margin-left: -40px;
   color: var(--grey-one);
   cursor: pointer;
 }
