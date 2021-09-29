@@ -81,6 +81,21 @@
   width: 20vw;
 }
 
+.login-content input {
+  color: var(--green-third);
+  border-style: solid;
+  border-color: var(--grey-one);
+  box-sizing: border-box;
+}
+
+.login-content input:focus {
+  border-color: var(--green-third);
+}
+
+.login-content a {
+  text-decoration: none;
+}
+
 .life-savers-avatar-svg {
   display: block;
   margin-left: auto;
@@ -100,27 +115,12 @@
   border-radius: 10px;
 }
 
-.login-content input {
-  color: var(--green-third);
-  border-style: solid;
-  border-color: var(--grey-one);
-  box-sizing: border-box;
-}
-
-.login-content input:focus {
-  border-color: var(--green-third);
-}
-
 .password-eye-svg {
   position: fixed;
   margin-top: 35px;
   margin-left: -40px;
   color: var(--grey-one);
   cursor: pointer;
-}
-
-.login-content a {
-  text-decoration: none;
 }
 
 .login-link {
