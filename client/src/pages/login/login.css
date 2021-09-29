@@ -97,8 +97,9 @@
 .login-field {
   margin-top: 20px;
   margin-bottom: 5px;
-  padding: 10px;
+  padding: 15px;
   padding-left: 25px;
+  padding-right: 50px;
   font-size: 16px;
   width: 100%;
   border-radius: 10px;
@@ -138,6 +139,7 @@
 .login-button {
   background-color: var(--green-third);
   color: white;
+  padding: 15px 25px;
   cursor: pointer;
   border: none;
 }
