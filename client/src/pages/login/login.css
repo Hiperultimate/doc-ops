@@ -19,6 +19,7 @@
   grid-area: welcome;
   background-color: #e6fde7;
   overflow: hidden;
+  height: 100vh;
 }
 
 .nav-brand {
@@ -61,10 +62,10 @@
 }
 
 .life-savers-stethoscope-svg {
-  position: relative;
+  position: fixed;
+  left: 55vw;
+  bottom: 0;
   height: 25vh;
-  top: -52vh;
-  left: 4vw;
 }
 
 .login-section {

@@ -28,14 +28,14 @@ function Login() {
               className="life-savers-svg"
               alt="background-img1"
             />
-            <img
-              src={LifeSaversStethoscope}
-              className="life-savers-stethoscope-svg"
-              alt="background-stethoscope"
-            />
           </div>
         </div>
       </div>
+      <img
+        src={LifeSaversStethoscope}
+        className="life-savers-stethoscope-svg"
+        alt="background-stethoscope"
+      />
       <div className="login-section">
         <div className="login-content">
           <img
