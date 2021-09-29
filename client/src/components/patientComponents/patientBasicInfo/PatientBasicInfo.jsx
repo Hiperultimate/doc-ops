@@ -8,12 +8,16 @@ function PatientBasicInfo({
   patientAddressState,
   patientEmailState,
   patientPhoneState,
+  patientPasswordHook,
+  patientConfirmPasswordHook,
 }) {
   const { patientName, setPatientName } = patientNameState;
   const { patientDOB, setPatientDOB } = patientDOBState;
   const { patientAddress, setPatientAddress } = patientAddressState;
   const { patientEmail, setPatientEmail } = patientEmailState;
   const { patientPhone, setPatientPhone } = patientPhoneState;
+  const { password, setPassword } = patientPasswordHook;
+  const { confirmPassword, setConfirmPassword } = patientConfirmPasswordHook;
 
   return (
     <div className="patient-basic-info global-box-shadow">
@@ -79,6 +83,28 @@ function PatientBasicInfo({
                 fieldName={"patient-phone"}
                 setChange={setPatientPhone}
                 value={patientPhone}
+              />
+            </div>
+            <div className="password-field">
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Password"}
+                placeholder={"Enter password"}
+                type={"password"}
+                fieldName={"password1"}
+                setChange={setPassword}
+                value={password}
+              />
+            </div>
+            <div className="confirm-password-field">
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Confirm Password"}
+                placeholder={"Enter password"}
+                type={"password"}
+                fieldName={"password2"}
+                setChange={setConfirmPassword}
+                value={confirmPassword}
               />
             </div>
           </div>

@@ -15,6 +15,8 @@ function PatientRegister() {
   const [patientGender, setPatientGender] = useState("");
   const [patientBloodgroup, setPatientBloodgroup] = useState("");
   const [patientAllergies, setPatientAllergies] = useState([]);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -48,6 +50,14 @@ function PatientRegister() {
               patientPhoneState={{
                 patientPhone: patientPhone,
                 setPatientPhone: setPatientPhone,
+              }}
+              patientPasswordHook={{
+                password: password,
+                setPassword: setPassword,
+              }}
+              patientConfirmPasswordHook={{
+                confirmPassword: confirmPassword,
+                setConfirmPassword: setConfirmPassword,
               }}
             />,
             <MainContHead titleName="Medical Info" key={3} />,

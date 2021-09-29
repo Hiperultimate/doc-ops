@@ -17,7 +17,7 @@ function PatientMedicalInfo({
   const { patientAllergies, setPatientAllergies } = patientAllergiesState;
   return (
     <div className="patient-medical-info global-box-shadow">
-      <div className="medical-info-grid">
+      <div className="register-medical-info-grid">
         <div className="patient-weight">
           <InputField
             heading={"Weight"}

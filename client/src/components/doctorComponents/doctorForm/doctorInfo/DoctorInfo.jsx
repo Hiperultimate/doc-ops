@@ -6,11 +6,16 @@ function DoctorInfo({
   doctorEmailHook,
   doctorPhoneHook,
   doctorExperienceHook,
+  doctorPasswordHook,
+  doctorConfirmPasswordHook,
 }) {
   const { doctorName, setDoctorName } = doctorNameHook;
   const { doctorEmail, setDoctorEmail } = doctorEmailHook;
   const { doctorPhone, setDoctorPhone } = doctorPhoneHook;
   const { doctorExperience, setDoctorExperience } = doctorExperienceHook;
+  const { password, setPassword } = doctorPasswordHook;
+  const { confirmPassword, setConfirmPassword } = doctorConfirmPasswordHook;
+
   return (
     <div className="doctor-basic-info global-box-shadow">
       <div className="doctor-basic-info-grid">
@@ -58,6 +63,28 @@ function DoctorInfo({
             fieldName={"doctorExperience"}
             setChange={setDoctorExperience}
             value={doctorExperience}
+          />
+        </div>
+        <div className="password-field">
+          <InputField
+            wrapperClass={"input-dimension"}
+            heading={"Password"}
+            placeholder={"Enter password"}
+            type={"password"}
+            fieldName={"password1"}
+            setChange={setPassword}
+            value={password}
+          />
+        </div>
+        <div className="confirm-password-field">
+          <InputField
+            wrapperClass={"input-dimension"}
+            heading={"Confirm Password"}
+            placeholder={"Enter password"}
+            type={"password"}
+            fieldName={"password2"}
+            setChange={setConfirmPassword}
+            value={confirmPassword}
           />
         </div>
       </div>

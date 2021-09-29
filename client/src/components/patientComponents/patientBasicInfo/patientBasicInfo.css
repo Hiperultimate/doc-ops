@@ -9,13 +9,14 @@
   padding: 1em 2em;
   margin: 3em 0em;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 8px 8px; 
   grid-auto-flow: row;
   grid-template-areas:
     "patient-name patient-dob"
     "patient-address patient-address"
-    "patient-email patient-phone";
+    "patient-email patient-phone"
+    "password-field confirm-password-field";
 }
 
 .patient-name {
@@ -38,6 +39,13 @@
   grid-area: patient-phone;
 }
 
+.password-field{
+  grid-area: password-field;
+}
+.confirm-password-field{
+  grid-area: confirm-password-field;
+}
+
 .patient-map-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -57,3 +65,5 @@
 .info-grid-area {
   grid-area: info-grid-area;
 }
+
+
