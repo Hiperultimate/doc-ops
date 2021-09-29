@@ -11,14 +11,10 @@
   position: absolute;
 }
 
-.clinic-pictures-form {
-  display: flex;
-  flex-direction: row;
-}
-
 .btn-left-text {
-  margin-top: auto;
-  margin-bottom: auto;
+  font-size: 14px;
+  position: relative;
+  left: 12px;
 }
 
 .clinic-pictures-form label {
@@ -29,7 +25,6 @@
   color: white;
   font-family: var(--font-saira);
   background-color: var(--green-third);
-  width: 200px;
   height: 48px;
   border-radius: 10px;
   cursor: pointer;

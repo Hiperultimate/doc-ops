@@ -18,6 +18,7 @@ function DoctorRegister() {
   const [treatmentsOffered, setTreatmentsOffered] = useState([]);
   const [specilization, setSpecilization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
+  const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState();
 
   const handleFormSubmit = (event) => {
@@ -83,6 +84,10 @@ function DoctorRegister() {
               clinicPicturesHook={{
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
+              }}
+              closingHoursHook={{
+                closingHours: closingHours,
+                setClosingHours: setClosingHours,
               }}
               key={4}
             />,
