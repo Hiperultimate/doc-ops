@@ -19,6 +19,7 @@
   grid-area: welcome;
   background-color: #e6fde7;
   overflow: hidden;
+  height: 100vh;
 }
 
 .nav-brand {
@@ -61,47 +62,23 @@
 }
 
 .life-savers-stethoscope-svg {
-  position: relative;
+  position: fixed;
+  left: 55vw;
+  bottom: 0;
   height: 25vh;
-  top: -52vh;
-  left: 4vw;
 }
 
 .login-section {
   grid-area: login-section;
-
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 1fr auto 1fr;
-  grid-template-areas:
-    ". . ."
-    ". login-content ."
-    ". . .";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .login-content {
-  grid-area: login-content;
-
   height: 70vh;
   width: 20vw;
-}
-
-.life-savers-avatar-svg {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 30px;
-  height: 20vh;
-}
-
-.login-field {
-  margin-top: 20px;
-  margin-bottom: 5px;
-  padding: 10px;
-  padding-left: 25px;
-  font-size: 16px;
-  width: 100%;
-  border-radius: 10px;
 }
 
 .login-content input {
@@ -119,6 +96,33 @@
   text-decoration: none;
 }
 
+.life-savers-avatar-svg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  height: 20vh;
+}
+
+.login-field {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  padding: 15px;
+  padding-left: 25px;
+  padding-right: 50px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.password-eye-svg {
+  position: fixed;
+  margin-top: 35px;
+  margin-left: -40px;
+  color: var(--grey-one);
+  cursor: pointer;
+}
+
 .login-link {
   color: var(--green-third);
 }
@@ -130,6 +134,7 @@
 .login-button {
   background-color: var(--green-third);
   color: white;
+  padding: 15px 25px;
   cursor: pointer;
   border: none;
 }
