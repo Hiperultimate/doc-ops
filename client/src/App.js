@@ -8,32 +8,36 @@ import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
+import { AuthProvider } from "./contexts/AuthContext.js";
+
 function App() {
-  const user = { userType: "doctor" };  // Simulating signed in user data 
+  const user = { userType: "doctor" }; // Simulating signed in user data
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/about">
-          {/* <DoctorAbout /> */}
-          <PatientAbout />
-        </Route>
-        <Route path="/form">
-          {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
-        </Route>
-        <Route path="/register">
-          <Registration />
-        </Route>
-        <Route path="/chat">
-          <Chat />
-        </Route>
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/about">
+            {/* <DoctorAbout /> */}
+            <PatientAbout />
+          </Route>
+          <Route path="/form">
+            {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
+          </Route>
+          <Route path="/register">
+            <Registration />
+          </Route>
+          <Route path="/chat">
+            <Chat />
+          </Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

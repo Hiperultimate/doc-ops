@@ -4,6 +4,9 @@ import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
 
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext.js";
+
 function PatientRegister() {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
@@ -17,11 +20,31 @@ function PatientRegister() {
   const [patientAllergies, setPatientAllergies] = useState([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleFormSubmit = (event) => {
+  const { signup } = useAuth();
+  const history = useHistory();
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target, "Patient Registration");
+
+    if (password !== confirmPassword) {
+      setErrorMsg("Passwords do not match");
+    }
+
+    try {
+      setErrorMsg("");
+      setLoading(true);
+      await signup(patientEmail, password);
+      history.push("/");
+    } catch {
+      setErrorMsg("Failed to create an account");
+    }
+    setLoading(false);
+    console.log("Error message :", errorMsg);
   };
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="patient-form">
