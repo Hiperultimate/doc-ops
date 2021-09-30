@@ -1,5 +1,5 @@
 import "./login.css";
-import { useState } from "react";
+import { useState , useRef } from "react";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
@@ -32,6 +32,9 @@ function Login() {
     setLoading(false);
     console.log("Error message :", errorMsg ? errorMsg : "None");
   };
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   return (
     <div className="login-page">
