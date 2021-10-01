@@ -1,5 +1,5 @@
 import "./login.css";
-import { useState , useRef } from "react";
+import { useState } from "react";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
@@ -27,14 +27,13 @@ function Login() {
       await login(email, password);
       history.push("/");
     } catch {
+      setEmail("");
+      setPassword("");
       setErrorMsg("Unable to sign in");
     }
     setLoading(false);
     console.log("Error message :", errorMsg ? errorMsg : "None");
   };
-
-  const emailRef = useRef();
-  const passwordRef = useRef();
 
   return (
     <div className="login-page">
@@ -62,47 +61,49 @@ function Login() {
         className="life-savers-stethoscope-svg"
         alt="background-stethoscope"
       />
-      <form onSubmit={handleLoginSubmit}>
-        <div className="login-section">
-          <div className="login-content">
-            <img
-              src={LifeSaversAvatar}
-              className="life-savers-avatar-svg"
-              alt="avatar svg"
-            />
-            <input
-              className="login-field"
-              placeholder="Email"
-              onChange={(event) => setEmail(event.target.value)}
-              value={email}
-              required
-            />
-            <input
-              className="login-field"
-              placeholder="Password"
-              type={passwordVisible ? "text" : "password"}
-              onChange={(event) => setPassword(event.target.value)}
-              value={password}
-              required
-            />
-            <img
-              src={Eye}
-              className="password-eye-svg"
-              alt="show password"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-            />
-            <a href="/" className="login-forgot-password login-link">
-              Forgot Password?
+      <form onSubmit={handleLoginSubmit} className="login-section">
+        <div className="login-content">
+          <img
+            src={LifeSaversAvatar}
+            className="life-savers-avatar-svg"
+            alt="avatar svg"
+          />
+          <input
+            className="login-field"
+            placeholder="Email"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+            required
+          />
+          <input
+            className="login-field"
+            placeholder="Password"
+            type={passwordVisible ? "text" : "password"}
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+            required
+          />
+          <img
+            src={Eye}
+            className="password-eye-svg"
+            alt="show password"
+            onClick={() => setPasswordVisible(!passwordVisible)}
+          />
+          <a href="/" className="login-forgot-password login-link">
+            Forgot Password?
+          </a>
+          <button
+            className={"login-field login-button"}
+            type="submit"
+            disabled={loading}
+          >
+            Login
+          </button>
+          <div className="login-registration-prompt">
+            Don't have an account? &nbsp;
+            <a href="/register" className="login-link">
+              Sign Up
             </a>
-            <button className={"login-field login-button"} type="submit">
-              Login
-            </button>
-            <div className="login-registration-prompt">
-              Don't have an account? &nbsp;
-              <a href="/registration" className="login-link">
-                Sign Up
-              </a>
-            </div>
           </div>
         </div>
       </form>

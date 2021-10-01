@@ -37,5 +37,5 @@
 }
 
 .rw-widget-input{
-    height: 56px;
+    min-height: 56px;
 }
