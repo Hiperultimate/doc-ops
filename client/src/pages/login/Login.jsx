@@ -1,5 +1,5 @@
 import "./login.css";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
@@ -30,13 +30,14 @@ function Login() {
       setEmail("");
       setPassword("");
       setErrorMsg("Unable to sign in");
+      setLoading(false)
     }
     loading === true && setLoading(false);
   };
-  
+
   useEffect(() => {
     console.log("Error message :", errorMsg ? errorMsg : "None");
-  },[errorMsg])
+  }, [errorMsg]);
 
   return (
     <div className="login-page">
