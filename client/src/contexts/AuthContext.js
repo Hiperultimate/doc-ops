@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth , db } from "../firebase.js";
+import { auth, db } from "../firebase.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 
-import { collection, doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc } from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -16,6 +16,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  // const [currentUserType, setCurrentUserType] = useState();
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
@@ -32,12 +33,11 @@ export function AuthProvider({ children }) {
 
   async function userData(UID) {
     const userInfo = doc(db, "users", UID);
-    const userSnap = await getDoc(userInfo)
-    if (userSnap.exists()) {
-      console.log("Document data:", userSnap.data());
+    const userUID = await getDoc(userInfo);
+    if (userUID.exists()) {
+      return userUID.data();
     } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+      console.log("Error retrieving user data");
     }
   }
 
