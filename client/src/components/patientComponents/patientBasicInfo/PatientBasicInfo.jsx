@@ -39,6 +39,7 @@ function PatientBasicInfo({
                 fieldName={"patient-name"}
                 setChange={setPatientName}
                 value={patientName}
+                isRequired={true}
               />
             </div>
             <div className="patient-dob">
@@ -50,6 +51,7 @@ function PatientBasicInfo({
                 fieldName={"patient-dob"}
                 setChange={setPatientDOB}
                 value={patientDOB}
+                isRequired={true}
               />
             </div>
             <div className="patient-address">
@@ -61,6 +63,7 @@ function PatientBasicInfo({
                 fieldName={"patient-address"}
                 setChange={setPatientAddress}
                 value={patientAddress}
+                isRequired={true}
               />
             </div>
             <div className="patient-email">
@@ -72,6 +75,7 @@ function PatientBasicInfo({
                 fieldName={"patient-email"}
                 setChange={setPatientEmail}
                 value={patientEmail}
+                isRequired={true}
               />
             </div>
             <div className="patient-phone">
@@ -83,6 +87,7 @@ function PatientBasicInfo({
                 fieldName={"patient-phone"}
                 setChange={setPatientPhone}
                 value={patientPhone}
+                isRequired={true}
               />
             </div>
             <div className="password-field">
@@ -94,6 +99,7 @@ function PatientBasicInfo({
                 fieldName={"password1"}
                 setChange={setPassword}
                 value={password}
+                isRequired={true}
               />
             </div>
             <div className="confirm-password-field">
@@ -105,6 +111,7 @@ function PatientBasicInfo({
                 fieldName={"password2"}
                 setChange={setConfirmPassword}
                 value={confirmPassword}
+                isRequired={true}
               />
             </div>
           </div>

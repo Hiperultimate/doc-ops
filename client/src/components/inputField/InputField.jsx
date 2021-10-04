@@ -10,6 +10,7 @@ function InputField({
   fieldName,
   setChange,
   value,
+  isRequired,
 }) {
 
   const onChange = (event) => {
@@ -37,6 +38,7 @@ function InputField({
           name={fieldName}
           onChange={onChange}
           value={value}
+          required={isRequired ? "required" : false}
         />
         <span
           className="scale-text"

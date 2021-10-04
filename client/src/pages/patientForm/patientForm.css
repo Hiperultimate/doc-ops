@@ -16,3 +16,7 @@
   border: none;
   margin-top: 2em;
 }
+
+.patient-form-submit:disabled{
+  opacity: 50%;
+}

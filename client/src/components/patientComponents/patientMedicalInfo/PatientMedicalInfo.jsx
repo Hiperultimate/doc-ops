@@ -29,6 +29,7 @@ function PatientMedicalInfo({
             scaleTextPos={"right"}
             setChange={setPatientWeight}
             value={patientWeight}
+            isRequired={true}
           />
         </div>
         <div className="patient-height">
@@ -42,6 +43,7 @@ function PatientMedicalInfo({
             scaleTextPos={"right"}
             setChange={setPatientHeight}
             value={patientHeight}
+            isRequired={true}
           />
         </div>
         <div className="patient-gender">

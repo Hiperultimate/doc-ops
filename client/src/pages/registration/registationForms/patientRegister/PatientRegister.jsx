@@ -6,6 +6,7 @@ import PatientMedicalInfo from "../../../../components/patientComponents/patient
 
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext.js";
+import patientRegistrationFormValidation from "./patientRegistrationFormValidation.js";
 
 function PatientRegister() {
   const [patientName, setPatientName] = useState("");
@@ -26,26 +27,43 @@ function PatientRegister() {
   const { signup } = useAuth();
   const history = useHistory();
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
 
-    if (password !== confirmPassword) {
-      setErrorMsg("Passwords do not match");
-    }
+  //   if (password !== confirmPassword) {
+  //     setErrorMsg("Passwords do not match");
+  //   }
 
-    try {
-      setErrorMsg("");
-      setLoading(true);
-      await signup(patientEmail, password);
-      history.push("/");
-    } catch {
-      setErrorMsg("Failed to create an account");
-    }
-    setLoading(false);
-    console.log("Error message :", errorMsg);
+  //   try {
+  //     setErrorMsg("");
+  //     setLoading(true);
+  //     await signup(patientEmail, password);
+  //     history.push("/");
+  //   } catch {
+  //     setErrorMsg("Failed to create an account");
+  //   }
+  //   setLoading(false);
+  //   console.log("Error message :", errorMsg);
+  // };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const errorList = patientRegistrationFormValidation(
+      patientDOB,
+      patientPhone,
+      patientWeight,
+      patientHeight,
+      patientGender,
+      patientBloodgroup,
+      password,
+      confirmPassword
+    );
+
+    console.log(errorList);
   };
 
   return (
+    // <form onSubmit={handleFormSubmit}>
     <form onSubmit={handleFormSubmit}>
       <div className="patient-form">
         <MainContainer
@@ -110,6 +128,7 @@ function PatientRegister() {
             <button
               className="patient-form-submit global-box-shadow"
               type="submit"
+              disabled={loading}
               key={5}
             >
               Register
