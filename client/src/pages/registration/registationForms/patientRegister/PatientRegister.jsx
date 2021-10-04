@@ -3,6 +3,7 @@ import MainContainer from "../../../../components/mainContainer/MainContainer.js
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
+import DisplayFormError from "../../../../components/displayFormError/DisplayFormError.jsx";
 
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext.js";
@@ -21,7 +22,10 @@ function PatientRegister() {
   const [patientAllergies, setPatientAllergies] = useState([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [errorMsg, setErrorMsg] = useState("");
+  const [displayError, setDisplayError] = useState(false);
+  const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { signup } = useAuth();
@@ -48,7 +52,7 @@ function PatientRegister() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const errorList = patientRegistrationFormValidation(
+    let errorList = patientRegistrationFormValidation(
       patientDOB,
       patientPhone,
       patientWeight,
@@ -58,6 +62,17 @@ function PatientRegister() {
       password,
       confirmPassword
     );
+    
+    if(errorList.length !== 0){
+      setDisplayError(true);
+      setIsValidated(false);
+    }else{
+      setIsValidated(true);
+    }
+
+    if(isValidated){
+      console.log("Continue to create an account.");
+    }
 
     console.log(errorList);
   };
@@ -135,6 +150,7 @@ function PatientRegister() {
             </button>,
           ]}
         />
+        <DisplayFormError />
       </div>
     </form>
   );
