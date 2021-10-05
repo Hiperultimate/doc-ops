@@ -3,7 +3,6 @@ import MainContainer from "../../../../components/mainContainer/MainContainer.js
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
-import DisplayFormError from "../../../../components/displayFormError/DisplayFormError.jsx";
 
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext.js";
@@ -23,8 +22,18 @@ function PatientRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  let errorList = {
+    patientDOB: [],
+    patientPhone: [],
+    patientWeight: [],
+    patientHeight: [],
+    patientGender: [],
+    patientBloodgroup: [],
+    password: [],
+    confirmPassword: [],
+  };
+  
   const [errorMsg, setErrorMsg] = useState("");
-  const [displayError, setDisplayError] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +73,6 @@ function PatientRegister() {
     );
     
     if(errorList.length !== 0){
-      setDisplayError(true);
       setIsValidated(false);
     }else{
       setIsValidated(true);
@@ -78,7 +86,6 @@ function PatientRegister() {
   };
 
   return (
-    // <form onSubmit={handleFormSubmit}>
     <form onSubmit={handleFormSubmit}>
       <div className="patient-form">
         <MainContainer
@@ -150,7 +157,6 @@ function PatientRegister() {
             </button>,
           ]}
         />
-        <DisplayFormError />
       </div>
     </form>
   );

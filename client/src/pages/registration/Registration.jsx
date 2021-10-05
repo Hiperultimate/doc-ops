@@ -29,7 +29,7 @@ function Registration() {
 
   return (
     <>
-      <Navbar />
+      <Navbar isFixed={true}/>
       <div className="registration-page">
         <MainHeading titleName={"Register"} />
         <div className="select-form">
