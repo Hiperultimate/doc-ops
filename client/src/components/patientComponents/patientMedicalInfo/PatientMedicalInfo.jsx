@@ -10,10 +10,14 @@ function PatientMedicalInfo({
   patientBloodgroupState,
   patientAllergiesState,
 }) {
-  const { patientWeight, setPatientWeight } = patientWeightState;
-  const { patientHeight, setPatientHeight } = patientHeightState;
-  const { patientGender, setPatientGender } = patientGenderState;
-  const { patientBloodgroup, setPatientBloodgroup } = patientBloodgroupState;
+  const { patientWeight, setPatientWeight, weightErrorMsg } =
+    patientWeightState;
+  const { patientHeight, setPatientHeight, heightErrorMsg } =
+    patientHeightState;
+  const { patientGender, setPatientGender, genderErrorMsg } =
+    patientGenderState;
+  const { patientBloodgroup, setPatientBloodgroup, bloodgroupErrorMsg } =
+    patientBloodgroupState;
   const { patientAllergies, setPatientAllergies } = patientAllergiesState;
   return (
     <div className="patient-medical-info global-box-shadow">
@@ -31,6 +35,9 @@ function PatientMedicalInfo({
             value={patientWeight}
             isRequired={true}
           />
+          {weightErrorMsg.length !== 0 && (
+            <div className="error-msg">{weightErrorMsg}</div>
+          )}
         </div>
         <div className="patient-height">
           <InputField
@@ -45,6 +52,9 @@ function PatientMedicalInfo({
             value={patientHeight}
             isRequired={true}
           />
+          {heightErrorMsg.length !== 0 && (
+            <div className="error-msg">{heightErrorMsg}</div>
+          )}
         </div>
         <div className="patient-gender">
           <span className="input-heading">Gender</span>
@@ -53,6 +63,9 @@ function PatientMedicalInfo({
             data={["Male", "Female", "Prefer not to say"]}
             onChange={(value) => setPatientGender(value)}
           />
+          {genderErrorMsg.length !== 0 && (
+            <div className="error-msg">{genderErrorMsg}</div>
+          )}
         </div>
         <div className="patient-bloodgroup">
           <span className="input-heading">Bloodgroup</span>
@@ -61,6 +74,9 @@ function PatientMedicalInfo({
             data={["A", "A+", "AB+", "B", "B+", "B-"]}
             onChange={(value) => setPatientBloodgroup(value)}
           />
+          {bloodgroupErrorMsg.length !== 0 && (
+            <div className="error-msg">{bloodgroupErrorMsg}</div>
+          )}
         </div>
         <div className="patient-allergies">
           <span className="input-heading">Allergies</span>

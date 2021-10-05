@@ -22,7 +22,7 @@ function PatientRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  let errorList = {
+  let [errorList, setErrorList] = useState({
     patientDOB: [],
     patientPhone: [],
     patientWeight: [],
@@ -31,8 +31,8 @@ function PatientRegister() {
     patientBloodgroup: [],
     password: [],
     confirmPassword: [],
-  };
-  
+  });
+
   const [errorMsg, setErrorMsg] = useState("");
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -61,24 +61,26 @@ function PatientRegister() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    let errorList = patientRegistrationFormValidation(
-      patientDOB,
-      patientPhone,
-      patientWeight,
-      patientHeight,
-      patientGender,
-      patientBloodgroup,
-      password,
-      confirmPassword
+    setErrorList(
+      patientRegistrationFormValidation(
+        patientDOB,
+        patientPhone,
+        patientWeight,
+        patientHeight,
+        patientGender,
+        patientBloodgroup,
+        password,
+        confirmPassword
+      )
     );
-    
-    if(errorList.length !== 0){
+
+    if (errorList.length !== 0) {
       setIsValidated(false);
-    }else{
+    } else {
       setIsValidated(true);
     }
 
-    if(isValidated){
+    if (isValidated) {
       console.log("Continue to create an account.");
     }
 
@@ -101,6 +103,7 @@ function PatientRegister() {
               patientDOBState={{
                 patientDOB: patientDOB,
                 setPatientDOB: setPatientDOB,
+                dobErrorMsg: errorList.patientDOB,
               }}
               patientAddressState={{
                 patientAddress: patientAddress,
@@ -113,14 +116,17 @@ function PatientRegister() {
               patientPhoneState={{
                 patientPhone: patientPhone,
                 setPatientPhone: setPatientPhone,
+                phoneErrorMsg: errorList.patientPhone,
               }}
               patientPasswordHook={{
                 password: password,
                 setPassword: setPassword,
+                passwordErrorMsg: errorList.password,
               }}
               patientConfirmPasswordHook={{
                 confirmPassword: confirmPassword,
                 setConfirmPassword: setConfirmPassword,
+                confPasswordErrorMsg: errorList.confirmPassword,
               }}
             />,
             <MainContHead titleName="Medical Info" key={3} />,
@@ -129,18 +135,22 @@ function PatientRegister() {
               patientWeightState={{
                 patientWeight: patientWeight,
                 setPatientWeight: setPatientWeight,
+                weightErrorMsg: errorList.patientWeight,
               }}
               patientHeightState={{
                 patientHeight: patientHeight,
                 setPatientHeight: setPatientHeight,
+                heightErrorMsg: errorList.patientHeight,
               }}
               patientGenderState={{
                 patientGender: patientGender,
                 setPatientGender: setPatientGender,
+                genderErrorMsg: errorList.patientGender,
               }}
               patientBloodgroupState={{
                 patientBloodgroup: patientBloodgroup,
                 setPatientBloodgroup: setPatientBloodgroup,
+                bloodgroupErrorMsg: errorList.patientBloodgroup,
               }}
               patientAllergiesState={{
                 patientAllergies: patientAllergies,

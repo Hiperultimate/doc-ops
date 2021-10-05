@@ -12,12 +12,13 @@ function PatientBasicInfo({
   patientConfirmPasswordHook,
 }) {
   const { patientName, setPatientName } = patientNameState;
-  const { patientDOB, setPatientDOB } = patientDOBState;
+  const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
   const { patientAddress, setPatientAddress } = patientAddressState;
   const { patientEmail, setPatientEmail } = patientEmailState;
-  const { patientPhone, setPatientPhone } = patientPhoneState;
-  const { password, setPassword } = patientPasswordHook;
-  const { confirmPassword, setConfirmPassword } = patientConfirmPasswordHook;
+  const { patientPhone, setPatientPhone, phoneErrorMsg } = patientPhoneState;
+  const { password, setPassword, passwordErrorMsg } = patientPasswordHook;
+  const { confirmPassword, setConfirmPassword, confPasswordErrorMsg } =
+    patientConfirmPasswordHook;
 
   return (
     <div className="patient-basic-info global-box-shadow">
@@ -53,6 +54,9 @@ function PatientBasicInfo({
                 value={patientDOB}
                 isRequired={true}
               />
+              {dobErrorMsg.length !== 0 && (
+                <div className="error-msg">{dobErrorMsg}</div>
+              )}
             </div>
             <div className="patient-address">
               <InputField
@@ -89,6 +93,9 @@ function PatientBasicInfo({
                 value={patientPhone}
                 isRequired={true}
               />
+              {phoneErrorMsg.length !== 0 && (
+                <div className="error-msg">{phoneErrorMsg}</div>
+              )}
             </div>
             <div className="password-field">
               <InputField
@@ -101,6 +108,9 @@ function PatientBasicInfo({
                 value={password}
                 isRequired={true}
               />
+              {passwordErrorMsg.length !== 0 && (
+                <div className="error-msg">{passwordErrorMsg}</div>
+              )}
             </div>
             <div className="confirm-password-field">
               <InputField
@@ -113,6 +123,9 @@ function PatientBasicInfo({
                 value={confirmPassword}
                 isRequired={true}
               />
+              {confPasswordErrorMsg.length !== 0 && (
+                <div className="error-msg">{confPasswordErrorMsg}</div>
+              )}
             </div>
           </div>
         </div>
