@@ -29,16 +29,16 @@ function patientRegistrationFormValidation(
     errorList.patientPhone.push("Phone number should be of 10 characters");
   }
   if (patientWeight <= 0) {
-    errorList.patientWeight.push("Weight should be greater than 0");
+    errorList.patientWeight.push("Weight field should contain a positive number");
   }
   if (patientHeight <= 0) {
-    errorList.patientHeight.push("Height should be greater than 0");
+    errorList.patientHeight.push("Height field should contain a positive number");
   }
   if (!patientGender) {
-    errorList.patientGender.push("Gender field is empty");
+    errorList.patientGender.push("Gender field is required");
   }
   if (!patientBloodgroup) {
-    errorList.patientBloodgroup.push("Bloodgroup field is empty");
+    errorList.patientBloodgroup.push("Bloodgroup field is required");
   }
   if (password.length < 8) {
     errorList.password.push("Password should be at least 8 characters long");

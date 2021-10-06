@@ -14,7 +14,7 @@ function Home() {
     doctorName: "Kalameet The Dragon",
     clinicAddress: "Rotripur-2301 New Delhi",
     onlineConsulation: true,
-    passwordErrorMsg: [
+    treatments: [
       "Wisdom tooth removal",
       "Plaq Cleaning",
       " Wonder tooth removal",
