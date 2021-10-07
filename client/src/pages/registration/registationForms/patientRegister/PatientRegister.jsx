@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
 
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../../firebase.js";
+import { userType } from "../../../../dataModel.js";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext.js";
+
 import patientRegistrationFormValidation from "./patientRegistrationFormValidation.js";
 
 function PatientRegister() {
@@ -22,7 +26,7 @@ function PatientRegister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  let [errorList, setErrorList] = useState({
+  const [errorList, setErrorList] = useState({
     patientDOB: [],
     patientPhone: [],
     patientWeight: [],
@@ -37,55 +41,62 @@ function PatientRegister() {
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuth();
+  const { signup, logout } = useAuth();
   const history = useHistory();
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (password !== confirmPassword) {
-  //     setErrorMsg("Passwords do not match");
-  //   }
-
-  //   try {
-  //     setErrorMsg("");
-  //     setLoading(true);
-  //     await signup(patientEmail, password);
-  //     history.push("/");
-  //   } catch {
-  //     setErrorMsg("Failed to create an account");
-  //   }
-  //   setLoading(false);
-  //   console.log("Error message :", errorMsg);
-  // };
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setErrorList(
-      patientRegistrationFormValidation(
-        patientDOB,
-        patientPhone,
-        patientWeight,
-        patientHeight,
-        patientGender,
-        patientBloodgroup,
-        password,
-        confirmPassword
-      )
+
+    const newErrorList = patientRegistrationFormValidation(
+      patientDOB,
+      patientPhone,
+      patientWeight,
+      patientHeight,
+      patientGender,
+      patientBloodgroup,
+      password,
+      confirmPassword
     );
 
-    if (errorList.length !== 0) {
-      setIsValidated(false);
-    } else {
-      setIsValidated(true);
-    }
+    setErrorList(newErrorList);
 
-    if (isValidated) {
-      console.log("Continue to create an account.");
-    }
-
-    console.log(errorList);
+    setIsValidated(
+      Object.keys(newErrorList).every((item) => newErrorList[item].length === 0)
+    );
   };
+
+  useEffect(() => {
+    (async () => {
+      if (isValidated) {
+        console.log("Continue to create an account.");
+        try {
+          setLoading(true);
+          setErrorMsg("");
+          const newUser = await signup(patientEmail, password);
+          const newUserUID = newUser.user.uid;
+          await logout();
+          const userData = {
+            name: patientName,
+            type: userType.PATIENT,
+            dob: patientDOB,
+            address: patientAddress,
+            email: patientEmail,
+            phone: patientPhone,
+            weight: patientWeight,
+            height: patientHeight,
+            gender: patientGender,
+            bloodgroup: patientBloodgroup,
+            allergies: patientAllergies
+          };
+          await setDoc(doc(db, "users", newUserUID), userData);
+          history.push("/login");
+        } catch {
+          setErrorMsg("Failed to create an account");
+        }
+        setLoading(false);
+      }
+    })();
+  }, [isValidated]);
 
   return (
     <form onSubmit={handleFormSubmit}>
