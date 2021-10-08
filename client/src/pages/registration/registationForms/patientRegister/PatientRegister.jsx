@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
@@ -38,7 +38,6 @@ function PatientRegister() {
   });
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { signup, logout } = useAuth();
@@ -60,60 +59,38 @@ function PatientRegister() {
 
     setErrorList(newErrorList);
 
-    setIsValidated(
-      Object.keys(newErrorList).every((item) => newErrorList[item].length === 0)
-    );
-  };
+    const isValid = Object.keys(newErrorList).every((item) => newErrorList[item].length === 0);
 
-  useEffect(() => {
-    (async () => {
-      if (isValidated) {
-        console.log("Continue to create an account.");
-        try {
-          setLoading(true);
-          setErrorMsg("");
-          const newUser = await signup(patientEmail, password);
-          await logout();
-          const newUserUID = newUser.user.uid;
-          const userData = {
-            name: patientName,
-            type: userType.PATIENT,
-            dob: new Date(patientDOB),
-            address: patientAddress,
-            email: patientEmail,
-            phone: patientPhone,
-            geoLocation: new GeoPoint(1.3521, 103.8198),
-            weight: Number(patientWeight),
-            height: Number(patientHeight),
-            gender: patientGender,
-            bloodgroup: patientBloodgroup,
-            allergies: patientAllergies,
-          };
-          await setDoc(doc(db, "users", newUserUID), userData);
-          history.push("/login");
-        } catch {
-          setErrorMsg("Failed to create an account");
-        }
-        setLoading(false);
+    if (isValid) {
+      console.log("Continue to create an account.");
+      try {
+        setLoading(true);
+        setErrorMsg("");
+        const newUser = await signup(patientEmail, password);
+        await logout();
+        const newUserUID = newUser.user.uid;
+        const userData = {
+          name: patientName,
+          type: userType.PATIENT,
+          dob: new Date(patientDOB),
+          address: patientAddress,
+          email: patientEmail,
+          phone: patientPhone,
+          geoLocation: new GeoPoint(1.3521, 103.8198),
+          weight: Number(patientWeight),
+          height: Number(patientHeight),
+          gender: patientGender,
+          bloodgroup: patientBloodgroup,
+          allergies: patientAllergies,
+        };
+        await setDoc(doc(db, "users", newUserUID), userData);
+        history.push("/login");
+      } catch {
+        setErrorMsg("Failed to create an account");
       }
-    })();
-  }, [
-    isValidated,
-    patientEmail,
-    password,
-    patientName,
-    patientAddress,
-    patientPhone,
-    patientWeight,
-    patientHeight,
-    patientGender,
-    patientBloodgroup,
-    patientAllergies,
-    patientDOB,
-    logout,
-    signup,
-    history,
-  ]);
+      setLoading(false);
+    }
+  };
 
   return (
     <form onSubmit={handleFormSubmit}>
