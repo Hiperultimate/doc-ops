@@ -54,9 +54,7 @@ function PatientRegister() {
     confirmPassword: ["required", "> 0", "<= 8", "matchPassword"],
   };
 
-  const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
-
   const { signup, logout } = useAuth();
   const history = useHistory();
 
@@ -87,7 +85,6 @@ function PatientRegister() {
       console.log("Continue to create an account.");
       try {
         setLoading(true);
-        setErrorMsg("");
         const newUser = await signup(patientEmail, password);
         await logout();
         const newUserUID = newUser.user.uid;
@@ -107,8 +104,12 @@ function PatientRegister() {
         };
         await setDoc(doc(db, "users", newUserUID), userData);
         history.push("/login");
-      } catch {
-        setErrorMsg("Failed to create an account");
+      } catch (e) {
+        if(e.code === "auth/email-already-in-use"){
+          const oldErrorList = errorList;
+          oldErrorList["patientEmail"] = ["Email ID already in use"];
+          setErrorList(oldErrorList);
+        }
       }
       setLoading(false);
     }
