@@ -10,7 +10,7 @@ import { userType } from "../../../../dataModel.js";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext.js";
 
-import patientRegistrationFormValidation from "./patientRegistrationFormValidation.js";
+import ValidationContext from "../../../../contexts/ValidationContext.js";
 
 function PatientRegister() {
   const [patientName, setPatientName] = useState("");
@@ -27,7 +27,10 @@ function PatientRegister() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [errorList, setErrorList] = useState({
+    patientName: [],
     patientDOB: [],
+    patientAddress: [],
+    patientEmail: [],
     patientPhone: [],
     patientWeight: [],
     patientHeight: [],
@@ -36,6 +39,20 @@ function PatientRegister() {
     password: [],
     confirmPassword: [],
   });
+
+  const validationSchema = {
+    patientName: ["required"],
+    patientDOB: ["required", "dateTime", "BeforeCurrentDate"],
+    patientAddress: ["required"],
+    patientEmail: ["required", "email"],
+    patientPhone: ["required", "lengthEqual 10"],
+    patientWeight: ["required", "integer", "> 0"],
+    patientHeight: ["required", "integer", "> 0"],
+    patientGender: ["required"],
+    patientBloodgroup: ["required"],
+    password: ["required", "> 0", "<= 8"],
+    confirmPassword: ["required", "> 0", "<= 8", "matchPassword"],
+  };
 
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,16 +63,21 @@ function PatientRegister() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrorList = patientRegistrationFormValidation(
-      patientDOB,
-      patientPhone,
-      patientWeight,
-      patientHeight,
-      patientGender,
-      patientBloodgroup,
-      password,
-      confirmPassword
-    );
+    const inputFields = {
+      patientName: patientName,
+      patientDOB: patientDOB,
+      patientAddress: patientAddress,
+      patientEmail: patientEmail,
+      patientPhone: patientPhone,
+      patientWeight: patientWeight,
+      patientHeight: patientHeight,
+      patientGender: patientGender,
+      patientBloodgroup: patientBloodgroup,
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+
+    const newErrorList = ValidationContext(validationSchema, inputFields);
 
     setErrorList(newErrorList);
 
@@ -104,6 +126,7 @@ function PatientRegister() {
               patientNameState={{
                 patientName: patientName,
                 setPatientName: setPatientName,
+                nameErrorMsg: errorList.patientName,
               }}
               patientDOBState={{
                 patientDOB: patientDOB,
@@ -113,10 +136,12 @@ function PatientRegister() {
               patientAddressState={{
                 patientAddress: patientAddress,
                 setPatientAddress: setPatientAddress,
+                addressErrorMsg: errorList.patientAddress,
               }}
               patientEmailState={{
                 patientEmail: patientEmail,
                 setPatientEmail: setPatientEmail,
+                emailErrorMsg: errorList.patientEmail,
               }}
               patientPhoneState={{
                 patientPhone: patientPhone,

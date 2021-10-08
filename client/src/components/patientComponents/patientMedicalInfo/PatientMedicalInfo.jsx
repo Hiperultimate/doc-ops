@@ -33,11 +33,13 @@ function PatientMedicalInfo({
             scaleTextPos={"right"}
             setChange={setPatientWeight}
             value={patientWeight}
-            isRequired={true}
           />
-          {weightErrorMsg.length !== 0 && (
-            <div className="error-msg">{weightErrorMsg}</div>
-          )}
+          {weightErrorMsg.length !== 0 &&
+            weightErrorMsg.map((msg, index) => (
+              <div className="error-msg" key={index}>
+                {msg}
+              </div>
+            ))}
         </div>
         <div className="patient-height">
           <InputField
@@ -50,11 +52,13 @@ function PatientMedicalInfo({
             scaleTextPos={"right"}
             setChange={setPatientHeight}
             value={patientHeight}
-            isRequired={true}
           />
-          {heightErrorMsg.length !== 0 && (
-            <div className="error-msg">{heightErrorMsg}</div>
-          )}
+          {heightErrorMsg.length !== 0 &&
+            heightErrorMsg.map((msg, index) => (
+              <div className="error-msg" key={index}>
+                {msg}
+              </div>
+            ))}
         </div>
         <div className="patient-gender">
           <span className="input-heading">Gender</span>
@@ -63,9 +67,12 @@ function PatientMedicalInfo({
             data={["Male", "Female", "Prefer not to say"]}
             onChange={(value) => setPatientGender(value)}
           />
-          {genderErrorMsg.length !== 0 && (
-            <div className="error-msg">{genderErrorMsg}</div>
-          )}
+          {genderErrorMsg.length !== 0 &&
+            genderErrorMsg.map((msg, index) => (
+              <div className="error-msg" key={index}>
+                {msg}
+              </div>
+            ))}
         </div>
         <div className="patient-bloodgroup">
           <span className="input-heading">Bloodgroup</span>
@@ -74,9 +81,12 @@ function PatientMedicalInfo({
             data={["A", "A+", "AB+", "B", "B+", "B-"]}
             onChange={(value) => setPatientBloodgroup(value)}
           />
-          {bloodgroupErrorMsg.length !== 0 && (
-            <div className="error-msg">{bloodgroupErrorMsg}</div>
-          )}
+          {bloodgroupErrorMsg.length !== 0 &&
+            bloodgroupErrorMsg.map((msg, index) => (
+              <div className="error-msg" key={index}>
+                {msg}
+              </div>
+            ))}
         </div>
         <div className="patient-allergies">
           <span className="input-heading">Allergies</span>

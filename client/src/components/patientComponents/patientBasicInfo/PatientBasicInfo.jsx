@@ -11,10 +11,11 @@ function PatientBasicInfo({
   patientPasswordHook,
   patientConfirmPasswordHook,
 }) {
-  const { patientName, setPatientName } = patientNameState;
+  const { patientName, setPatientName, nameErrorMsg } = patientNameState;
   const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
-  const { patientAddress, setPatientAddress } = patientAddressState;
-  const { patientEmail, setPatientEmail } = patientEmailState;
+  const { patientAddress, setPatientAddress, addressErrorMsg } =
+    patientAddressState;
+  const { patientEmail, setPatientEmail, emailErrorMsg } = patientEmailState;
   const { patientPhone, setPatientPhone, phoneErrorMsg } = patientPhoneState;
   const { password, setPassword, passwordErrorMsg } = patientPasswordHook;
   const { confirmPassword, setConfirmPassword, confPasswordErrorMsg } =
@@ -40,8 +41,13 @@ function PatientBasicInfo({
                 fieldName={"patient-name"}
                 setChange={setPatientName}
                 value={patientName}
-                isRequired={true}
               />
+              {nameErrorMsg.length !== 0 &&
+                nameErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="patient-dob">
               <InputField
@@ -52,11 +58,13 @@ function PatientBasicInfo({
                 fieldName={"patient-dob"}
                 setChange={setPatientDOB}
                 value={patientDOB}
-                isRequired={true}
               />
-              {dobErrorMsg.length !== 0 && (
-                <div className="error-msg">{dobErrorMsg}</div>
-              )}
+              {dobErrorMsg.length !== 0 &&
+                dobErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="patient-address">
               <InputField
@@ -67,8 +75,13 @@ function PatientBasicInfo({
                 fieldName={"patient-address"}
                 setChange={setPatientAddress}
                 value={patientAddress}
-                isRequired={true}
               />
+              {addressErrorMsg.length !== 0 &&
+                addressErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="patient-email">
               <InputField
@@ -79,8 +92,13 @@ function PatientBasicInfo({
                 fieldName={"patient-email"}
                 setChange={setPatientEmail}
                 value={patientEmail}
-                isRequired={true}
               />
+              {emailErrorMsg.length !== 0 &&
+                emailErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="patient-phone">
               <InputField
@@ -91,11 +109,13 @@ function PatientBasicInfo({
                 fieldName={"patient-phone"}
                 setChange={setPatientPhone}
                 value={patientPhone}
-                isRequired={true}
               />
-              {phoneErrorMsg.length !== 0 && (
-                <div className="error-msg">{phoneErrorMsg}</div>
-              )}
+              {phoneErrorMsg.length !== 0 &&
+                phoneErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="password-field">
               <InputField
@@ -106,11 +126,13 @@ function PatientBasicInfo({
                 fieldName={"password1"}
                 setChange={setPassword}
                 value={password}
-                isRequired={true}
               />
-              {passwordErrorMsg.length !== 0 && (
-                <div className="error-msg">{passwordErrorMsg}</div>
-              )}
+              {passwordErrorMsg.length !== 0 &&
+                passwordErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
             <div className="confirm-password-field">
               <InputField
@@ -121,11 +143,13 @@ function PatientBasicInfo({
                 fieldName={"password2"}
                 setChange={setConfirmPassword}
                 value={confirmPassword}
-                isRequired={true}
               />
-              {confPasswordErrorMsg.length !== 0 && (
-                <div className="error-msg">{confPasswordErrorMsg}</div>
-              )}
+              {confPasswordErrorMsg.length !== 0 &&
+                confPasswordErrorMsg.map((msg, index) => (
+                  <div className="error-msg" key={index}>
+                    {msg}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
