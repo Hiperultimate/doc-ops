@@ -4,7 +4,7 @@ import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, GeoPoint } from "firebase/firestore";
 import { db } from "../../../../firebase.js";
 import { userType } from "../../../../dataModel.js";
 import { useHistory } from "react-router-dom";
@@ -73,20 +73,21 @@ function PatientRegister() {
           setLoading(true);
           setErrorMsg("");
           const newUser = await signup(patientEmail, password);
-          const newUserUID = newUser.user.uid;
           await logout();
+          const newUserUID = newUser.user.uid;
           const userData = {
             name: patientName,
             type: userType.PATIENT,
-            dob: patientDOB,
+            dob: new Date(patientDOB),
             address: patientAddress,
             email: patientEmail,
             phone: patientPhone,
-            weight: patientWeight,
-            height: patientHeight,
+            geoLocation: new GeoPoint(1.3521, 103.8198),
+            weight: Number(patientWeight),
+            height: Number(patientHeight),
             gender: patientGender,
             bloodgroup: patientBloodgroup,
-            allergies: patientAllergies
+            allergies: patientAllergies,
           };
           await setDoc(doc(db, "users", newUserUID), userData);
           history.push("/login");
@@ -96,7 +97,23 @@ function PatientRegister() {
         setLoading(false);
       }
     })();
-  }, [isValidated]);
+  }, [
+    isValidated,
+    patientEmail,
+    password,
+    patientName,
+    patientAddress,
+    patientPhone,
+    patientWeight,
+    patientHeight,
+    patientGender,
+    patientBloodgroup,
+    patientAllergies,
+    patientDOB,
+    logout,
+    signup,
+    history,
+  ]);
 
   return (
     <form onSubmit={handleFormSubmit}>
