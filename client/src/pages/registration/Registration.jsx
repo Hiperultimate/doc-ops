@@ -1,10 +1,13 @@
 import "./registration.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import MainHeading from "../../components/mainHeading/MainHeading.jsx";
 import PatientRegister from "./registationForms/patientRegister/PatientRegister.jsx";
 import DoctorRegister from "./registationForms/doctorRegister/DoctorRegister.jsx";
 import Footer from "../../components/footer/Footer.jsx";
+
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext.js";
 
 const FormType = Object.freeze({
   DOCTOR: 1,
@@ -13,6 +16,9 @@ const FormType = Object.freeze({
 
 function Registration() {
   const [formType, setFormType] = useState(FormType.DOCTOR);
+  const [safeRefirect, setSafeRedirect] = useState(true);
+  const { currentUser } = useAuth();
+  const history = useHistory();
 
   const someFunc = (e) => {
     switch (e.target.id) {
@@ -27,9 +33,14 @@ function Registration() {
     }
   };
 
+  useEffect(() => {
+    if (safeRefirect && currentUser) {
+      history.push("/");
+    }
+  }, [currentUser, history, safeRefirect]);
   return (
     <>
-      <Navbar isFixed={true}/>
+      <Navbar isFixed={true} />
       <div className="registration-page">
         <MainHeading titleName={"Register"} />
         <div className="select-form">
@@ -61,7 +72,7 @@ function Registration() {
           </button>
         </div>
         {formType === 1 && <DoctorRegister />}
-        {formType === 2 && <PatientRegister />}
+        {formType === 2 && <PatientRegister setSafeRedirect={setSafeRedirect}/>}
       </div>
       <Footer />
     </>

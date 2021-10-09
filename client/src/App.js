@@ -35,7 +35,8 @@ function App() {
           {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
         </Route>
         <Route path="/register">
-          {!currentUser ? <Registration /> : <Redirect to="/"/>}
+           {/* Not setting up currentUser ternary because of unmonted component error in registry  */}
+          <Registration /> 
         </Route>
         <Route path="/chat">
           <Chat />

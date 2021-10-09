@@ -93,12 +93,9 @@ function PatientBasicInfo({
                 setChange={setPatientEmail}
                 value={patientEmail}
               />
-              {emailErrorMsg.length !== 0 &&
-                emailErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {emailErrorMsg.length !== 0 && (
+                <div className="error-msg">{emailErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-phone">
               <InputField
@@ -110,12 +107,9 @@ function PatientBasicInfo({
                 setChange={setPatientPhone}
                 value={patientPhone}
               />
-              {phoneErrorMsg.length !== 0 &&
-                phoneErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {phoneErrorMsg.length !== 0 && (
+                <div className="error-msg">{phoneErrorMsg[0]}</div>
+              )}
             </div>
             <div className="password-field">
               <InputField
@@ -127,12 +121,9 @@ function PatientBasicInfo({
                 setChange={setPassword}
                 value={password}
               />
-              {passwordErrorMsg.length !== 0 &&
-                passwordErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {passwordErrorMsg.length !== 0 && (
+                <div className="error-msg">{passwordErrorMsg[0]}</div>
+              )}
             </div>
             <div className="confirm-password-field">
               <InputField
@@ -144,12 +135,9 @@ function PatientBasicInfo({
                 setChange={setConfirmPassword}
                 value={confirmPassword}
               />
-              {confPasswordErrorMsg.length !== 0 &&
-                confPasswordErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {confPasswordErrorMsg.length !== 0 && (
+                <div className="error-msg">{confPasswordErrorMsg[0]}</div>
+              )}
             </div>
           </div>
         </div>
@@ -159,3 +147,4 @@ function PatientBasicInfo({
 }
 
 export default PatientBasicInfo;
+

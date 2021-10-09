@@ -22,6 +22,41 @@ function DoctorRegister() {
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState();
+  const [errorList, setErrorList] = useState({
+    doctorName: [],
+    doctorEmail: [],
+    doctorPhone: [],
+    doctorExperience: [],
+    password: [],
+    confirmPassword: [],
+    clinicName: [],
+    clinicAddress: [],
+    clinicConsultationFee: [],
+    clinicOnlineConsultation: [],
+    treatmentsOffered: [],
+    specilization: [],
+    openingHours: [],
+    closingHours: [],
+    clinicPictures: [],
+  });
+
+  const validationSchema = {
+    doctorName: ["required"],
+    doctorEmail: ["required" , "email"],
+    doctorPhone: ["required" ,"integer", "lengthEqual 10"],
+    doctorExperience: ["required", "integer"],
+    password: ["required", "<= 8"],
+    confirmPassword: ["required", "<= 8", "matchPassword"],
+    clinicName: ["required"],
+    clinicAddress: ["required"],
+    clinicConsultationFee: ["required", "integer"],
+    clinicOnlineConsultation: [],
+    treatmentsOffered: [],
+    specilization: [],
+    openingHours: [],
+    closingHours: [],
+    clinicPictures: [],
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();

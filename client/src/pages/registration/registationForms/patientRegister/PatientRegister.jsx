@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
@@ -12,7 +12,7 @@ import { useAuth } from "../../../../contexts/AuthContext.js";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
 
-function PatientRegister() {
+function PatientRegister({setSafeRedirect}) {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
   const [patientAddress, setPatientAddress] = useState("");
@@ -45,18 +45,19 @@ function PatientRegister() {
     patientDOB: ["required", "dateTime", "BeforeCurrentDate"],
     patientAddress: ["required"],
     patientEmail: ["required", "email"],
-    patientPhone: ["required", "lengthEqual 10"],
+    patientPhone: ["required", "integer", "lengthEqual 10"],
     patientWeight: ["required", "integer", "> 0"],
     patientHeight: ["required", "integer", "> 0"],
     patientGender: ["required"],
     patientBloodgroup: ["required"],
-    password: ["required", "> 0", "<= 8"],
-    confirmPassword: ["required", "> 0", "<= 8", "matchPassword"],
+    password: ["required", "<= 8"],
+    confirmPassword: ["required", "<= 8", "matchPassword"],
   };
 
   const [loading, setLoading] = useState(false);
   const { signup, logout } = useAuth();
   const history = useHistory();
+  const [isUserCreated, setIsUserCreated] = useState(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -79,11 +80,13 @@ function PatientRegister() {
 
     setErrorList(newErrorList);
 
-    const isValid = Object.keys(newErrorList).every((item) => newErrorList[item].length === 0);
+    const isValid = Object.keys(newErrorList).every(
+      (item) => newErrorList[item].length === 0
+    );
 
     if (isValid) {
-      console.log("Continue to create an account.");
       try {
+        setSafeRedirect(false);
         setLoading(true);
         const newUser = await signup(patientEmail, password);
         await logout();
@@ -103,17 +106,28 @@ function PatientRegister() {
           allergies: patientAllergies,
         };
         await setDoc(doc(db, "users", newUserUID), userData);
-        history.push("/login");
+        setIsUserCreated(true);
       } catch (e) {
-        if(e.code === "auth/email-already-in-use"){
+        console.log(e);
+        if (e.code === "auth/email-already-in-use") {
           const oldErrorList = errorList;
           oldErrorList["patientEmail"] = ["Email ID already in use"];
           setErrorList(oldErrorList);
+        } else {
+          throw e;
         }
       }
       setLoading(false);
     }
+    return;
   };
+
+  useEffect(() => {
+    if(loading === false && isUserCreated){
+      setSafeRedirect(true);
+      history.push("/login");
+    }
+  },[loading, isUserCreated, history])
 
   return (
     <form onSubmit={handleFormSubmit}>
