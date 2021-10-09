@@ -127,7 +127,7 @@ function PatientRegister({setSafeRedirect}) {
       setSafeRedirect(true);
       history.push("/login");
     }
-  },[loading, isUserCreated, history])
+  },[loading, isUserCreated, history,setSafeRedirect])
 
   return (
     <form onSubmit={handleFormSubmit}>

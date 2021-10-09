@@ -50,12 +50,12 @@ function DoctorRegister() {
     clinicName: ["required"],
     clinicAddress: ["required"],
     clinicConsultationFee: ["required", "integer"],
-    clinicOnlineConsultation: [],
-    treatmentsOffered: [],
-    specilization: [],
-    openingHours: [],
-    closingHours: [],
-    clinicPictures: [],
+    clinicOnlineConsultation: ["required"],
+    treatmentsOffered: ["required"],
+    specilization: ["required"],
+    openingHours: ["required"],
+    closingHours: ["required"],
+    clinicPictures: ["required"],
   };
 
   const handleFormSubmit = (event) => {
@@ -73,26 +73,32 @@ function DoctorRegister() {
               doctorNameHook={{
                 doctorName: doctorName,
                 setDoctorName: setDoctorName,
+                nameErrorMsg: errorList.doctorName,
               }}
               doctorEmailHook={{
                 doctorEmail: doctorEmail,
                 setDoctorEmail: setDoctorEmail,
+                emailErrorMsg: errorList.doctorEmail,
               }}
               doctorPhoneHook={{
                 doctorPhone: doctorPhone,
                 setDoctorPhone: setDoctorPhone,
+                phoneErrorMsg: errorList.doctorPhone,
               }}
               doctorExperienceHook={{
                 doctorExperience: doctorExperience,
                 setDoctorExperience: setDoctorExperience,
+                experienceErrorMsg: errorList.doctorExperience,
               }}
               doctorPasswordHook={{
                 password: password,
                 setPassword: setPassword,
+                passwordErrorMsg : errorList.confirmPassword ,
               }}
               doctorConfirmPasswordHook={{
                 confirmPassword: confirmPassword,
                 setConfirmPassword: setConfirmPassword,
+                confirmPasswordErrorMsg : errorList.clinicName ,
               }}
               key={2}
             />,
@@ -101,38 +107,47 @@ function DoctorRegister() {
               clinicNameHook={{
                 clinicName: clinicName,
                 setClinicName: setClinicName,
+                clinicAddressErrorMsg : errorList.clinicAddress ,
               }}
               clinicAddressHook={{
                 clinicAddress: clinicAddress,
                 setClinicAddress: setClinicAddress,
+                clinicAddressErrorMsg : errorList.clinicConsultationFee ,
               }}
               clinicConsultationFeeHook={{
                 clinicConsultationFee: clinicConsultationFee,
                 setClinicConsultationFee: setClinicConsultationFee,
+                consultationFeeErrorMsg : errorList.clinicOnlineConsultation ,
               }}
               clinicOnlineConsultationHook={{
                 clinicOnlineConsultation: clinicOnlineConsultation,
                 setClinicOnlineConsultation: setClinicOnlineConsultation,
+                onlineConsultationErrorMsg : errorList.treatmentsOffered ,
               }}
               treatmentsOfferedHook={{
                 treatmentsOffered: treatmentsOffered,
                 setTreatmentsOffered: setTreatmentsOffered,
+                treatmentsErrorMsg : errorList.specilization ,
               }}
               specilizationHook={{
                 specilization: specilization,
                 setSpecilization: setSpecilization,
+                specializationErrorMsg : errorList.openingHours ,
               }}
               openingHoursHook={{
                 openingHours: openingHours,
                 setOpeningHours: setOpeningHours,
-              }}
-              clinicPicturesHook={{
-                clinicPictures: clinicPictures,
-                setClinicPictures: setClinicPictures,
+                openingHoursErrorMsg : errorList.closingHours ,
               }}
               closingHoursHook={{
                 closingHours: closingHours,
                 setClosingHours: setClosingHours,
+                closingHoursErrorMsg : errorList.closingHours ,
+              }}
+              clinicPicturesHook={{
+                clinicPictures: clinicPictures,
+                setClinicPictures: setClinicPictures,
+                clinicPicturesErrorMsg : errorList.clinicPictures ,
               }}
               key={4}
             />,
