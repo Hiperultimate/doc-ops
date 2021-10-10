@@ -42,12 +42,9 @@ function PatientBasicInfo({
                 setChange={setPatientName}
                 value={patientName}
               />
-              {nameErrorMsg.length !== 0 &&
-                nameErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {nameErrorMsg.length !== 0 && (
+                <div className="error-msg">{nameErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-dob">
               <InputField
@@ -59,12 +56,9 @@ function PatientBasicInfo({
                 setChange={setPatientDOB}
                 value={patientDOB}
               />
-              {dobErrorMsg.length !== 0 &&
-                dobErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {dobErrorMsg.length !== 0 && (
+                <div className="error-msg">{dobErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-address">
               <InputField
@@ -76,12 +70,9 @@ function PatientBasicInfo({
                 setChange={setPatientAddress}
                 value={patientAddress}
               />
-              {addressErrorMsg.length !== 0 &&
-                addressErrorMsg.map((msg, index) => (
-                  <div className="error-msg" key={index}>
-                    {msg}
-                  </div>
-                ))}
+              {addressErrorMsg.length !== 0 && (
+                <div className="error-msg">{addressErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-email">
               <InputField
@@ -147,4 +138,3 @@ function PatientBasicInfo({
 }
 
 export default PatientBasicInfo;
-

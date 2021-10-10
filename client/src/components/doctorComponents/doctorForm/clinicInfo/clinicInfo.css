@@ -66,6 +66,8 @@
     "clinic-opening-hours clinic-pictures";
 }
 
+
+
 .clinic-name {
   grid-area: clinic-name;
 }
@@ -73,6 +75,10 @@
 .clinic-address {
   grid-area: clinic-address;
 }
+
+.clinic-address > .error-msg {
+  font-size: 16px;
+} 
 
 .clinic-consultation-fee {
   grid-area: clinic-consultation-fee;

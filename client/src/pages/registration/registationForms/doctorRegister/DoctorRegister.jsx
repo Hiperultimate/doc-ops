@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import DoctorInfo from "../../../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
 import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
 import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
+
+import ValidationContext from "../../../../contexts/ValidationContext.js";
 
 function DoctorRegister() {
   const [doctorName, setDoctorName] = useState("");
@@ -37,13 +39,13 @@ function DoctorRegister() {
     specilization: [],
     openingHours: [],
     closingHours: [],
-    clinicPictures: [],
+    // clinicPictures: [],
   });
 
   const validationSchema = {
     doctorName: ["required"],
-    doctorEmail: ["required" , "email"],
-    doctorPhone: ["required" ,"integer", "lengthEqual 10"],
+    doctorEmail: ["required", "email"],
+    doctorPhone: ["required", "integer", "lengthEqual 10"],
     doctorExperience: ["required", "integer"],
     password: ["required", "<= 8"],
     confirmPassword: ["required", "<= 8", "matchPassword"],
@@ -55,13 +57,47 @@ function DoctorRegister() {
     specilization: ["required"],
     openingHours: ["required"],
     closingHours: ["required"],
-    clinicPictures: ["required"],
+    // clinicPictures: ["required"],
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target, "Doctor Registration");
+
+    const inputFields = {
+      doctorName: doctorName,
+      doctorEmail: doctorEmail,
+      doctorPhone: doctorPhone,
+      doctorExperience: doctorExperience,
+      password: password,
+      confirmPassword: confirmPassword,
+      clinicName: clinicName,
+      clinicAddress: clinicAddress,
+      clinicConsultationFee: clinicConsultationFee,
+      clinicOnlineConsultation: clinicOnlineConsultation,
+      treatmentsOffered: treatmentsOffered,
+      specilization: specilization,
+      openingHours: openingHours,
+      closingHours: closingHours,
+      // clinicPictures : clinicPictures,
+    };
+
+    const newErrorList = ValidationContext(validationSchema, inputFields);
+    setErrorList(newErrorList);
+    console.log(newErrorList);
+    console.log(inputFields);
+    const isValid = Object.keys(newErrorList).every(
+      (item) => newErrorList[item].length === 0
+    );
+
+    if (isValid){
+      console.log(event.target, "Doctor Registration");
+    }
   };
+
+  // useEffect(() => {
+  //   console.log()
+  // })
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="doctor-form">
@@ -93,12 +129,12 @@ function DoctorRegister() {
               doctorPasswordHook={{
                 password: password,
                 setPassword: setPassword,
-                passwordErrorMsg : errorList.confirmPassword ,
+                passwordErrorMsg: errorList.password,
               }}
               doctorConfirmPasswordHook={{
                 confirmPassword: confirmPassword,
                 setConfirmPassword: setConfirmPassword,
-                confirmPasswordErrorMsg : errorList.clinicName ,
+                confirmPasswordErrorMsg: errorList.confirmPassword,
               }}
               key={2}
             />,
@@ -107,47 +143,47 @@ function DoctorRegister() {
               clinicNameHook={{
                 clinicName: clinicName,
                 setClinicName: setClinicName,
-                clinicAddressErrorMsg : errorList.clinicAddress ,
+                clinicNameErrorMsg: errorList.clinicName,
               }}
               clinicAddressHook={{
                 clinicAddress: clinicAddress,
                 setClinicAddress: setClinicAddress,
-                clinicAddressErrorMsg : errorList.clinicConsultationFee ,
+                clinicAddressErrorMsg: errorList.clinicAddress,
               }}
               clinicConsultationFeeHook={{
                 clinicConsultationFee: clinicConsultationFee,
                 setClinicConsultationFee: setClinicConsultationFee,
-                consultationFeeErrorMsg : errorList.clinicOnlineConsultation ,
+                consultationFeeErrorMsg: errorList.clinicConsultationFee,
               }}
               clinicOnlineConsultationHook={{
                 clinicOnlineConsultation: clinicOnlineConsultation,
                 setClinicOnlineConsultation: setClinicOnlineConsultation,
-                onlineConsultationErrorMsg : errorList.treatmentsOffered ,
+                onlineConsultationErrorMsg: errorList.clinicOnlineConsultation,
               }}
               treatmentsOfferedHook={{
                 treatmentsOffered: treatmentsOffered,
                 setTreatmentsOffered: setTreatmentsOffered,
-                treatmentsErrorMsg : errorList.specilization ,
+                treatmentsErrorMsg: errorList.treatmentsOffered,
               }}
               specilizationHook={{
                 specilization: specilization,
                 setSpecilization: setSpecilization,
-                specializationErrorMsg : errorList.openingHours ,
+                specializationErrorMsg: errorList.specilization,
               }}
               openingHoursHook={{
                 openingHours: openingHours,
                 setOpeningHours: setOpeningHours,
-                openingHoursErrorMsg : errorList.closingHours ,
+                openingHoursErrorMsg: errorList.openingHours,
               }}
               closingHoursHook={{
                 closingHours: closingHours,
                 setClosingHours: setClosingHours,
-                closingHoursErrorMsg : errorList.closingHours ,
+                closingHoursErrorMsg: errorList.closingHours,
               }}
               clinicPicturesHook={{
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
-                clinicPicturesErrorMsg : errorList.clinicPictures ,
+                clinicPicturesErrorMsg: errorList.clinicPictures,
               }}
               key={4}
             />,

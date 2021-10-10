@@ -33,18 +33,29 @@ function ClinicInfo({
     "Dermatology, Venereology and Leprosy",
   ];
 
-  
-  const { clinicName, setClinicName } = clinicNameHook;
-  const { clinicAddress, setClinicAddress } = clinicAddressHook;
-  const { clinicConsultationFee, setClinicConsultationFee } =
-    clinicConsultationFeeHook;
-  const { clinicOnlineConsultation, setClinicOnlineConsultation } =
-    clinicOnlineConsultationHook;
-  const { treatmentsOffered, setTreatmentsOffered } = treatmentsOfferedHook;
-  const { specilization, setSpecilization } = specilizationHook;
-  const { openingHours, setOpeningHours } = openingHoursHook;
-  const { closingHours, setClosingHours } = closingHoursHook;
-  const { clinicPictures, setClinicPictures } = clinicPicturesHook;
+  const { clinicName, setClinicName, clinicNameErrorMsg } = clinicNameHook;
+  const { clinicAddress, setClinicAddress, clinicAddressErrorMsg } =
+    clinicAddressHook;
+  const {
+    clinicConsultationFee,
+    setClinicConsultationFee,
+    consultationFeeErrorMsg,
+  } = clinicConsultationFeeHook;
+  const {
+    clinicOnlineConsultation,
+    setClinicOnlineConsultation,
+    onlineConsultationErrorMsg,
+  } = clinicOnlineConsultationHook;
+  const { treatmentsOffered, setTreatmentsOffered, treatmentsErrorMsg } =
+    treatmentsOfferedHook;
+  const { specilization, setSpecilization, specializationErrorMsg } =
+    specilizationHook;
+  const { openingHours, setOpeningHours, openingHoursErrorMsg } =
+    openingHoursHook;
+  const { closingHours, setClosingHours, closingHoursErrorMsg } =
+    closingHoursHook;
+  const { clinicPictures, setClinicPictures, clinicPicturesErrorMsg } =
+    clinicPicturesHook;
 
   return (
     <div className="clinic-info global-box-shadow">
@@ -61,6 +72,9 @@ function ClinicInfo({
                 setChange={setClinicName}
                 value={clinicName}
               />
+            {clinicNameErrorMsg.length !== 0 && (
+                <div className="error-msg">{clinicNameErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-address">
               <InputField
@@ -72,6 +86,9 @@ function ClinicInfo({
                 setChange={setClinicAddress}
                 value={clinicAddress}
               />
+            {clinicAddressErrorMsg.length !== 0 && (
+                <div className="error-msg">{clinicAddressErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-consultation-fee">
               <InputField
@@ -85,6 +102,9 @@ function ClinicInfo({
                 setChange={setClinicConsultationFee}
                 value={clinicConsultationFee}
               />
+            {consultationFeeErrorMsg.length !== 0 && (
+                <div className="error-msg">{consultationFeeErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-online-consultation">
               <span className="input-heading">Online Consultation</span>
@@ -95,6 +115,9 @@ function ClinicInfo({
                   onChange={(value) => setClinicOnlineConsultation(value)}
                 />
               </div>
+            {onlineConsultationErrorMsg.length !== 0 && (
+                <div className="error-msg">{onlineConsultationErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-treatments-offered">
               <span className="input-heading">Treatments Offered</span>
@@ -106,6 +129,9 @@ function ClinicInfo({
                   handleState={setTreatmentsOffered}
                 />
               </div>
+            {treatmentsErrorMsg.length !== 0 && (
+                <div className="error-msg">{treatmentsErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-specialization">
               <span className="input-heading">Specializations</span>
@@ -117,27 +143,36 @@ function ClinicInfo({
                   handleState={setSpecilization}
                 />
               </div>
+            {specializationErrorMsg.length !== 0 && (
+                <div className="error-msg">{specializationErrorMsg[0]}</div>
+              )}
             </div>
             <div className="clinic-opening-hours">
               <div className="opening-hours-form">
                 <InputField
-                wrapperClass={"input-dimension"}
-                heading={"Enter Opening Hours"}
-                placeholder={"Enter Opening Hours"}
-                type={"date"}
-                fieldName={"openingHours"}
-                setChange={setOpeningHours}
-                value={openingHours}
-              />
-              <InputField
-                wrapperClass={"input-dimension"}
-                heading={"Enter Closing Hours"}
-                placeholder={"Enter Closing Hours"}
-                type={"date"}
-                fieldName={"closingHours"}
-                setChange={setClosingHours}
-                value={closingHours}
-              />
+                  wrapperClass={"input-dimension"}
+                  heading={"Enter Opening Hours"}
+                  placeholder={"Enter Opening Hours"}
+                  type={"date"}
+                  fieldName={"openingHours"}
+                  setChange={setOpeningHours}
+                  value={openingHours}
+                  />
+                  {openingHoursErrorMsg.length !== 0 && (
+                  <div className="error-msg">{openingHoursErrorMsg[0]}</div>
+                )}
+                <InputField
+                  wrapperClass={"input-dimension"}
+                  heading={"Enter Closing Hours"}
+                  placeholder={"Enter Closing Hours"}
+                  type={"date"}
+                  fieldName={"closingHours"}
+                  setChange={setClosingHours}
+                  value={closingHours}
+                />
+                {closingHoursErrorMsg.length !== 0 && (
+                <div className="error-msg">{closingHoursErrorMsg[0]}</div>
+              )}
               </div>
             </div>
             <div className="clinic-pictures">

@@ -79,7 +79,7 @@ function PatientRegister({setSafeRedirect}) {
     const newErrorList = ValidationContext(validationSchema, inputFields);
 
     setErrorList(newErrorList);
-
+    
     const isValid = Object.keys(newErrorList).every(
       (item) => newErrorList[item].length === 0
     );
