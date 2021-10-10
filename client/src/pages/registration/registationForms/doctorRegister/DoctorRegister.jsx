@@ -6,6 +6,8 @@ import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clini
 import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
+import { doc, collection, getDocs, setDoc, GeoPoint } from "firebase/firestore";
+import { db } from "../../../../firebase.js";
 
 function DoctorRegister() {
   const [doctorName, setDoctorName] = useState("");
@@ -24,6 +26,9 @@ function DoctorRegister() {
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState();
+
+  const [treatmentOptions, setTreatmentOptions] = useState([]);
+  const [specializationOptions, setSpecializationOptions] = useState([]);
   const [errorList, setErrorList] = useState({
     doctorName: [],
     doctorEmail: [],
@@ -89,14 +94,30 @@ function DoctorRegister() {
       (item) => newErrorList[item].length === 0
     );
 
-    if (isValid){
-      console.log(event.target, "Doctor Registration");
+    if (isValid) {
+      console.log("Valid form");
     }
   };
 
+  useEffect(() => {
+    async function fetchClinicOptions() {
+      try {
+        let retrievedData = await getDocs(collection(db, "doctorForm"));
+        retrievedData.forEach((doc) => {
+          setTreatmentOptions(doc.data().treatments);
+          setSpecializationOptions(doc.data().specializations);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchClinicOptions();
+  }, []);
+
   // useEffect(() => {
-  //   console.log()
-  // })
+  //   console.log(treatmentOptions,
+  //     specializationOptions);
+  // }, [treatmentOptions, specializationOptions]);
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -164,11 +185,13 @@ function DoctorRegister() {
                 treatmentsOffered: treatmentsOffered,
                 setTreatmentsOffered: setTreatmentsOffered,
                 treatmentsErrorMsg: errorList.treatmentsOffered,
+                treatmentOptions: treatmentOptions,
               }}
               specilizationHook={{
                 specilization: specilization,
                 setSpecilization: setSpecilization,
                 specializationErrorMsg: errorList.specilization,
+                specializationOptions: specializationOptions,
               }}
               openingHoursHook={{
                 openingHours: openingHours,

@@ -17,25 +17,10 @@ function ClinicInfo({
   closingHoursHook,
   clinicPicturesHook,
 }) {
-  const treatments = [
-    "Wisdom tooth removal",
-    "Plaq Cleaning",
-    " Wonder tooth removal",
-    "tendon surgery",
-    "bone lengthening surgery",
-    "plastic surgery",
-  ];
-  const specialization = [
-    "Surgeries",
-    "Allergy & Clinical Immunology",
-    "Anesthesiology",
-    "Community Medicine/Public Health",
-    "Dermatology, Venereology and Leprosy",
-  ];
-
+  
   const { clinicName, setClinicName, clinicNameErrorMsg } = clinicNameHook;
   const { clinicAddress, setClinicAddress, clinicAddressErrorMsg } =
-    clinicAddressHook;
+  clinicAddressHook;
   const {
     clinicConsultationFee,
     setClinicConsultationFee,
@@ -46,16 +31,24 @@ function ClinicInfo({
     setClinicOnlineConsultation,
     onlineConsultationErrorMsg,
   } = clinicOnlineConsultationHook;
-  const { treatmentsOffered, setTreatmentsOffered, treatmentsErrorMsg } =
-    treatmentsOfferedHook;
-  const { specilization, setSpecilization, specializationErrorMsg } =
-    specilizationHook;
+  const {
+    treatmentsOffered,
+    setTreatmentsOffered,
+    treatmentsErrorMsg,
+    treatmentOptions,
+  } = treatmentsOfferedHook;
+  const {
+    specilization,
+    setSpecilization,
+    specializationErrorMsg,
+    specializationOptions,
+  } = specilizationHook;
   const { openingHours, setOpeningHours, openingHoursErrorMsg } =
-    openingHoursHook;
+  openingHoursHook;
   const { closingHours, setClosingHours, closingHoursErrorMsg } =
-    closingHoursHook;
+  closingHoursHook;
   const { clinicPictures, setClinicPictures, clinicPicturesErrorMsg } =
-    clinicPicturesHook;
+  clinicPicturesHook;
 
   return (
     <div className="clinic-info global-box-shadow">
@@ -72,7 +65,7 @@ function ClinicInfo({
                 setChange={setClinicName}
                 value={clinicName}
               />
-            {clinicNameErrorMsg.length !== 0 && (
+              {clinicNameErrorMsg.length !== 0 && (
                 <div className="error-msg">{clinicNameErrorMsg[0]}</div>
               )}
             </div>
@@ -86,7 +79,7 @@ function ClinicInfo({
                 setChange={setClinicAddress}
                 value={clinicAddress}
               />
-            {clinicAddressErrorMsg.length !== 0 && (
+              {clinicAddressErrorMsg.length !== 0 && (
                 <div className="error-msg">{clinicAddressErrorMsg[0]}</div>
               )}
             </div>
@@ -102,7 +95,7 @@ function ClinicInfo({
                 setChange={setClinicConsultationFee}
                 value={clinicConsultationFee}
               />
-            {consultationFeeErrorMsg.length !== 0 && (
+              {consultationFeeErrorMsg.length !== 0 && (
                 <div className="error-msg">{consultationFeeErrorMsg[0]}</div>
               )}
             </div>
@@ -115,7 +108,7 @@ function ClinicInfo({
                   onChange={(value) => setClinicOnlineConsultation(value)}
                 />
               </div>
-            {onlineConsultationErrorMsg.length !== 0 && (
+              {onlineConsultationErrorMsg.length !== 0 && (
                 <div className="error-msg">{onlineConsultationErrorMsg[0]}</div>
               )}
             </div>
@@ -123,13 +116,13 @@ function ClinicInfo({
               <span className="input-heading">Treatments Offered</span>
               <div className="input-container">
                 <MultiSelect
-                  options={[...treatments]}
+                  options={[...treatmentOptions]}
                   placeholder={"Enter Treatments"}
                   stateValue={treatmentsOffered}
                   handleState={setTreatmentsOffered}
                 />
               </div>
-            {treatmentsErrorMsg.length !== 0 && (
+              {treatmentsErrorMsg.length !== 0 && (
                 <div className="error-msg">{treatmentsErrorMsg[0]}</div>
               )}
             </div>
@@ -137,13 +130,13 @@ function ClinicInfo({
               <span className="input-heading">Specializations</span>
               <div className="input-container">
                 <MultiSelect
-                  options={[...specialization]}
+                  options={[...specializationOptions]}
                   placeholder={"Enter Specializations"}
                   stateValue={specilization}
                   handleState={setSpecilization}
                 />
               </div>
-            {specializationErrorMsg.length !== 0 && (
+              {specializationErrorMsg.length !== 0 && (
                 <div className="error-msg">{specializationErrorMsg[0]}</div>
               )}
             </div>
@@ -157,8 +150,8 @@ function ClinicInfo({
                   fieldName={"openingHours"}
                   setChange={setOpeningHours}
                   value={openingHours}
-                  />
-                  {openingHoursErrorMsg.length !== 0 && (
+                />
+                {openingHoursErrorMsg.length !== 0 && (
                   <div className="error-msg">{openingHoursErrorMsg[0]}</div>
                 )}
                 <InputField
@@ -171,8 +164,8 @@ function ClinicInfo({
                   value={closingHours}
                 />
                 {closingHoursErrorMsg.length !== 0 && (
-                <div className="error-msg">{closingHoursErrorMsg[0]}</div>
-              )}
+                  <div className="error-msg">{closingHoursErrorMsg[0]}</div>
+                )}
               </div>
             </div>
             <div className="clinic-pictures">
