@@ -7,7 +7,7 @@ import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
 import { doc, collection, getDocs, setDoc, GeoPoint } from "firebase/firestore";
-import { ref ,uploadBytes,getDownloadURL   } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 
 function DoctorRegister() {
@@ -28,6 +28,7 @@ function DoctorRegister() {
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState([]);
 
+  const [displayImage, setDisplayImage] = useState([]);
   const [imgURL, setImgURL] = useState([]);
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [specializationOptions, setSpecializationOptions] = useState([]);
@@ -104,21 +105,33 @@ function DoctorRegister() {
   const uploadPictureHandler = async (e) => {
     const images = e.target.files;
     const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
-    //Validate if the files are images 
-    Object.values(images).map(img => {
-      const fileFormat = "." + img.type.split("/").at(-1);
-      if(checkType.has(fileFormat)){
-        setErrorList({...errorList , clinicPictures : [`Incorrect File type of ${img.name}`]})
-      }
-      
-    })
-    if(errorList.clinicPictures.length === 0){
-      let displayImg = [];
-      Object.values(images).map(img => {
+    let typeErrorMsg = [];
+    //Validate if the files are images
+    if (images.length > 5) {
+      typeErrorMsg.push("Cannot upload more than 5 images");
+      setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
+    } else {
+      Object.values(images).forEach((img) => {
+        const fileFormat = "." + img.type.split("/").at(-1);
+        if (!checkType.has(fileFormat)) {
+          typeErrorMsg.push(`Incorrect File type of ${img.name}`);
+          setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
+        } else if (img.size > 3000000) {
+          typeErrorMsg.push(
+            `${img.name} is too large. File size should be less than 3MBs`
+          );
+          setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
+        } else {
+          setErrorList({ ...errorList, clinicPictures: [] });
+        }
+      });
+    }
+    if (typeErrorMsg.length === 0) {
+      let displayImg = [...displayImage];
+      Object.values(images).forEach((img) => {
         displayImg.push(URL.createObjectURL(img));
-      })
-      console.log(displayImg)
-      setClinicPictures(displayImg);
+      });
+      setDisplayImage(displayImg);
     }
     // Object.values(images).map(async img => {
     //   const uploadImgRef = ref(storage, `images/${img.name}`)
@@ -131,8 +144,8 @@ function DoctorRegister() {
     //   setImgURL([].push(getDownloadableURL));
     // })
     // const mountainsRef = ref(storage, 'mountains.jpg');
-    console.log(images, typeof(images));
-  }
+    console.log(images, typeof images);
+  };
 
   useEffect(() => {
     async function fetchClinicOptions() {
@@ -146,13 +159,13 @@ function DoctorRegister() {
         console.log(error);
       }
     }
-    fetchClinicOptions();  
+    fetchClinicOptions();  // UNCOMMENT BEFORE PUSHING
   }, []);
 
   useEffect(() => {
     // console.log("ERROR LIST : ", errorList);
     // console.log("IMAGE URL :" , imgURL);
-  }, [imgURL,errorList]);
+  }, [imgURL, errorList]);
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -173,7 +186,7 @@ function DoctorRegister() {
                 emailErrorMsg: errorList.doctorEmail,
               }}
               doctorPhoneHook={{
-              doctorPhone: doctorPhone,
+                doctorPhone: doctorPhone,
                 setDoctorPhone: setDoctorPhone,
                 phoneErrorMsg: errorList.doctorPhone,
               }}
@@ -242,12 +255,13 @@ function DoctorRegister() {
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
                 clinicPicturesErrorMsg: errorList.clinicPictures,
-                uploadPictureHandler : uploadPictureHandler,
+                uploadPictureHandler: uploadPictureHandler,
               }}
               key={4}
             />,
             <ImageSlider
-              imageList={clinicPictures}
+              imageList={displayImage}
+              setImageList={setDisplayImage}
               editable={true}
               key={5}
             />,
