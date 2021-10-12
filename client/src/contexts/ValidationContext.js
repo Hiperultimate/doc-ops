@@ -60,6 +60,15 @@ function ValidationContext(schema, inputFields) {
               errorList[key].push("Passwords do not match");
             }
             break;
+          case "openingHours":
+            const d1 = Date.parse("01-01-2001 " + inputFields["openingHours"]);
+            const d2 = Date.parse("01-01-2001 "+ inputFields["closingHours"]);
+            if(d1 > d2){
+              errorList[key].push(
+                "Opening hours should have time before closing hours"
+              );
+            }
+            break;
           default:
         }
       });

@@ -17,10 +17,9 @@ function ClinicInfo({
   closingHoursHook,
   clinicPicturesHook,
 }) {
-  
   const { clinicName, setClinicName, clinicNameErrorMsg } = clinicNameHook;
   const { clinicAddress, setClinicAddress, clinicAddressErrorMsg } =
-  clinicAddressHook;
+    clinicAddressHook;
   const {
     clinicConsultationFee,
     setClinicConsultationFee,
@@ -44,11 +43,15 @@ function ClinicInfo({
     specializationOptions,
   } = specilizationHook;
   const { openingHours, setOpeningHours, openingHoursErrorMsg } =
-  openingHoursHook;
+    openingHoursHook;
   const { closingHours, setClosingHours, closingHoursErrorMsg } =
-  closingHoursHook;
-  const { clinicPictures, setClinicPictures, clinicPicturesErrorMsg } =
-  clinicPicturesHook;
+    closingHoursHook;
+  const {
+    clinicPictures,
+    setClinicPictures,
+    clinicPicturesErrorMsg,
+    uploadPictureHandler,
+  } = clinicPicturesHook;
 
   return (
     <div className="clinic-info global-box-shadow">
@@ -146,7 +149,7 @@ function ClinicInfo({
                   wrapperClass={"input-dimension"}
                   heading={"Enter Opening Hours"}
                   placeholder={"Enter Opening Hours"}
-                  type={"date"}
+                  type={"time"}
                   fieldName={"openingHours"}
                   setChange={setOpeningHours}
                   value={openingHours}
@@ -158,7 +161,7 @@ function ClinicInfo({
                   wrapperClass={"input-dimension"}
                   heading={"Enter Closing Hours"}
                   placeholder={"Enter Closing Hours"}
-                  type={"date"}
+                  type={"time"}
                   fieldName={"closingHours"}
                   setChange={setClosingHours}
                   value={closingHours}
@@ -177,8 +180,14 @@ function ClinicInfo({
                   className="file-input"
                   id="myfile"
                   name="myfile"
+                  onChange={uploadPictureHandler}
+                  accept="image/*"
+                  multiple
                 />
               </div>
+              {clinicPicturesErrorMsg.length !== 0 && (
+                <div className="error-msg">{clinicPicturesErrorMsg[0]}</div>
+              )}
             </div>
           </div>
         </div>

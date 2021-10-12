@@ -7,7 +7,8 @@ import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
 import { doc, collection, getDocs, setDoc, GeoPoint } from "firebase/firestore";
-import { db } from "../../../../firebase.js";
+import { ref ,uploadBytes,getDownloadURL   } from "firebase/storage";
+import { db, storage } from "../../../../firebase.js";
 
 function DoctorRegister() {
   const [doctorName, setDoctorName] = useState("");
@@ -25,8 +26,9 @@ function DoctorRegister() {
   const [specilization, setSpecilization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
-  const [clinicPictures, setClinicPictures] = useState();
+  const [clinicPictures, setClinicPictures] = useState([]);
 
+  const [imgURL, setImgURL] = useState([]);
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [specializationOptions, setSpecializationOptions] = useState([]);
   const [errorList, setErrorList] = useState({
@@ -44,7 +46,7 @@ function DoctorRegister() {
     specilization: [],
     openingHours: [],
     closingHours: [],
-    // clinicPictures: [],
+    clinicPictures: [],
   });
 
   const validationSchema = {
@@ -60,8 +62,8 @@ function DoctorRegister() {
     clinicOnlineConsultation: ["required"],
     treatmentsOffered: ["required"],
     specilization: ["required"],
-    openingHours: ["required"],
-    closingHours: ["required"],
+    openingHours: ["required", "openingHours"],
+    closingHours: ["required", "closingHours"],
     // clinicPictures: ["required"],
   };
 
@@ -99,10 +101,43 @@ function DoctorRegister() {
     }
   };
 
+  const uploadPictureHandler = async (e) => {
+    const images = e.target.files;
+    const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
+    //Validate if the files are images 
+    Object.values(images).map(img => {
+      const fileFormat = "." + img.type.split("/").at(-1);
+      if(checkType.has(fileFormat)){
+        setErrorList({...errorList , clinicPictures : [`Incorrect File type of ${img.name}`]})
+      }
+      
+    })
+    if(errorList.clinicPictures.length === 0){
+      let displayImg = [];
+      Object.values(images).map(img => {
+        displayImg.push(URL.createObjectURL(img));
+      })
+      console.log(displayImg)
+      setClinicPictures(displayImg);
+    }
+    // Object.values(images).map(async img => {
+    //   const uploadImgRef = ref(storage, `images/${img.name}`)
+    //   await uploadBytes(uploadImgRef, img).then((snapshot) => {
+    //     console.log('Uploaded an image', snapshot);
+    //   });
+    //   // console.log(await getDownloadURL(ref(storage, `images/${img.name}`)))
+    //   const getDownloadableURL = await getDownloadURL(ref(storage, `images/${img.name}`));
+    //   console.log(getDownloadableURL);
+    //   setImgURL([].push(getDownloadableURL));
+    // })
+    // const mountainsRef = ref(storage, 'mountains.jpg');
+    console.log(images, typeof(images));
+  }
+
   useEffect(() => {
     async function fetchClinicOptions() {
       try {
-        let retrievedData = await getDocs(collection(db, "doctorForm"));
+        let retrievedData = await getDocs(collection(db, "formInputs"));
         retrievedData.forEach((doc) => {
           setTreatmentOptions(doc.data().treatments);
           setSpecializationOptions(doc.data().specializations);
@@ -111,13 +146,13 @@ function DoctorRegister() {
         console.log(error);
       }
     }
-    fetchClinicOptions();
+    fetchClinicOptions();  
   }, []);
 
-  // useEffect(() => {
-  //   console.log(treatmentOptions,
-  //     specializationOptions);
-  // }, [treatmentOptions, specializationOptions]);
+  useEffect(() => {
+    // console.log("ERROR LIST : ", errorList);
+    // console.log("IMAGE URL :" , imgURL);
+  }, [imgURL,errorList]);
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -138,7 +173,7 @@ function DoctorRegister() {
                 emailErrorMsg: errorList.doctorEmail,
               }}
               doctorPhoneHook={{
-                doctorPhone: doctorPhone,
+              doctorPhone: doctorPhone,
                 setDoctorPhone: setDoctorPhone,
                 phoneErrorMsg: errorList.doctorPhone,
               }}
@@ -207,17 +242,12 @@ function DoctorRegister() {
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
                 clinicPicturesErrorMsg: errorList.clinicPictures,
+                uploadPictureHandler : uploadPictureHandler,
               }}
               key={4}
             />,
             <ImageSlider
-              imageList={[
-                "https://images.unsplash.com/photo-1485348616965-15c926318fbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-                "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-                "https://images.unsplash.com/photo-1564419965579-5da68ffdf3af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-                "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-                "https://images.unsplash.com/photo-1606824722920-4c652a70f348?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
-              ]}
+              imageList={clinicPictures}
               editable={true}
               key={5}
             />,
