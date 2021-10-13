@@ -37,7 +37,6 @@ function DoctorRegister({ setSafeRedirect }) {
   const [isUserCreated, setIsUserCreated] = useState(false);
 
   const [displayImage, setDisplayImage] = useState([]);
-  const [imgURL, setImgURL] = useState([]);
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [specializationOptions, setSpecializationOptions] = useState([]);
   const [errorList, setErrorList] = useState({
@@ -93,15 +92,12 @@ function DoctorRegister({ setSafeRedirect }) {
       specilization: specilization,
       openingHours: openingHours,
       closingHours: closingHours,
-      // clinicPictures: clinicPictures,
     };
 
-    // const newErrorList = ValidationContext(validationSchema, inputFields); Changed this because clinicPictures was getting deleted causing errors
     let newErrorList = {
       ...ValidationContext(validationSchema, inputFields),
       clinicPictures: errorList.clinicPictures,
     };
-    console.log(newErrorList);
     let isValid = Object.keys(newErrorList).every(
       (item) => newErrorList[item].length === 0
     );
@@ -113,67 +109,64 @@ function DoctorRegister({ setSafeRedirect }) {
     setErrorList(newErrorList);
 
     if (isValid) {
-      console.log("Valid form");
-      // try {
-      //   setSafeRedirect(false);
-      //   setLoading(true);
-      //   const newUser = await signup(doctorEmail, password);
-      //   await logout();
-      //   const newUserUID = newUser.user.uid;
-      //   const userData = {
-      //     doctorName: doctorName,
-      //     type: userType.DOCTOR,
-      //     doctorEmail: doctorEmail,
-      //     doctorPhone: doctorPhone,
-      //     doctorExperience: doctorExperience,
-      //     clinicName: clinicName,
-      //     clinicAddress: clinicAddress,
-      //     clinicConsultationFee: clinicConsultationFee,
-      //     clinicOnlineConsultation: clinicOnlineConsultation,
-      //     treatmentsOffered: treatmentsOffered,
-      //     specilization: specilization,
-      //     openingHours: openingHours,
-      //     closingHours: closingHours,
-      //     // clinicPictures: clinicPictures,
-      //   };
-      //   await setDoc(doc(db, "users", newUserUID), userData);
-      //   setIsUserCreated(true);
-      // } catch (e) {
-      //   console.log(e);
-      //   if (e.code === "auth/email-already-in-use") {
-      //     const oldErrorList = errorList;
-      //     oldErrorList["doctorEmail"] = ["Email ID already in use"];
-      //     setErrorList(oldErrorList);
-      //   } else {
-      //     throw e;
-      //   }
-      // }
-      // setLoading(false);
+      try {
+        setSafeRedirect(false);
+        setLoading(true);
+        const newUser = await signup(doctorEmail, password);
+        await logout();
+        const newUserUID = newUser.user.uid;
+        const userData = {
+          doctorName: doctorName,
+          type: userType.DOCTOR,
+          doctorEmail: doctorEmail,
+          doctorPhone: doctorPhone,
+          doctorExperience: doctorExperience,
+          geoLocation: new GeoPoint(1.3521, 103.8198),
+          clinicName: clinicName,
+          clinicAddress: clinicAddress,
+          clinicConsultationFee: clinicConsultationFee,
+          clinicOnlineConsultation: clinicOnlineConsultation,
+          treatmentsOffered: treatmentsOffered,
+          specilization: specilization,
+          openingHours: openingHours,
+          closingHours: closingHours,
+        };
+        await setDoc(doc(db, "users", newUserUID), userData);
 
-      const setURLs = [];
-      let imgNum = 0;
-      displayImage.forEach(async (imgLink) => {
-        const imgObj = await fetch(imgLink)
-          .then((r) => r.blob())
-          .then(
-            (blobFile) =>
-              new File(
-                [blobFile],
-                new Date().getTime().toString() + `${imgNum++}`,
-                { type: blobFile.type }
-              )
+        const setURLs = [];
+        let imgNum = 0;
+        await Promise.all(displayImage.map(async (imgLink) => {
+          const imgObj = await fetch(imgLink)
+            .then((r) => r.blob())
+            .then(
+              (blobFile) =>
+                new File(
+                  [blobFile],
+                  new Date().getTime().toString() + newUserUID + `${imgNum++}`,
+                  { type: blobFile.type }
+                )
+            );
+          const uploadImgRef = ref(storage, `images/${imgObj.name}`);
+          await uploadBytes(uploadImgRef, imgObj);
+          const getDownloadableURL = await getDownloadURL(
+            ref(storage, `images/${imgObj.name}`)
           );
-        const uploadImgRef = ref(storage, `images/${imgObj.name}`);
-        await uploadBytes(uploadImgRef, imgObj).then((snapshot) => {
-          console.log("Uploaded an image", snapshot);
-        });
-        const getDownloadableURL = await getDownloadURL(
-          ref(storage, `images/${imgObj.name}`)
-        );
-        setURLs.push(getDownloadableURL);
-      });
-      setImgURL(setURLs);
+          setURLs.push(getDownloadableURL);
+        }));
+        await setDoc(doc(db, "clinicImages", newUserUID), {imgURLs: setURLs});
+        setIsUserCreated(true);
 
+      } catch (e) {
+        console.log(e);
+        if (e.code === "auth/email-already-in-use") {
+          const oldErrorList = errorList;
+          oldErrorList["doctorEmail"] = ["Email ID already in use"];
+          setErrorList(oldErrorList);
+        } else {
+          throw e;
+        }
+      }
+      setLoading(false);
     }
   };
 
@@ -181,7 +174,7 @@ function DoctorRegister({ setSafeRedirect }) {
     const images = e.target.files;
     const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
     let typeErrorMsg = [];
-    //Validate if the files are images
+    //Image Validation
     if (images.length > 5) {
       typeErrorMsg.push("Cannot upload more than 5 images");
       setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
@@ -204,23 +197,10 @@ function DoctorRegister({ setSafeRedirect }) {
     if (typeErrorMsg.length === 0) {
       let displayImg = [...displayImage];
       Object.values(images).forEach((img) => {
-        console.log("IMAGE BEFORE : ", img);
         displayImg.push(URL.createObjectURL(img));
       });
       setDisplayImage(displayImg);
     }
-
-    // Object.values(images).map(async img => {
-    //   const uploadImgRef = ref(storage, `images/${img.name}`)
-    //   await uploadBytes(uploadImgRef, img).then((snapshot) => {
-    //     console.log('Uploaded an image', snapshot);
-    //   });
-    //   // console.log(await getDownloadURL(ref(storage, `images/${img.name}`)))
-    //   const getDownloadableURL = await getDownloadURL(ref(storage, `images/${img.name}`));
-    //   console.log(getDownloadableURL);
-    //   setImgURL([].push(getDownloadableURL));
-    // })
-    // const mountainsRef = ref(storage, 'mountains.jpg');
   };
 
   useEffect(() => {
@@ -235,7 +215,7 @@ function DoctorRegister({ setSafeRedirect }) {
         console.log(error);
       }
     }
-    fetchClinicOptions(); // UNCOMMENT BEFORE PUSHING
+    fetchClinicOptions();
   }, []);
 
   useEffect(() => {
