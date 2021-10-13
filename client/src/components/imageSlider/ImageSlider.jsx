@@ -21,8 +21,6 @@ function ImageSlider({ imageList, editable, setImageList }) {
     let newList = imageList;
     newList = newList.filter(img => img !== imageLink);
     setImageList(newList);
-    console.log("IMAGE LIST : ", imageList);
-    // console.log(imageLink);
   };
 
   return (

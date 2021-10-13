@@ -6,11 +6,14 @@ import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clini
 import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
+import { userType } from "../../../../dataModel.js";
 import { doc, collection, getDocs, setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext.js";
 
-function DoctorRegister() {
+function DoctorRegister({ setSafeRedirect }) {
   const [doctorName, setDoctorName] = useState("");
   const [doctorEmail, setDoctorEmail] = useState("");
   const [doctorPhone, setDoctorPhone] = useState("");
@@ -27,6 +30,11 @@ function DoctorRegister() {
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const { signup, logout } = useAuth();
+  const history = useHistory();
+  const [isUserCreated, setIsUserCreated] = useState(false);
 
   const [displayImage, setDisplayImage] = useState([]);
   const [imgURL, setImgURL] = useState([]);
@@ -65,7 +73,6 @@ function DoctorRegister() {
     specilization: ["required"],
     openingHours: ["required", "openingHours"],
     closingHours: ["required", "closingHours"],
-    // clinicPictures: ["required"],
   };
 
   const handleFormSubmit = async (event) => {
@@ -86,19 +93,87 @@ function DoctorRegister() {
       specilization: specilization,
       openingHours: openingHours,
       closingHours: closingHours,
-      // clinicPictures : clinicPictures,
+      // clinicPictures: clinicPictures,
     };
 
-    const newErrorList = ValidationContext(validationSchema, inputFields);
-    setErrorList(newErrorList);
+    // const newErrorList = ValidationContext(validationSchema, inputFields); Changed this because clinicPictures was getting deleted causing errors
+    let newErrorList = {
+      ...ValidationContext(validationSchema, inputFields),
+      clinicPictures: errorList.clinicPictures,
+    };
     console.log(newErrorList);
-    console.log(inputFields);
-    const isValid = Object.keys(newErrorList).every(
+    let isValid = Object.keys(newErrorList).every(
       (item) => newErrorList[item].length === 0
     );
 
+    if (displayImage.length === 0) {
+      newErrorList.clinicPictures = ["Clinic images is required"];
+      isValid = false;
+    }
+    setErrorList(newErrorList);
+
     if (isValid) {
       console.log("Valid form");
+      // try {
+      //   setSafeRedirect(false);
+      //   setLoading(true);
+      //   const newUser = await signup(doctorEmail, password);
+      //   await logout();
+      //   const newUserUID = newUser.user.uid;
+      //   const userData = {
+      //     doctorName: doctorName,
+      //     type: userType.DOCTOR,
+      //     doctorEmail: doctorEmail,
+      //     doctorPhone: doctorPhone,
+      //     doctorExperience: doctorExperience,
+      //     clinicName: clinicName,
+      //     clinicAddress: clinicAddress,
+      //     clinicConsultationFee: clinicConsultationFee,
+      //     clinicOnlineConsultation: clinicOnlineConsultation,
+      //     treatmentsOffered: treatmentsOffered,
+      //     specilization: specilization,
+      //     openingHours: openingHours,
+      //     closingHours: closingHours,
+      //     // clinicPictures: clinicPictures,
+      //   };
+      //   await setDoc(doc(db, "users", newUserUID), userData);
+      //   setIsUserCreated(true);
+      // } catch (e) {
+      //   console.log(e);
+      //   if (e.code === "auth/email-already-in-use") {
+      //     const oldErrorList = errorList;
+      //     oldErrorList["doctorEmail"] = ["Email ID already in use"];
+      //     setErrorList(oldErrorList);
+      //   } else {
+      //     throw e;
+      //   }
+      // }
+      // setLoading(false);
+
+      const setURLs = [];
+      let imgNum = 0;
+      displayImage.forEach(async (imgLink) => {
+        const imgObj = await fetch(imgLink)
+          .then((r) => r.blob())
+          .then(
+            (blobFile) =>
+              new File(
+                [blobFile],
+                new Date().getTime().toString() + `${imgNum++}`,
+                { type: blobFile.type }
+              )
+          );
+        const uploadImgRef = ref(storage, `images/${imgObj.name}`);
+        await uploadBytes(uploadImgRef, imgObj).then((snapshot) => {
+          console.log("Uploaded an image", snapshot);
+        });
+        const getDownloadableURL = await getDownloadURL(
+          ref(storage, `images/${imgObj.name}`)
+        );
+        setURLs.push(getDownloadableURL);
+      });
+      setImgURL(setURLs);
+
     }
   };
 
@@ -129,10 +204,12 @@ function DoctorRegister() {
     if (typeErrorMsg.length === 0) {
       let displayImg = [...displayImage];
       Object.values(images).forEach((img) => {
+        console.log("IMAGE BEFORE : ", img);
         displayImg.push(URL.createObjectURL(img));
       });
       setDisplayImage(displayImg);
     }
+
     // Object.values(images).map(async img => {
     //   const uploadImgRef = ref(storage, `images/${img.name}`)
     //   await uploadBytes(uploadImgRef, img).then((snapshot) => {
@@ -144,7 +221,6 @@ function DoctorRegister() {
     //   setImgURL([].push(getDownloadableURL));
     // })
     // const mountainsRef = ref(storage, 'mountains.jpg');
-    console.log(images, typeof images);
   };
 
   useEffect(() => {
@@ -159,13 +235,15 @@ function DoctorRegister() {
         console.log(error);
       }
     }
-    fetchClinicOptions();  // UNCOMMENT BEFORE PUSHING
+    fetchClinicOptions(); // UNCOMMENT BEFORE PUSHING
   }, []);
 
   useEffect(() => {
-    // console.log("ERROR LIST : ", errorList);
-    // console.log("IMAGE URL :" , imgURL);
-  }, [imgURL, errorList]);
+    if (loading === false && isUserCreated) {
+      setSafeRedirect(true);
+      history.push("/login");
+    }
+  }, [loading, isUserCreated, history, setSafeRedirect]);
 
   return (
     <form onSubmit={handleFormSubmit}>

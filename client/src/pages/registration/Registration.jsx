@@ -71,7 +71,7 @@ function Registration() {
             I'm a Patient
           </button>
         </div>
-        {formType === 1 && <DoctorRegister />}
+        {formType === 1 && <DoctorRegister setSafeRedirect={setSafeRedirect}/>}
         {formType === 2 && <PatientRegister setSafeRedirect={setSafeRedirect}/>}
       </div>
       <Footer />
