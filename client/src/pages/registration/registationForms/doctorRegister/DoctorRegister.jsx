@@ -120,11 +120,11 @@ function DoctorRegister({ setSafeRedirect }) {
           type: userType.DOCTOR,
           doctorEmail: doctorEmail,
           doctorPhone: doctorPhone,
-          doctorExperience: doctorExperience,
+          doctorExperience: Number(doctorExperience),
           geoLocation: new GeoPoint(1.3521, 103.8198),
           clinicName: clinicName,
           clinicAddress: clinicAddress,
-          clinicConsultationFee: clinicConsultationFee,
+          clinicConsultationFee: Number(clinicConsultationFee),
           clinicOnlineConsultation: clinicOnlineConsultation,
           treatmentsOffered: treatmentsOffered,
           specilization: specilization,
@@ -153,9 +153,8 @@ function DoctorRegister({ setSafeRedirect }) {
           );
           setURLs.push(getDownloadableURL);
         }));
-        await setDoc(doc(db, "clinicImages", newUserUID), {imgURLs: setURLs});
+        await setDoc(doc(db, "clinicImages", newUserUID), {clinicImgURLs: setURLs});
         setIsUserCreated(true);
-
       } catch (e) {
         console.log(e);
         if (e.code === "auth/email-already-in-use") {
@@ -175,7 +174,7 @@ function DoctorRegister({ setSafeRedirect }) {
     const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
     let typeErrorMsg = [];
     //Image Validation
-    if (images.length > 5) {
+    if (images.length + displayImage.length > 5) {
       typeErrorMsg.push("Cannot upload more than 5 images");
       setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
     } else {
@@ -326,6 +325,7 @@ function DoctorRegister({ setSafeRedirect }) {
             <button
               className="doctor-form-submit global-box-shadow"
               type="submit"
+              disabled={loading}
               key={6}
             >
               Register
