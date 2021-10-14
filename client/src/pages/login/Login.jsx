@@ -1,14 +1,43 @@
 import "./login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
 import Eye from "../../svgs/Eye.svg";
 
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext.js";
+
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
+  const { login } = useAuth();
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setErrorMsg("");
+      setLoading(true);
+      await login(email, password);
+      history.push("/");
+    } catch {
+      setEmail("");
+      setPassword("");
+      setErrorMsg("Unable to sign in");
+      setLoading(false)
+    }
+    loading === true && setLoading(false);
+  };
+
+  useEffect(() => {
+    console.log("Error message :", errorMsg ? errorMsg : "None");
+  }, [errorMsg]);
 
   return (
     <div className="login-page">
@@ -36,7 +65,7 @@ function Login() {
         className="life-savers-stethoscope-svg"
         alt="background-stethoscope"
       />
-      <div className="login-section">
+      <form onSubmit={handleLoginSubmit} className="login-section">
         <div className="login-content">
           <img
             src={LifeSaversAvatar}
@@ -45,9 +74,10 @@ function Login() {
           />
           <input
             className="login-field"
-            placeholder="Username"
-            onChange={(event) => setUsername(event.target.value)}
-            value={username}
+            placeholder="Email"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+            required
           />
           <input
             className="login-field"
@@ -55,6 +85,7 @@ function Login() {
             type={passwordVisible ? "text" : "password"}
             onChange={(event) => setPassword(event.target.value)}
             value={password}
+            required
           />
           <img
             src={Eye}
@@ -65,17 +96,21 @@ function Login() {
           <a href="/" className="login-forgot-password login-link">
             Forgot Password?
           </a>
-          <button className={"login-field login-button"} type="submit">
+          <button
+            className={"login-field login-button"}
+            type="submit"
+            disabled={loading}
+          >
             Login
           </button>
           <div className="login-registration-prompt">
             Don't have an account? &nbsp;
-            <a href="/registration" className="login-link">
+            <a href="/register" className="login-link">
               Sign Up
             </a>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

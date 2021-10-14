@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Login from "./pages/login/Login.jsx";
 import Home from "./pages/home/Home.jsx";
 import Registration from "./pages/registration/Registration.jsx";
@@ -8,8 +13,11 @@ import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
+import { useAuth } from "./contexts/AuthContext.js";
+
 function App() {
-  const user = { userType: "doctor" };  // Simulating signed in user data 
+  const { currentUser } = useAuth();
+  const user = { userType: "doctor" }; // Simulating signed in user data
   return (
     <Router>
       <Switch>
@@ -27,7 +35,7 @@ function App() {
           {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
         </Route>
         <Route path="/register">
-          <Registration />
+          {!currentUser ? <Registration /> : <Redirect to="/"/>}
         </Route>
         <Route path="/chat">
           <Chat />

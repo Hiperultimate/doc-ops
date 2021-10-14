@@ -139,6 +139,10 @@
   border: none;
 }
 
+.login-button:disabled {
+  opacity: 50%;
+}
+
 .login-registration-prompt {
   margin-top: 20px;
   color: var(--green-secondary);

@@ -1,6 +1,19 @@
 import "./popUpMenu.css";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext.js";
 
 function PopUpMenu() {
+  const { logout } = useAuth();
+  const history = useHistory();
+
+  const logOutHandler = async () => {
+
+    try{
+      await logout();
+    }catch{
+      history.push("/error-404"); // Something went wrong while logging out
+    }
+  }
   return (
     <div className="popup-menu global-box-shadow">
       <ul className="popup-list">
@@ -20,7 +33,7 @@ function PopUpMenu() {
           </a>
         </li>
         <li>
-          <a href="log-out" className="pop-up-items">
+          <a onClick={logOutHandler} href="/" className="pop-up-items">
             Log out
           </a>
         </li>

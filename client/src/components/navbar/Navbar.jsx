@@ -3,11 +3,13 @@ import Logo from "../logo/Logo.jsx";
 import LogoutNavOptions from "./navComponents/LogoutNavOptions.jsx";
 import LoginNavOptions from "./navComponents/loginNavOptions/LoginNavOptions.jsx";
 import PopUpMenu from "./navComponents/popUpMenu/PopUpMenu.jsx";
-
 import "./navbar.css";
 
+import { useAuth } from "../../contexts/AuthContext.js";
+
 function Navbar({ isFixed }) {
-  const user = { username: "Zambalia Zankras Zakozi" };
+  const { currentUser } = useAuth();
+  const user = { username: currentUser ? currentUser.email : ""}; // Use username instead of currentUser.email
   let [popUp, popUpState] = useState(false);
 
   return (
