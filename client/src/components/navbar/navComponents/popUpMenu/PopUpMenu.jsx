@@ -7,7 +7,6 @@ function PopUpMenu() {
   const history = useHistory();
 
   const logOutHandler = async () => {
-
     try{
       await logout();
     }catch{

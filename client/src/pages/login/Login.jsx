@@ -32,7 +32,7 @@ function Login() {
       setErrorMsg("Unable to sign in");
       setLoading(false)
     }
-    loading === true && setLoading(false);
+    loading && setLoading(false);
   };
 
   useEffect(() => {
