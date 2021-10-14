@@ -12,7 +12,7 @@ import { useAuth } from "../../../../contexts/AuthContext.js";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
 
-function PatientRegister({setSafeRedirect}) {
+function PatientRegister({ setSafeRedirect }) {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
   const [patientAddress, setPatientAddress] = useState("");
@@ -79,7 +79,7 @@ function PatientRegister({setSafeRedirect}) {
     const newErrorList = ValidationContext(validationSchema, inputFields);
 
     setErrorList(newErrorList);
-    
+
     const isValid = Object.keys(newErrorList).every(
       (item) => newErrorList[item].length === 0
     );
@@ -123,11 +123,11 @@ function PatientRegister({setSafeRedirect}) {
   };
 
   useEffect(() => {
-    if(loading === false && isUserCreated){
+    if (loading === false && isUserCreated) {
       setSafeRedirect(true);
       history.push("/login");
     }
-  },[loading, isUserCreated, history,setSafeRedirect])
+  }, [loading, isUserCreated, history, setSafeRedirect]);
 
   return (
     <form onSubmit={handleFormSubmit}>

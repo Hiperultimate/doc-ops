@@ -132,28 +132,33 @@ function DoctorRegister({ setSafeRedirect }) {
           closingHours: closingHours,
         };
         await setDoc(doc(db, "users", newUserUID), userData);
-
         const setURLs = [];
         let imgNum = 0;
-        await Promise.all(displayImage.map(async (imgLink) => {
-          const imgObj = await fetch(imgLink)
-            .then((r) => r.blob())
-            .then(
-              (blobFile) =>
-                new File(
-                  [blobFile],
-                  new Date().getTime().toString() + newUserUID + `${imgNum++}`,
-                  { type: blobFile.type }
-                )
+        await Promise.all(
+          displayImage.map(async (imgLink) => {
+            const imgObj = await fetch(imgLink)
+              .then((r) => r.blob())
+              .then(
+                (blobFile) =>
+                  new File(
+                    [blobFile],
+                    new Date().getTime().toString() +
+                      newUserUID +
+                      `${imgNum++}`,
+                    { type: blobFile.type }
+                  )
+              );
+            const uploadImgRef = ref(storage, `images/${imgObj.name}`);
+            await uploadBytes(uploadImgRef, imgObj);
+            const getDownloadableURL = await getDownloadURL(
+              ref(storage, `images/${imgObj.name}`)
             );
-          const uploadImgRef = ref(storage, `images/${imgObj.name}`);
-          await uploadBytes(uploadImgRef, imgObj);
-          const getDownloadableURL = await getDownloadURL(
-            ref(storage, `images/${imgObj.name}`)
-          );
-          setURLs.push(getDownloadableURL);
-        }));
-        await setDoc(doc(db, "clinicImages", newUserUID), {clinicImgURLs: setURLs});
+            setURLs.push(getDownloadableURL);
+          })
+        );
+        await setDoc(doc(db, "clinicImages", newUserUID), {
+          clinicImgURLs: setURLs,
+        });
         setIsUserCreated(true);
       } catch (e) {
         console.log(e);
@@ -169,11 +174,10 @@ function DoctorRegister({ setSafeRedirect }) {
     }
   };
 
-  const uploadPictureHandler = async (e) => {
+  const ValidateImageHandler = (e) => {
     const images = e.target.files;
     const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
     let typeErrorMsg = [];
-    //Image Validation
     if (images.length + displayImage.length > 5) {
       typeErrorMsg.push("Cannot upload more than 5 images");
       setErrorList({ ...errorList, clinicPictures: typeErrorMsg });
@@ -312,7 +316,7 @@ function DoctorRegister({ setSafeRedirect }) {
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
                 clinicPicturesErrorMsg: errorList.clinicPictures,
-                uploadPictureHandler: uploadPictureHandler,
+                ValidateImageHandler: ValidateImageHandler,
               }}
               key={4}
             />,

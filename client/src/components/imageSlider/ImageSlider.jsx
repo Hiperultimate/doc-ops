@@ -19,7 +19,7 @@ function ImageSlider({ imageList, editable, setImageList }) {
 
   const onClickHandler = (imageLink) => {
     let newList = imageList;
-    newList = newList.filter(img => img !== imageLink);
+    newList = newList.filter((img) => img !== imageLink);
     setImageList(newList);
   };
 

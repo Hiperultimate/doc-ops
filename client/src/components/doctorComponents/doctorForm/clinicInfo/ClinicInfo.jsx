@@ -50,7 +50,7 @@ function ClinicInfo({
     clinicPictures,
     setClinicPictures,
     clinicPicturesErrorMsg,
-    uploadPictureHandler,
+    ValidateImageHandler,
   } = clinicPicturesHook;
 
   return (
@@ -180,7 +180,7 @@ function ClinicInfo({
                   className="file-input"
                   id="myfile"
                   name="myfile"
-                  onChange={uploadPictureHandler}
+                  onChange={ValidateImageHandler}
                   accept="image/*"
                   multiple
                 />
