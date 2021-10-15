@@ -7,7 +7,7 @@ import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import ValidationContext from "../../../../contexts/ValidationContext.js";
 import { userType } from "../../../../dataModel.js";
-import { doc, collection, getDocs, setDoc, GeoPoint } from "firebase/firestore";
+import { doc, getDoc , setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 import { useHistory } from "react-router-dom";
@@ -209,11 +209,9 @@ function DoctorRegister({ setSafeRedirect }) {
   useEffect(() => {
     async function fetchClinicOptions() {
       try {
-        let retrievedData = await getDocs(collection(db, "formInputs"));
-        retrievedData.forEach((doc) => {
-          setTreatmentOptions(doc.data().treatments);
-          setSpecializationOptions(doc.data().specializations);
-        });
+        let retrievedData = await getDoc(doc(db, "formInputs", "doctorForm"));
+        setTreatmentOptions(retrievedData.data().treatments);
+        setSpecializationOptions(retrievedData.data().specializations);
       } catch (error) {
         console.log(error);
       }
