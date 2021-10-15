@@ -4,7 +4,7 @@ import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
 
-import { doc, setDoc, GeoPoint } from "firebase/firestore";
+import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
 import { db } from "../../../../firebase.js";
 import { userType } from "../../../../dataModel.js";
 import { useHistory } from "react-router-dom";
@@ -26,6 +26,7 @@ function PatientRegister({ setSafeRedirect }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [allergyOptions, setAllergyOptions] = useState([]);
   const [errorList, setErrorList] = useState({
     patientName: [],
     patientDOB: [],
@@ -129,6 +130,18 @@ function PatientRegister({ setSafeRedirect }) {
     }
   }, [loading, isUserCreated, history, setSafeRedirect]);
 
+  useEffect(() => {
+    async function fetchClinicOptions() {
+      try {
+        let retrievedData = await getDoc(doc(db, "formInputs", "patientForm"));
+        setAllergyOptions(retrievedData.data().allergies);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchClinicOptions();
+  }, []);
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="patient-form">
@@ -200,6 +213,7 @@ function PatientRegister({ setSafeRedirect }) {
               patientAllergiesState={{
                 patientAllergies: patientAllergies,
                 setPatientAllergies: setPatientAllergies,
+                allergyOptions: allergyOptions,
               }}
             />,
             <button

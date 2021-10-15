@@ -18,7 +18,7 @@ function PatientMedicalInfo({
     patientGenderState;
   const { patientBloodgroup, setPatientBloodgroup, bloodgroupErrorMsg } =
     patientBloodgroupState;
-  const { patientAllergies, setPatientAllergies } = patientAllergiesState;
+  const { patientAllergies, setPatientAllergies , allergyOptions} = patientAllergiesState;
   return (
     <div className="patient-medical-info global-box-shadow">
       <div className="register-medical-info-grid">
@@ -79,7 +79,7 @@ function PatientMedicalInfo({
         <div className="patient-allergies">
           <span className="input-heading">Allergies</span>
           <MultiSelect
-            options={["Egg", "Banana", "Dust", "Grass"]}
+            options={allergyOptions}
             placeholder={"Enter allergies..."}
             stateValue={patientAllergies}
             handleState={setPatientAllergies}
