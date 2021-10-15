@@ -7,7 +7,7 @@
   display: grid;
   padding: 2em;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
   gap: 8px 8px;
   grid-auto-flow: row;
   grid-template-areas:

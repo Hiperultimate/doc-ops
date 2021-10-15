@@ -11,13 +11,15 @@ function PatientBasicInfo({
   patientPasswordHook,
   patientConfirmPasswordHook,
 }) {
-  const { patientName, setPatientName } = patientNameState;
-  const { patientDOB, setPatientDOB } = patientDOBState;
-  const { patientAddress, setPatientAddress } = patientAddressState;
-  const { patientEmail, setPatientEmail } = patientEmailState;
-  const { patientPhone, setPatientPhone } = patientPhoneState;
-  const { password, setPassword } = patientPasswordHook;
-  const { confirmPassword, setConfirmPassword } = patientConfirmPasswordHook;
+  const { patientName, setPatientName, nameErrorMsg } = patientNameState;
+  const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
+  const { patientAddress, setPatientAddress, addressErrorMsg } =
+    patientAddressState;
+  const { patientEmail, setPatientEmail, emailErrorMsg } = patientEmailState;
+  const { patientPhone, setPatientPhone, phoneErrorMsg } = patientPhoneState;
+  const { password, setPassword, passwordErrorMsg } = patientPasswordHook;
+  const { confirmPassword, setConfirmPassword, confPasswordErrorMsg } =
+    patientConfirmPasswordHook;
 
   return (
     <div className="patient-basic-info global-box-shadow">
@@ -40,6 +42,9 @@ function PatientBasicInfo({
                 setChange={setPatientName}
                 value={patientName}
               />
+              {nameErrorMsg.length !== 0 && (
+                <div className="error-msg">{nameErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-dob">
               <InputField
@@ -51,6 +56,9 @@ function PatientBasicInfo({
                 setChange={setPatientDOB}
                 value={patientDOB}
               />
+              {dobErrorMsg.length !== 0 && (
+                <div className="error-msg">{dobErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-address">
               <InputField
@@ -62,6 +70,9 @@ function PatientBasicInfo({
                 setChange={setPatientAddress}
                 value={patientAddress}
               />
+              {addressErrorMsg.length !== 0 && (
+                <div className="error-msg">{addressErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-email">
               <InputField
@@ -73,6 +84,9 @@ function PatientBasicInfo({
                 setChange={setPatientEmail}
                 value={patientEmail}
               />
+              {emailErrorMsg.length !== 0 && (
+                <div className="error-msg">{emailErrorMsg[0]}</div>
+              )}
             </div>
             <div className="patient-phone">
               <InputField
@@ -84,6 +98,9 @@ function PatientBasicInfo({
                 setChange={setPatientPhone}
                 value={patientPhone}
               />
+              {phoneErrorMsg.length !== 0 && (
+                <div className="error-msg">{phoneErrorMsg[0]}</div>
+              )}
             </div>
             <div className="password-field">
               <InputField
@@ -95,6 +112,9 @@ function PatientBasicInfo({
                 setChange={setPassword}
                 value={password}
               />
+              {passwordErrorMsg.length !== 0 && (
+                <div className="error-msg">{passwordErrorMsg[0]}</div>
+              )}
             </div>
             <div className="confirm-password-field">
               <InputField
@@ -106,6 +126,9 @@ function PatientBasicInfo({
                 setChange={setConfirmPassword}
                 value={confirmPassword}
               />
+              {confPasswordErrorMsg.length !== 0 && (
+                <div className="error-msg">{confPasswordErrorMsg[0]}</div>
+              )}
             </div>
           </div>
         </div>

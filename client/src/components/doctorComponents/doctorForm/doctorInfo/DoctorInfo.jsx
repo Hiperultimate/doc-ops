@@ -9,12 +9,14 @@ function DoctorInfo({
   doctorPasswordHook,
   doctorConfirmPasswordHook,
 }) {
-  const { doctorName, setDoctorName } = doctorNameHook;
-  const { doctorEmail, setDoctorEmail } = doctorEmailHook;
-  const { doctorPhone, setDoctorPhone } = doctorPhoneHook;
-  const { doctorExperience, setDoctorExperience } = doctorExperienceHook;
-  const { password, setPassword } = doctorPasswordHook;
-  const { confirmPassword, setConfirmPassword } = doctorConfirmPasswordHook;
+  const { doctorName, setDoctorName, nameErrorMsg } = doctorNameHook;
+  const { doctorEmail, setDoctorEmail, emailErrorMsg } = doctorEmailHook;
+  const { doctorPhone, setDoctorPhone, phoneErrorMsg } = doctorPhoneHook;
+  const { doctorExperience, setDoctorExperience, experienceErrorMsg } =
+    doctorExperienceHook;
+  const { password, setPassword, passwordErrorMsg } = doctorPasswordHook;
+  const { confirmPassword, setConfirmPassword, confirmPasswordErrorMsg } =
+    doctorConfirmPasswordHook;
 
   return (
     <div className="doctor-basic-info global-box-shadow">
@@ -29,6 +31,9 @@ function DoctorInfo({
             setChange={setDoctorName}
             value={doctorName}
           />
+          {nameErrorMsg && (
+            <div className="error-msg">{nameErrorMsg[0]}</div>
+          )}
         </div>
         <div className="doctor-email">
           <InputField
@@ -40,6 +45,9 @@ function DoctorInfo({
             setChange={setDoctorEmail}
             value={doctorEmail}
           />
+          {emailErrorMsg && (
+            <div className="error-msg">{emailErrorMsg[0]}</div>
+          )}
         </div>
         <div className="doctor-phone">
           <InputField
@@ -51,6 +59,9 @@ function DoctorInfo({
             setChange={setDoctorPhone}
             value={doctorPhone}
           />
+          {phoneErrorMsg && (
+            <div className="error-msg">{phoneErrorMsg[0]}</div>
+          )}
         </div>
         <div className="work-experience">
           <InputField
@@ -64,6 +75,9 @@ function DoctorInfo({
             setChange={setDoctorExperience}
             value={doctorExperience}
           />
+          {experienceErrorMsg && (
+            <div className="error-msg">{experienceErrorMsg[0]}</div>
+          )}
         </div>
         <div className="password-field">
           <InputField
@@ -75,6 +89,9 @@ function DoctorInfo({
             setChange={setPassword}
             value={password}
           />
+          {passwordErrorMsg && (
+            <div className="error-msg">{passwordErrorMsg[0]}</div>
+          )}
         </div>
         <div className="confirm-password-field">
           <InputField
@@ -86,6 +103,9 @@ function DoctorInfo({
             setChange={setConfirmPassword}
             value={confirmPassword}
           />
+          {confirmPasswordErrorMsg && (
+            <div className="error-msg">{confirmPasswordErrorMsg[0]}</div>
+          )}
         </div>
       </div>
     </div>

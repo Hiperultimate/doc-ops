@@ -4,7 +4,7 @@ import "./imageSlider.css";
 import CrossSvg from "../../svgs/cross-bg.svg";
 import Slider from "react-slick";
 
-function ImageSlider({ imageList, editable }) {
+function ImageSlider({ imageList, editable, setImageList }) {
   let imageCount = 0;
   let settings = {
     dots: false,
@@ -18,7 +18,9 @@ function ImageSlider({ imageList, editable }) {
   };
 
   const onClickHandler = (imageLink) => {
-    console.log(imageLink);
+    let newList = imageList;
+    newList = newList.filter((img) => img !== imageLink);
+    setImageList(newList);
   };
 
   return (

@@ -59,5 +59,10 @@ body {
   color: #999999;
 }
 
+.error-msg{
+  color: #ff7a7a; ;
+  margin-left: 5px;
+}
+
 /* For creating grid https://grid.layoutit.com/  
   For creating shadows https://shadows.brumm.af/  */
