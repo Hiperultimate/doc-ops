@@ -31,7 +31,7 @@ function DoctorInfo({
             setChange={setDoctorName}
             value={doctorName}
           />
-          {nameErrorMsg.length !== 0 && (
+          {nameErrorMsg && (
             <div className="error-msg">{nameErrorMsg[0]}</div>
           )}
         </div>
@@ -45,7 +45,7 @@ function DoctorInfo({
             setChange={setDoctorEmail}
             value={doctorEmail}
           />
-          {emailErrorMsg.length !== 0 && (
+          {emailErrorMsg && (
             <div className="error-msg">{emailErrorMsg[0]}</div>
           )}
         </div>
@@ -59,7 +59,7 @@ function DoctorInfo({
             setChange={setDoctorPhone}
             value={doctorPhone}
           />
-          {phoneErrorMsg.length !== 0 && (
+          {phoneErrorMsg && (
             <div className="error-msg">{phoneErrorMsg[0]}</div>
           )}
         </div>
@@ -75,7 +75,7 @@ function DoctorInfo({
             setChange={setDoctorExperience}
             value={doctorExperience}
           />
-          {experienceErrorMsg.length !== 0 && (
+          {experienceErrorMsg && (
             <div className="error-msg">{experienceErrorMsg[0]}</div>
           )}
         </div>
@@ -89,7 +89,7 @@ function DoctorInfo({
             setChange={setPassword}
             value={password}
           />
-          {passwordErrorMsg.length !== 0 && (
+          {passwordErrorMsg && (
             <div className="error-msg">{passwordErrorMsg[0]}</div>
           )}
         </div>
@@ -103,7 +103,7 @@ function DoctorInfo({
             setChange={setConfirmPassword}
             value={confirmPassword}
           />
-          {confirmPasswordErrorMsg.length !== 0 && (
+          {confirmPasswordErrorMsg && (
             <div className="error-msg">{confirmPasswordErrorMsg[0]}</div>
           )}
         </div>

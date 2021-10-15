@@ -174,7 +174,7 @@ function DoctorRegister({ setSafeRedirect }) {
     }
   };
 
-  const ValidateImageHandler = (e) => {
+  const ValidateImage = (e) => {
     const images = e.target.files;
     const checkType = new Set([".jpg", ".jpeg", ".bmp", ".gif", ".png"]);
     let typeErrorMsg = [];
@@ -222,7 +222,7 @@ function DoctorRegister({ setSafeRedirect }) {
   }, []);
 
   useEffect(() => {
-    if (loading === false && isUserCreated) {
+    if (!loading && isUserCreated) {
       setSafeRedirect(true);
       history.push("/login");
     }
@@ -316,7 +316,7 @@ function DoctorRegister({ setSafeRedirect }) {
                 clinicPictures: clinicPictures,
                 setClinicPictures: setClinicPictures,
                 clinicPicturesErrorMsg: errorList.clinicPictures,
-                ValidateImageHandler: ValidateImageHandler,
+                ValidateImage: ValidateImage,
               }}
               key={4}
             />,

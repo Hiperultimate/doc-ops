@@ -50,7 +50,7 @@ function ClinicInfo({
     clinicPictures,
     setClinicPictures,
     clinicPicturesErrorMsg,
-    ValidateImageHandler,
+    ValidateImage,
   } = clinicPicturesHook;
 
   return (
@@ -68,7 +68,7 @@ function ClinicInfo({
                 setChange={setClinicName}
                 value={clinicName}
               />
-              {clinicNameErrorMsg.length !== 0 && (
+              {clinicNameErrorMsg && (
                 <div className="error-msg">{clinicNameErrorMsg[0]}</div>
               )}
             </div>
@@ -82,7 +82,7 @@ function ClinicInfo({
                 setChange={setClinicAddress}
                 value={clinicAddress}
               />
-              {clinicAddressErrorMsg.length !== 0 && (
+              {clinicAddressErrorMsg && (
                 <div className="error-msg">{clinicAddressErrorMsg[0]}</div>
               )}
             </div>
@@ -98,7 +98,7 @@ function ClinicInfo({
                 setChange={setClinicConsultationFee}
                 value={clinicConsultationFee}
               />
-              {consultationFeeErrorMsg.length !== 0 && (
+              {consultationFeeErrorMsg && (
                 <div className="error-msg">{consultationFeeErrorMsg[0]}</div>
               )}
             </div>
@@ -111,7 +111,7 @@ function ClinicInfo({
                   onChange={(value) => setClinicOnlineConsultation(value)}
                 />
               </div>
-              {onlineConsultationErrorMsg.length !== 0 && (
+              {onlineConsultationErrorMsg && (
                 <div className="error-msg">{onlineConsultationErrorMsg[0]}</div>
               )}
             </div>
@@ -125,7 +125,7 @@ function ClinicInfo({
                   handleState={setTreatmentsOffered}
                 />
               </div>
-              {treatmentsErrorMsg.length !== 0 && (
+              {treatmentsErrorMsg && (
                 <div className="error-msg">{treatmentsErrorMsg[0]}</div>
               )}
             </div>
@@ -139,7 +139,7 @@ function ClinicInfo({
                   handleState={setSpecilization}
                 />
               </div>
-              {specializationErrorMsg.length !== 0 && (
+              {specializationErrorMsg && (
                 <div className="error-msg">{specializationErrorMsg[0]}</div>
               )}
             </div>
@@ -154,7 +154,7 @@ function ClinicInfo({
                   setChange={setOpeningHours}
                   value={openingHours}
                 />
-                {openingHoursErrorMsg.length !== 0 && (
+                {openingHoursErrorMsg && (
                   <div className="error-msg">{openingHoursErrorMsg[0]}</div>
                 )}
                 <InputField
@@ -166,7 +166,7 @@ function ClinicInfo({
                   setChange={setClosingHours}
                   value={closingHours}
                 />
-                {closingHoursErrorMsg.length !== 0 && (
+                {closingHoursErrorMsg && (
                   <div className="error-msg">{closingHoursErrorMsg[0]}</div>
                 )}
               </div>
@@ -180,12 +180,12 @@ function ClinicInfo({
                   className="file-input"
                   id="myfile"
                   name="myfile"
-                  onChange={ValidateImageHandler}
+                  onChange={ValidateImage}
                   accept="image/*"
                   multiple
                 />
               </div>
-              {clinicPicturesErrorMsg.length !== 0 && (
+              {clinicPicturesErrorMsg && (
                 <div className="error-msg">{clinicPicturesErrorMsg[0]}</div>
               )}
             </div>

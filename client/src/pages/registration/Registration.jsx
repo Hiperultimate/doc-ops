@@ -6,30 +6,26 @@ import PatientRegister from "./registationForms/patientRegister/PatientRegister.
 import DoctorRegister from "./registationForms/doctorRegister/DoctorRegister.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 
+import { userType } from "../../dataModel.js";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.js";
 
-const FormType = Object.freeze({
-  DOCTOR: 1,
-  PATIENT: 2,
-});
-
 function Registration() {
-  const [formType, setFormType] = useState(FormType.DOCTOR);
+  const [formType, setFormType] = useState(userType.DOCTOR);
   const [safeRefirect, setSafeRedirect] = useState(true);
   const { currentUser } = useAuth();
   const history = useHistory();
 
-  const someFunc = (e) => {
+  const changeFormType = (e) => {
     switch (e.target.id) {
       case "doctor-btn":
-        setFormType(FormType.DOCTOR);
+        setFormType(userType.DOCTOR);
         break;
       case "patient-btn":
-        setFormType(FormType.PATIENT);
+        setFormType(userType.PATIENT);
         break;
       default:
-        setFormType(FormType.PATIENT);
+        setFormType(userType.PATIENT);
     }
   };
 
@@ -46,11 +42,11 @@ function Registration() {
         <div className="select-form">
           <button
             style={
-              formType === 1
+              formType === userType.DOCTOR
                 ? { backgroundColor: "var(--green-third)", color: "white" }
                 : { backgroundColor: "white" }
             }
-            onClick={someFunc}
+            onClick={changeFormType}
             type="button"
             className="select-btn doctorFormBtn global-box-shadow"
             id="doctor-btn"
@@ -59,11 +55,11 @@ function Registration() {
           </button>
           <button
             style={
-              formType === 2
+              formType === userType.PATIENT
                 ? { backgroundColor: "var(--green-third)", color: "white" }
                 : { backgroundColor: "white" }
             }
-            onClick={someFunc}
+            onClick={changeFormType}
             type="button"
             className="select-btn patientFormBtn global-box-shadow"
             id="patient-btn"
@@ -71,8 +67,8 @@ function Registration() {
             I'm a Patient
           </button>
         </div>
-        {formType === 1 && <DoctorRegister setSafeRedirect={setSafeRedirect}/>}
-        {formType === 2 && <PatientRegister setSafeRedirect={setSafeRedirect}/>}
+        {formType === userType.DOCTOR && <DoctorRegister setSafeRedirect={setSafeRedirect}/>}
+        {formType === userType.PATIENT && <PatientRegister setSafeRedirect={setSafeRedirect}/>}
       </div>
       <Footer />
     </>
