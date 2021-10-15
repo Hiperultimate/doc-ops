@@ -1,14 +1,35 @@
 import "./patientAbout.css";
-import Navbar from "../../components/navbar/Navbar.jsx";
-import MainHeading from "../../components/mainHeading/MainHeading.jsx";
-import MainContainer from "../../components/mainContainer/MainContainer.jsx";
-import MainContHead from "../../components/mainContHead/MainContHead.jsx";
-import ContactInfo from "../../components/patientComponents/contactInfo/ContactInfo.jsx";
-import MedicalInfo from "../../components/patientComponents/medicalInfo/MedicalInfo.jsx";
-import MedicalHistory from "../../components/patientComponents/medicalHistory/MedicalHistory.jsx";
-import Footer from "../../components/footer/Footer.jsx";
+import Navbar from "../../../components/navbar/Navbar.jsx";
+import MainHeading from "../../../components/mainHeading/MainHeading.jsx";
+import MainContainer from "../../../components/mainContainer/MainContainer.jsx";
+import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
+import ContactInfo from "../../../components/patientComponents/contactInfo/ContactInfo.jsx";
+import MedicalInfo from "../../../components/patientComponents/medicalInfo/MedicalInfo.jsx";
+import MedicalHistory from "../../../components/patientComponents/medicalHistory/MedicalHistory.jsx";
+import Footer from "../../../components/footer/Footer.jsx";
+
+import { useHistory } from "react-router-dom";
+import { useParams } from "react-router";
+import { useAuth } from "../../../contexts/AuthContext.js";
 
 function PatientAbout() {
+  const history = useHistory();
+  const { userData } = useAuth();
+  let { UID } = useParams();
+  
+  const AboutUID = async () => {
+    let fetchAboutData;
+    try {
+      fetchAboutData = await userData(UID);
+    } catch (err) {
+      console.log(err.message);
+      history.push(`/error`);
+    }
+    return fetchAboutData;
+  };
+  const pageData = AboutUID();
+  console.log("HERE :", pageData);
+
   const fetchMedicalHistory = [
     {
       DiseaseName: "Blood Cancer",
@@ -50,6 +71,7 @@ function PatientAbout() {
       ],
     },
   ];
+
   return (
     <>
       <Navbar isFixed={true} />

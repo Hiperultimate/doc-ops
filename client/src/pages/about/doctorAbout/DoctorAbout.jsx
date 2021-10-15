@@ -1,12 +1,12 @@
 import "./doctorAbout.css";
-import Navbar from "../../components/navbar/Navbar.jsx";
-import Footer from "../../components/footer/Footer.jsx";
-import MainContainer from "../../components/mainContainer/MainContainer.jsx";
-import MainHeading from "../../components/mainHeading/MainHeading.jsx";
-import MainContHead from "../../components/mainContHead/MainContHead.jsx";
-import DoctorDetails from "../../components/doctorComponents/doctorDetails/DoctorDetails.jsx";
-import DoctorClinicDetails from "../../components/doctorComponents/doctorClinicDetails/DoctorClinicDetails.jsx";
-import ImageSlider from "../../components/imageSlider/ImageSlider.jsx";
+import Navbar from "../../../components/navbar/Navbar.jsx";
+import Footer from "../../../components/footer/Footer.jsx";
+import MainContainer from "../../../components/mainContainer/MainContainer.jsx";
+import MainHeading from "../../../components/mainHeading/MainHeading.jsx";
+import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
+import DoctorDetails from "../../../components/doctorComponents/doctorDetails/DoctorDetails.jsx";
+import DoctorClinicDetails from "../../../components/doctorComponents/doctorClinicDetails/DoctorClinicDetails.jsx";
+import ImageSlider from "../../../components/imageSlider/ImageSlider.jsx";
 
 function DoctorAbout() {
   return (
