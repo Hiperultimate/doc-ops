@@ -35,7 +35,6 @@ export function AuthProvider({ children }) {
     const userInfo = doc(db, "users", UID);
     const userUID = await getDoc(userInfo);
     if (userUID.exists()) {
-      console.log(userUID.data());
       return userUID.data();
     } else {
       throw new Error("Error retrieving user data");
