@@ -4,14 +4,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useParams } from "react-router";
 import Login from "./pages/login/Login.jsx";
 import Home from "./pages/home/Home.jsx";
 import Registration from "./pages/registration/Registration.jsx";
 import About from "./pages/about/About.jsx";
-import DoctorAbout from "./pages/about/doctorAbout/DoctorAbout.jsx";
 import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
-import PatientAbout from "./pages/about/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
@@ -31,8 +28,6 @@ function App() {
         </Route>
         <Route path="/about/:type/:UID">
           <About />
-          {/* <DoctorAbout /> */}
-          {/* <PatientAbout /> */}
         </Route>
         <Route path="/form">
           {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}

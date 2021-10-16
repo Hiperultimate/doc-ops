@@ -28,7 +28,7 @@ function PatientAbout() {
     address: "loading...",
     allergies: "loading...",
     age: "loading...",
-    medicalHistory : [],
+    medicalHistory: [],
   });
   const history = useHistory();
   const { userData } = useAuth();
