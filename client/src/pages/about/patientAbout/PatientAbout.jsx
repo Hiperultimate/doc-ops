@@ -28,6 +28,7 @@ function PatientAbout() {
     address: "loading...",
     allergies: "loading...",
     age: "loading...",
+    medicalHistory : [],
   });
   const history = useHistory();
   const { userData } = useAuth();
@@ -62,48 +63,6 @@ function PatientAbout() {
     };
     AboutUID();
   }, [UID, history, userData]);
-
-  const fetchMedicalHistory = [
-    {
-      DiseaseName: "Blood Cancer",
-      CureTimeTaken: "21 Sept, 2021 - 30 December 2022",
-      Comments: "Severe cases of blood ...",
-      Medication: [
-        {
-          medName: "Chemo",
-          medFrequency: "Once a day",
-          medDuration: "31 Oct - 30 Dec",
-        },
-        {
-          medName: "Pain Killers",
-          medFrequency: "Once a week",
-          medDuration: "15 Oct - 30 Dec",
-        },
-        {
-          medName: "Drug 2",
-          medFrequency: "3 times a day",
-          medDuration: "31 Sept - 30 Dec",
-        },
-      ],
-    },
-    {
-      DiseaseName: "Common Cold",
-      CureTimeTaken: "25 Jan, 2022 - 30 February 2022",
-      Comments: "Winter cold, minor coughs.",
-      Medication: [
-        {
-          medName: "Coldo",
-          medFrequency: "Three times a day",
-          medDuration: "25 Jan - 29 Jan",
-        },
-        {
-          medName: "Sleeping Pills",
-          medFrequency: "At night",
-          medDuration: "15 Feb - 19 Feb",
-        },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -140,7 +99,7 @@ function PatientAbout() {
             </div>,
             <MainContHead titleName="Medical History" key={5} />,
             <div style={{ paddingBottom: "0em" }} key={6}>
-              <MedicalHistory medicalHistory={fetchMedicalHistory} />
+              <MedicalHistory medicalHistory={aboutUserData.medicalHistory} />
             </div>,
           ]}
         />
