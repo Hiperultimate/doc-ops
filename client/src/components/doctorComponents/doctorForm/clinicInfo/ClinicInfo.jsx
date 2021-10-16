@@ -12,7 +12,7 @@ function ClinicInfo({
   clinicConsultationFeeHook,
   clinicOnlineConsultationHook,
   treatmentsOfferedHook,
-  specilizationHook,
+  specializationHook,
   openingHoursHook,
   closingHoursHook,
   clinicPicturesHook,
@@ -37,11 +37,11 @@ function ClinicInfo({
     treatmentOptions,
   } = treatmentsOfferedHook;
   const {
-    specilization,
-    setSpecilization,
+    specialization,
+    setSpecialization,
     specializationErrorMsg,
     specializationOptions,
-  } = specilizationHook;
+  } = specializationHook;
   const { openingHours, setOpeningHours, openingHoursErrorMsg } =
     openingHoursHook;
   const { closingHours, setClosingHours, closingHoursErrorMsg } =
@@ -135,8 +135,8 @@ function ClinicInfo({
                 <MultiSelect
                   options={[...specializationOptions]}
                   placeholder={"Enter Specializations"}
-                  stateValue={specilization}
-                  handleState={setSpecilization}
+                  stateValue={specialization}
+                  handleState={setSpecialization}
                 />
               </div>
               {specializationErrorMsg && (

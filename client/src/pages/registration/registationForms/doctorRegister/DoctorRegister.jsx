@@ -26,7 +26,7 @@ function DoctorRegister({ setSafeRedirect }) {
   const [clinicOnlineConsultation, setClinicOnlineConsultation] =
     useState("False");
   const [treatmentsOffered, setTreatmentsOffered] = useState([]);
-  const [specilization, setSpecilization] = useState([]);
+  const [specialization, setSpecialization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState([]);
@@ -51,7 +51,7 @@ function DoctorRegister({ setSafeRedirect }) {
     clinicConsultationFee: [],
     clinicOnlineConsultation: [],
     treatmentsOffered: [],
-    specilization: [],
+    specialization: [],
     openingHours: [],
     closingHours: [],
     clinicPictures: [],
@@ -69,7 +69,7 @@ function DoctorRegister({ setSafeRedirect }) {
     clinicConsultationFee: ["required", "integer"],
     clinicOnlineConsultation: ["required"],
     treatmentsOffered: ["required"],
-    specilization: ["required"],
+    specialization: ["required"],
     openingHours: ["required", "openingHours"],
     closingHours: ["required", "closingHours"],
   };
@@ -89,7 +89,7 @@ function DoctorRegister({ setSafeRedirect }) {
       clinicConsultationFee: clinicConsultationFee,
       clinicOnlineConsultation: clinicOnlineConsultation,
       treatmentsOffered: treatmentsOffered,
-      specilization: specilization,
+      specialization: specialization,
       openingHours: openingHours,
       closingHours: closingHours,
     };
@@ -127,7 +127,7 @@ function DoctorRegister({ setSafeRedirect }) {
           clinicConsultationFee: Number(clinicConsultationFee),
           clinicOnlineConsultation: clinicOnlineConsultation,
           treatmentsOffered: treatmentsOffered,
-          specilization: specilization,
+          specialization: specialization,
           openingHours: openingHours,
           closingHours: closingHours,
         };
@@ -294,10 +294,10 @@ function DoctorRegister({ setSafeRedirect }) {
                 treatmentsErrorMsg: errorList.treatmentsOffered,
                 treatmentOptions: treatmentOptions,
               }}
-              specilizationHook={{
-                specilization: specilization,
-                setSpecilization: setSpecilization,
-                specializationErrorMsg: errorList.specilization,
+              specializationHook={{
+                specialization: specialization,
+                setSpecialization: setSpecialization,
+                specializationErrorMsg: errorList.specialization,
                 specializationOptions: specializationOptions,
               }}
               openingHoursHook={{
@@ -340,3 +340,4 @@ function DoctorRegister({ setSafeRedirect }) {
 }
 
 export default DoctorRegister;
+

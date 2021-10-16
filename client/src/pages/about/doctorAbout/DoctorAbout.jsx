@@ -8,7 +8,51 @@ import DoctorDetails from "../../../components/doctorComponents/doctorDetails/Do
 import DoctorClinicDetails from "../../../components/doctorComponents/doctorClinicDetails/DoctorClinicDetails.jsx";
 import ImageSlider from "../../../components/imageSlider/ImageSlider.jsx";
 
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useParams } from "react-router";
+import { useAuth } from "../../../contexts/AuthContext.js";
+
 function DoctorAbout() {
+  const [aboutUserData, setAboutUserData] = useState({
+    doctorName: "loading...",
+    doctorPhone: "loading...",
+    doctorEmail: "loading...",
+    doctorExperience: "loading...",
+    geoLocation: [],
+    openingHours: "loading...",
+    closingHours: "loading...",
+    specialization: [],
+    treatmentsOffered: [],
+    clinicName: "loading...",
+    clinicAddress: "loading...",
+    clinicConsultationFee: "loading...",
+    clinicOnlineConsultation: "loading...",
+    clinicImgURLs: [],
+  });
+  const history = useHistory();
+  const { userData } = useAuth();
+  let { UID } = useParams();
+
+  useEffect(() => {
+    const AboutUID = async () => {
+      let fetchAboutData;
+      try {
+        fetchAboutData = await userData(UID);
+        fetchAboutData.geoLocation = [
+          fetchAboutData.geoLocation.latitude,
+          fetchAboutData.geoLocation.longitude,
+        ];
+        setAboutUserData(fetchAboutData);
+      } catch (err) {
+        console.log(err.message);
+        history.push(`/error`);
+      }
+      return fetchAboutData;
+    };
+    AboutUID();
+  }, [UID, history, userData]);
+
   return (
     <div className="doctor-about">
       <Navbar isFixed={true} />
@@ -17,36 +61,29 @@ function DoctorAbout() {
       <MainContainer
         mainWrapperClass="main-container"
         AddComponents={[
-          <MainContHead titleName="Alanakov Banovoichi" key={1} />,
+          <MainContHead titleName={aboutUserData.doctorName} key={1} />,
           <DoctorDetails
-            experience={"1+ Years"}
-            email={"alanokovTheDoctor@gmail.com"}
-            phoneNumber={"981273591"}
-            specialization={"Surgeries, Anesthetics, Valorant, Punjabi"} //Might need to parse according to the input later on
-            treatments={
-              "Wisdom tooth removal, Plaq Cleaning, Ear Destroyer, Stomach Remover"
-            }
-            consultationFee={"2100"}
+            experience={aboutUserData.doctorExperience}
+            email={aboutUserData.doctorEmail}
+            phoneNumber={aboutUserData.doctorPhone}
+            specialization={aboutUserData.specialization} //Might need to parse according to the input later on
+            treatments={aboutUserData.treatmentsOffered}
+            consultationFee={aboutUserData.clinicConsultationFee}
             key={2}
           />,
           <DoctorClinicDetails
-            clinicName={"ATS Doctors"}
-            clinicAddress={"Rotripur-2301 New Delhi"}
-            onlineConsultation={true} //Check if value is in string or bool - if yes, then add change in DoctorClinicDetails component as well
-            openingHours={"Monday - Friday 12PM - 8PM"}
+            clinicName={aboutUserData.clinicName}
+            clinicAddress={aboutUserData.clinicAddress}
+            onlineConsultation={aboutUserData.clinicOnlineConsultation}
+            openingHours={aboutUserData.openingHours}
             key={3}
-            addressLatLong={[28.6394, 77.3653]}
+            addressLatLong={
+              aboutUserData.geoLocation.length === 0
+                ? [0, 0]
+                : aboutUserData.geoLocation
+            }
           />,
-          <ImageSlider
-            imageList={[
-              "https://images.unsplash.com/photo-1485348616965-15c926318fbb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-              "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-              "https://images.unsplash.com/photo-1564419965579-5da68ffdf3af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-              "https://images.unsplash.com/photo-1527368746281-798b65e1ac6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=968&q=80",
-              "https://images.unsplash.com/photo-1606824722920-4c652a70f348?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
-            ]}
-            key={4}
-          />,
+          <ImageSlider imageList={aboutUserData.clinicImgURLs} key={4} />,
         ]}
       />
       <div className="doctor-about-top-spacing" />
