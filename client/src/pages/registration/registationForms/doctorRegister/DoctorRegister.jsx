@@ -156,9 +156,9 @@ function DoctorRegister({ setSafeRedirect }) {
             setURLs.push(getDownloadableURL);
           })
         );
-        await setDoc(doc(db, "clinicImages", newUserUID), {
+        await setDoc(doc(db, "users", newUserUID), {
           clinicImgURLs: setURLs,
-        });
+        },{ merge: true });
         setIsUserCreated(true);
       } catch (e) {
         console.log(e);
