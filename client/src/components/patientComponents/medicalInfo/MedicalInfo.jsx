@@ -33,7 +33,10 @@ function MedicalInfo({
         </div>
         <div className="patient-allergies">
           <span className="info-sub-head">Allergies:</span>
-          <span className="info-res">{patientAllergies.join(", ")}{patientAllergies.length > 0 ? "." : "None"}</span>
+          <span className="info-res">
+            {patientAllergies.join(", ")}
+            {patientAllergies.length > 0 ? "." : "None"}
+          </span>
         </div>
       </div>
     </div>

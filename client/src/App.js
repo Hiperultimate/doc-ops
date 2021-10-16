@@ -7,9 +7,8 @@ import {
 import Login from "./pages/login/Login.jsx";
 import Home from "./pages/home/Home.jsx";
 import Registration from "./pages/registration/Registration.jsx";
-import DoctorAbout from "./pages/doctorAbout/DoctorAbout.jsx";
+import About from "./pages/about/About.jsx";
 import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
-import PatientAbout from "./pages/patientAbout/PatientAbout.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
@@ -27,16 +26,15 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/about">
-          {/* <DoctorAbout /> */}
-          <PatientAbout />
+        <Route path="/about/:type/:UID">
+          <About />
         </Route>
         <Route path="/form">
           {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />}
         </Route>
         <Route path="/register">
-           {/* Not setting up currentUser ternary because of unmonted component error in registry  */}
-          <Registration /> 
+          {/* Not setting up currentUser ternary because of unmonted component error in registry  */}
+          <Registration />
         </Route>
         <Route path="/chat">
           <Chat />

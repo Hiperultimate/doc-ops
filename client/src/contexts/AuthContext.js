@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
     if (userUID.exists()) {
       return userUID.data();
     } else {
-      console.log("Error retrieving user data");
+      throw new Error("Error retrieving user data");
     }
   }
 
