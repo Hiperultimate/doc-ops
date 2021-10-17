@@ -1,6 +1,6 @@
 import "./doctorDetails.css";
 import MainButton from "../../mainButton/MainButton.jsx";
-import { useHistory  } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function DoctorDetails({
   experience,
@@ -15,7 +15,7 @@ function DoctorDetails({
   const onClickHandler = () => {
     history.push("/chat");
   };
-  
+
   return (
     <div className="added-item doc-details global-box-shadow">
       <div className="doctor-detail-container">
@@ -37,12 +37,12 @@ function DoctorDetails({
         <div className="specialization info-padding">
           <span className="semi-title">Specialization:</span>
           <br />
-          <span>{specialization}</span>
+          <span>{specialization.join(", ")}</span>
         </div>
         <div className="treatments custom-info-padding">
           <span className="semi-title">Treatments:</span>
           <br />
-          <span>{treatments}</span>
+          <span>{treatments.join(", ")}</span>
         </div>
         <div className="chat-btn custom-info-padding">
           <span className="semi-title">
