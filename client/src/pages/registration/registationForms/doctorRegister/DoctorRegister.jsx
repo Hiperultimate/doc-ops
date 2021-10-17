@@ -5,13 +5,13 @@ import DoctorInfo from "../../../../components/doctorComponents/doctorForm/docto
 import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
 import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
-import ValidationContext from "../../../../contexts/ValidationContext.js";
-import { userType } from "../../../../dataModel.js";
+import inputValidation from "../../../../utils/validations/inputValidation.js";
+import { userType } from "../../../../utils/constants/dataModel.js";
 import { doc, getDoc , setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthContext.js";
+import { useAuth } from "../../../../utils/contexts/AuthContext.js";
 
 function DoctorRegister({ setSafeRedirect }) {
   const [doctorName, setDoctorName] = useState("");
@@ -95,7 +95,7 @@ function DoctorRegister({ setSafeRedirect }) {
     };
 
     let newErrorList = {
-      ...ValidationContext(validationSchema, inputFields),
+      ...inputValidation(validationSchema, inputFields),
       clinicPictures: errorList.clinicPictures,
     };
     let isValid = Object.keys(newErrorList).every(

@@ -11,7 +11,7 @@ import Footer from "../../../components/footer/Footer.jsx";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
-import { useAuth } from "../../../contexts/AuthContext.js";
+import { useAuth } from "../../../utils/contexts/AuthContext.js";
 
 function PatientAbout() {
   const [aboutUserData, setAboutUserData] = useState({

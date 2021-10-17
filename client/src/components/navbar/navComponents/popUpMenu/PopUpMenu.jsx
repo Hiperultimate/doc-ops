@@ -1,6 +1,6 @@
 import "./popUpMenu.css";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthContext.js";
+import { useAuth } from "../../../../utils/contexts/AuthContext.js";
 
 function PopUpMenu() {
   const { logout } = useAuth();

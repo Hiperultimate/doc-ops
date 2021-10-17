@@ -6,11 +6,11 @@ import PatientMedicalInfo from "../../../../components/patientComponents/patient
 
 import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
 import { db } from "../../../../firebase.js";
-import { userType } from "../../../../dataModel.js";
+import { userType } from "../../../../utils/constants/dataModel.js";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthContext.js";
+import { useAuth } from "../../../../utils/contexts/AuthContext.js";
 
-import ValidationContext from "../../../../contexts/ValidationContext.js";
+import inputValidation from "../../../../utils/validations/inputValidation.js";
 
 function PatientRegister({ setSafeRedirect }) {
   const [patientName, setPatientName] = useState("");
@@ -77,7 +77,7 @@ function PatientRegister({ setSafeRedirect }) {
       confirmPassword: confirmPassword,
     };
 
-    const newErrorList = ValidationContext(validationSchema, inputFields);
+    const newErrorList = inputValidation(validationSchema, inputFields);
 
     setErrorList(newErrorList);
 
