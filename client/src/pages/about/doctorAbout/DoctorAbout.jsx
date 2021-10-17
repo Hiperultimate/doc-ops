@@ -63,7 +63,7 @@ function DoctorAbout() {
         AddComponents={[
           <MainContHead titleName={aboutUserData.doctorName} key={1} />,
           <DoctorDetails
-            experience={aboutUserData.doctorExperience}
+            experience={aboutUserData.doctorExperience + " years"}
             email={aboutUserData.doctorEmail}
             phoneNumber={aboutUserData.doctorPhone}
             specialization={aboutUserData.specialization} //Might need to parse according to the input later on
@@ -75,7 +75,7 @@ function DoctorAbout() {
             clinicName={aboutUserData.clinicName}
             clinicAddress={aboutUserData.clinicAddress}
             onlineConsultation={aboutUserData.clinicOnlineConsultation}
-            openingHours={aboutUserData.openingHours}
+            openingHours={`${aboutUserData.openingHours} - ${aboutUserData.closingHours}`}
             key={3}
             addressLatLong={
               aboutUserData.geoLocation.length === 0
