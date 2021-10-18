@@ -47,9 +47,8 @@ function PatientForm() {
     patientBloodgroup: ["required"],
   };
 
-  const { currentUser } = useAuth();
+  const { currentUser, currentUserData } = useAuth();
   const [loading, setLoading] = useState(false);
-
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +89,7 @@ function PatientForm() {
           bloodgroup: patientBloodgroup,
           allergies: patientAllergies,
         };
-        await setDoc(doc(db, "users", userID), newUserData ,{ merge: true });
+        await setDoc(doc(db, "users", userID), newUserData, { merge: true });
       } catch (e) {
         console.log(e);
       }
@@ -100,6 +99,23 @@ function PatientForm() {
   };
 
   useEffect(() => {
+    async function fetchOldPatientData() {
+      try {
+        const retrievedData = currentUserData;
+        setPatientName(retrievedData.name);
+        setPatientDOB(new Date( new Date("1970-01-01 00:00:00".replace(/-/g,"/")).setSeconds(retrievedData.dob.seconds)).toISOString().split('T')[0]);
+        setPatientAddress(retrievedData.address);
+        setPatientPhone(retrievedData.phone);
+        setPatientWeight(retrievedData.weight);
+        setPatientHeight(retrievedData.height);
+        setPatientGender(retrievedData.gender);
+        setPatientBloodgroup(retrievedData.bloodgroup);
+        setPatientAllergies(retrievedData.allergies);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     async function fetchClinicOptions() {
       try {
         let retrievedData = await getDoc(doc(db, "formInputs", "patientForm"));
@@ -108,6 +124,7 @@ function PatientForm() {
         console.log(error);
       }
     }
+    fetchOldPatientData();
     fetchClinicOptions();
   }, []);
 
