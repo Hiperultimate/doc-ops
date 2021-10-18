@@ -16,7 +16,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  // const [currentUserType, setCurrentUserType] = useState();
+  const [currentUserData, setCurrentUserData] = useState({});
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
@@ -41,9 +41,20 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function setLoginUser(user) {
+    const userInfo = doc(db, "users", user.uid);
+    const userUID = await getDoc(userInfo);
+    if (userUID.exists()) {
+      setCurrentUserData(userUID.data());
+    } else {
+      throw new Error("Error retrieving user data");
+    }
+  }
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setCurrentUser(user);
+      if (user) await setLoginUser(user);
       setLoading(false);
     });
 
@@ -52,6 +63,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    currentUserData,
     login,
     userData,
     signup,
