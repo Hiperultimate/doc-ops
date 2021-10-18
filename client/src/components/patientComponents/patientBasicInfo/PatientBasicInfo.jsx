@@ -75,17 +75,21 @@ function PatientBasicInfo({
               )}
             </div>
             <div className="patient-email">
-              <InputField
-                heading={"Email"}
-                placeholder={"Enter email"}
-                type={"email"}
-                wrapperClass={"input-dimension"}
-                fieldName={"patient-email"}
-                setChange={setPatientEmail}
-                value={patientEmail}
-              />
-              {emailErrorMsg.length !== 0 && (
-                <div className="error-msg">{emailErrorMsg[0]}</div>
+              {setPatientEmail && (
+                <div>
+                  <InputField
+                    heading={"Email"}
+                    placeholder={"Enter email"}
+                    type={"email"}
+                    wrapperClass={"input-dimension"}
+                    fieldName={"patient-email"}
+                    setChange={setPatientEmail}
+                    value={patientEmail}
+                  />
+                  {emailErrorMsg.length !== 0 && (
+                    <div className="error-msg">{emailErrorMsg[0]}</div>
+                  )}
+                </div>
               )}
             </div>
             <div className="patient-phone">

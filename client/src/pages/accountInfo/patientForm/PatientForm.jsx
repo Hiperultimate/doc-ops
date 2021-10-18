@@ -15,7 +15,6 @@ function PatientForm() {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
   const [patientAddress, setPatientAddress] = useState("");
-  const [patientEmail, setPatientEmail] = useState("");
   const [patientPhone, setPatientPhone] = useState("");
   const [patientWeight, setPatientWeight] = useState("");
   const [patientHeight, setPatientHeight] = useState("");
@@ -59,7 +58,6 @@ function PatientForm() {
       patientName: patientName,
       patientDOB: patientDOB,
       patientAddress: patientAddress,
-      patientEmail: patientEmail,
       patientPhone: patientPhone,
       patientWeight: patientWeight,
       patientHeight: patientHeight,
@@ -84,7 +82,6 @@ function PatientForm() {
           type: userType.PATIENT,
           dob: new Date(patientDOB),
           address: patientAddress,
-          email: patientEmail,
           phone: patientPhone,
           geoLocation: new GeoPoint(1.3521, 103.8198),
           weight: Number(patientWeight),
@@ -115,8 +112,7 @@ function PatientForm() {
   }, []);
 
   return (
-    // <form onSubmit={handleFormSubmit}>
-    <form>
+    <form onSubmit={handleFormSubmit}>
       <div className="patient-form">
         <MainContainer
           mainWrapperClass="main-container"
@@ -138,11 +134,6 @@ function PatientForm() {
                 patientAddress: patientAddress,
                 setPatientAddress: setPatientAddress,
                 addressErrorMsg: errorList.patientAddress,
-              }}
-              patientEmailState={{
-                patientEmail: patientEmail,
-                setPatientEmail: setPatientEmail,
-                emailErrorMsg: errorList.patientEmail,
               }}
               patientPhoneState={{
                 patientPhone: patientPhone,
@@ -185,7 +176,7 @@ function PatientForm() {
               disabled={loading}
               key={5}
             >
-              Register
+              Update
             </button>,
           ]}
         />

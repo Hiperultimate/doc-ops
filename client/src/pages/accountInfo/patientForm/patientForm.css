@@ -1,3 +1,17 @@
+.basic-info-grid {
+  display: grid;
+  padding: 1em 2em;
+  margin: 3em 0em;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 8px 8px; 
+  grid-auto-flow: row;
+  grid-template-areas:
+    "patient-name patient-dob"
+    "patient-address patient-address"
+    "patient-phone .";
+}
+
 .patient-form {
   background-color: var(--green-secondary);
   padding-top: 5em;
