@@ -8,8 +8,6 @@ import Login from "./pages/login/Login.jsx";
 import Home from "./pages/home/Home.jsx";
 import Registration from "./pages/registration/Registration.jsx";
 import About from "./pages/about/About.jsx";
-import DoctorForm from "./pages/accountInfo/doctorForm/DoctorForm.jsx";
-import PatientForm from "./pages/accountInfo/patientForm/PatientForm.jsx";
 import AccountInfo from "./pages/accountInfo/AccountInfo.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
@@ -30,12 +28,11 @@ function App() {
         <Route path="/about/:type/:UID">
           <About />
         </Route>
-        <Route path="/edit-account">
+        <Route path="/edit-details">
           {currentUser ? <AccountInfo /> : <Redirect to="/"/>}
-          {/* {user.userType === "doctor" ? <DoctorForm /> : <PatientForm />} */}
         </Route>
         <Route path="/register">
-          {/* Not setting up currentUser ternary because of unmonted component error in registry  */}
+          {/*The redirect code is written inside registration component with some bug fixes */}
           <Registration />
         </Route>
         <Route path="/chat">

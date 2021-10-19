@@ -27,7 +27,7 @@ function PopUpMenu() {
           </a>
         </li>
         <li>
-          <a href="edit-profile" className="pop-up-items">
+          <a href="edit-details" className="pop-up-items">
             Edit Profile
           </a>
         </li>
