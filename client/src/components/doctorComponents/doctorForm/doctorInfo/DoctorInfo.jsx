@@ -2,12 +2,12 @@ import "./doctorInfo.css";
 import InputField from "../../../inputField/InputField.jsx";
 
 function DoctorInfo({
-  doctorNameHook,
-  doctorEmailHook,
-  doctorPhoneHook,
-  doctorExperienceHook,
-  doctorPasswordHook,
-  doctorConfirmPasswordHook,
+  doctorNameHook={},
+  doctorEmailHook={},
+  doctorPhoneHook={},
+  doctorExperienceHook={},
+  doctorPasswordHook={},
+  doctorConfirmPasswordHook={},
 }) {
   const { doctorName, setDoctorName, nameErrorMsg } = doctorNameHook;
   const { doctorEmail, setDoctorEmail, emailErrorMsg } = doctorEmailHook;
@@ -31,22 +31,24 @@ function DoctorInfo({
             setChange={setDoctorName}
             value={doctorName}
           />
-          {nameErrorMsg && (
-            <div className="error-msg">{nameErrorMsg[0]}</div>
-          )}
+          {nameErrorMsg && <div className="error-msg">{nameErrorMsg[0]}</div>}
         </div>
         <div className="doctor-email">
-          <InputField
-            wrapperClass={"input-dimension"}
-            heading={"Email"}
-            placeholder={"Enter email"}
-            type={"email"}
-            fieldName={"doctorEmail"}
-            setChange={setDoctorEmail}
-            value={doctorEmail}
-          />
-          {emailErrorMsg && (
-            <div className="error-msg">{emailErrorMsg[0]}</div>
+          {setDoctorEmail && (
+            <div>
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Email"}
+                placeholder={"Enter email"}
+                type={"email"}
+                fieldName={"doctorEmail"}
+                setChange={setDoctorEmail}
+                value={doctorEmail}
+              />
+              {emailErrorMsg && (
+                <div className="error-msg">{emailErrorMsg[0]}</div>
+              )}
+            </div>
           )}
         </div>
         <div className="doctor-phone">
@@ -59,9 +61,7 @@ function DoctorInfo({
             setChange={setDoctorPhone}
             value={doctorPhone}
           />
-          {phoneErrorMsg && (
-            <div className="error-msg">{phoneErrorMsg[0]}</div>
-          )}
+          {phoneErrorMsg && <div className="error-msg">{phoneErrorMsg[0]}</div>}
         </div>
         <div className="work-experience">
           <InputField
