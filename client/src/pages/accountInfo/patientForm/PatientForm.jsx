@@ -4,6 +4,8 @@ import MainContainer from "../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
 import { db } from "../../../firebase.js";
@@ -49,6 +51,7 @@ function PatientForm() {
 
   const { currentUser, currentUserData } = useAuth();
   const [loading, setLoading] = useState(false);
+  const successMsg = () => toast("Updated Successfully");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,6 +93,7 @@ function PatientForm() {
           allergies: patientAllergies,
         };
         await setDoc(doc(db, "users", userID), newUserData, { merge: true });
+        successMsg();
       } catch (e) {
         console.log(e);
       }
@@ -103,7 +107,15 @@ function PatientForm() {
       try {
         const retrievedData = currentUserData;
         setPatientName(retrievedData.name);
-        setPatientDOB(new Date( new Date("1970-01-01 00:00:00".replace(/-/g,"/")).setSeconds(retrievedData.dob.seconds)).toISOString().split('T')[0]);
+        setPatientDOB(
+          new Date(
+            new Date("1970-01-01 00:00:00".replace(/-/g, "/")).setSeconds(
+              retrievedData.dob.seconds
+            )
+          )
+            .toISOString()
+            .split("T")[0]
+        );
         setPatientAddress(retrievedData.address);
         setPatientPhone(retrievedData.phone);
         setPatientWeight(retrievedData.weight);
@@ -130,6 +142,17 @@ function PatientForm() {
 
   return (
     <form onSubmit={handleFormSubmit}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="patient-form">
         <MainContainer
           mainWrapperClass="main-container"
