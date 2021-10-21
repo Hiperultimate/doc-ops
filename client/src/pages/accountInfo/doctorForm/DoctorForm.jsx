@@ -1,6 +1,5 @@
 import "./doctorForm.css";
 import { useState, useEffect } from "react";
-import MainHeading from "../../../components/mainHeading/MainHeading.jsx";
 import MainContainer from "../../../components/mainContainer/MainContainer.jsx";
 import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
 import DoctorInfo from "../../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
@@ -12,7 +11,6 @@ import { userType } from "../../../utils/constants/dataModel.js";
 import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase.js";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../utils/contexts/AuthContext.js";
 
 function DoctorForm() {
@@ -28,7 +26,7 @@ function DoctorForm() {
   const [specialization, setSpecialization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
-  const [clinicPictures, setClinicPictures] = useState();
+  const [clinicPictures, setClinicPictures] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const { currentUser, currentUserData } = useAuth();
@@ -38,11 +36,8 @@ function DoctorForm() {
   const [specializationOptions, setSpecializationOptions] = useState([]);
   const [errorList, setErrorList] = useState({
     doctorName: [],
-    doctorEmail: [],
     doctorPhone: [],
     doctorExperience: [],
-    password: [],
-    confirmPassword: [],
     clinicName: [],
     clinicAddress: [],
     clinicConsultationFee: [],
@@ -155,29 +150,37 @@ function DoctorForm() {
         let imgNum = 0;
         await Promise.all(
           displayImage.map(async (imgLink) => {
-            const imgObj = await fetch(imgLink)
-              .then((r) => r.blob())
-              .then(
-                (blobFile) =>
-                  new File(
-                    [blobFile],
-                    new Date().getTime().toString() +
-                      thisUserUID +
-                      `${imgNum++}`,
-                    { type: blobFile.type }
-                  )
+            if(!imgLink.includes("firebasestorage")){
+              const imgObj = await fetch(imgLink)
+                .then((r) => r.blob())
+                .then(
+                  (blobFile) =>
+                    new File(
+                      [blobFile],
+                      new Date().getTime().toString() +
+                        thisUserUID +
+                        `${imgNum++}`,
+                      { type: blobFile.type }
+                    )
+                );
+              const uploadImgRef = ref(storage, `images/${imgObj.name}`);
+              await uploadBytes(uploadImgRef, imgObj);
+              const getDownloadableURL = await getDownloadURL(
+                ref(storage, `images/${imgObj.name}`)
               );
-            const uploadImgRef = ref(storage, `images/${imgObj.name}`);
-            await uploadBytes(uploadImgRef, imgObj);
-            const getDownloadableURL = await getDownloadURL(
-              ref(storage, `images/${imgObj.name}`)
-            );
-            setURLs.push(getDownloadableURL);
+              setURLs.push(getDownloadableURL);
+            }else{
+              setURLs.push(imgLink);
+            }
           })
         );
-        await setDoc(doc(db, "users", thisUserUID), {
-          clinicImgURLs: setURLs,
-        },{ merge: true });
+        await setDoc(
+          doc(db, "users", thisUserUID),
+          {
+            clinicImgURLs: setURLs,
+          },
+          { merge: true }
+        );
       } catch (e) {
         console.log(e);
       }
@@ -186,6 +189,27 @@ function DoctorForm() {
   };
 
   useEffect(() => {
+    async function fetchCurrentDoctorData() {
+      try {
+        const retrievedData = currentUserData;
+        setDoctorName(retrievedData.doctorName);
+        setDoctorPhone(retrievedData.doctorPhone);
+        setDoctorExperience(retrievedData.doctorExperience);
+        setClinicName(retrievedData.clinicName);
+        setClinicAddress(retrievedData.clinicAddress);
+        setClinicConsultationFee(retrievedData.clinicConsultationFee);
+        setClinicOnlineConsultation(retrievedData.clinicOnlineConsultation);
+        setTreatmentsOffered(retrievedData.treatmentsOffered);
+        setSpecialization(retrievedData.specialization);
+        setOpeningHours(retrievedData.openingHours);
+        setClosingHours(retrievedData.closingHours);
+        setClinicPictures(retrievedData.clinicImgURLs);
+        setDisplayImage(retrievedData.clinicImgURLs);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     async function fetchClinicOptions() {
       try {
         let retrievedData = await getDoc(doc(db, "formInputs", "doctorForm"));
@@ -195,6 +219,7 @@ function DoctorForm() {
         console.log(error);
       }
     }
+    fetchCurrentDoctorData();
     fetchClinicOptions();
   }, []);
 
@@ -287,7 +312,7 @@ function DoctorForm() {
               disabled={loading}
               key={6}
             >
-              Register
+              Update
             </button>,
           ]}
         />

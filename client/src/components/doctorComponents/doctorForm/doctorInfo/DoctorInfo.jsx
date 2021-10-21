@@ -2,12 +2,12 @@ import "./doctorInfo.css";
 import InputField from "../../../inputField/InputField.jsx";
 
 function DoctorInfo({
-  doctorNameHook={},
-  doctorEmailHook={},
-  doctorPhoneHook={},
-  doctorExperienceHook={},
-  doctorPasswordHook={},
-  doctorConfirmPasswordHook={},
+  doctorNameHook = {},
+  doctorEmailHook = {},
+  doctorPhoneHook = {},
+  doctorExperienceHook = {},
+  doctorPasswordHook = {},
+  doctorConfirmPasswordHook = {},
 }) {
   const { doctorName, setDoctorName, nameErrorMsg } = doctorNameHook;
   const { doctorEmail, setDoctorEmail, emailErrorMsg } = doctorEmailHook;
@@ -80,31 +80,39 @@ function DoctorInfo({
           )}
         </div>
         <div className="password-field">
-          <InputField
-            wrapperClass={"input-dimension"}
-            heading={"Password"}
-            placeholder={"Enter password"}
-            type={"password"}
-            fieldName={"password1"}
-            setChange={setPassword}
-            value={password}
-          />
-          {passwordErrorMsg && (
-            <div className="error-msg">{passwordErrorMsg[0]}</div>
+          {setPassword && (
+            <div>
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Password"}
+                placeholder={"Enter password"}
+                type={"password"}
+                fieldName={"password1"}
+                setChange={setPassword}
+                value={password}
+              />
+              {passwordErrorMsg && (
+                <div className="error-msg">{passwordErrorMsg[0]}</div>
+              )}
+            </div>
           )}
         </div>
         <div className="confirm-password-field">
-          <InputField
-            wrapperClass={"input-dimension"}
-            heading={"Confirm Password"}
-            placeholder={"Enter password"}
-            type={"password"}
-            fieldName={"password2"}
-            setChange={setConfirmPassword}
-            value={confirmPassword}
-          />
-          {confirmPasswordErrorMsg && (
-            <div className="error-msg">{confirmPasswordErrorMsg[0]}</div>
+          {setConfirmPassword && (
+            <div>
+              <InputField
+                wrapperClass={"input-dimension"}
+                heading={"Confirm Password"}
+                placeholder={"Enter password"}
+                type={"password"}
+                fieldName={"password2"}
+                setChange={setConfirmPassword}
+                value={confirmPassword}
+              />
+              {confirmPasswordErrorMsg && (
+                <div className="error-msg">{confirmPasswordErrorMsg[0]}</div>
+              )}
+            </div>
           )}
         </div>
       </div>
