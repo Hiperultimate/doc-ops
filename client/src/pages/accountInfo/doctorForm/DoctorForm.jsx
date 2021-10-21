@@ -5,6 +5,8 @@ import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
 import DoctorInfo from "../../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
 import ClinicInfo from "../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
 import ImageSlider from "../../../components/imageSlider/ImageSlider.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import inputValidation from "../../../utils/validations/inputValidation.js";
 import { userType } from "../../../utils/constants/dataModel.js";
@@ -30,6 +32,7 @@ function DoctorForm() {
 
   const [loading, setLoading] = useState(false);
   const { currentUser, currentUserData } = useAuth();
+  const successMsg = () => toast("Updated Successfully");
 
   const [displayImage, setDisplayImage] = useState([]);
   const [treatmentOptions, setTreatmentOptions] = useState([]);
@@ -181,6 +184,7 @@ function DoctorForm() {
           },
           { merge: true }
         );
+        successMsg();
       } catch (e) {
         console.log(e);
       }
@@ -225,6 +229,17 @@ function DoctorForm() {
 
   return (
     <form onSubmit={handleFormSubmit}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="doctor-form">
         <MainContainer
           mainWrapperClass="main-container"
