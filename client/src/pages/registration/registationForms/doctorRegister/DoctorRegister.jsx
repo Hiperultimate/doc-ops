@@ -7,7 +7,14 @@ import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
 import inputValidation from "../../../../utils/validations/inputValidation.js";
 import { userType } from "../../../../utils/constants/dataModel.js";
-import { doc, getDoc , setDoc, GeoPoint } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  GeoPoint,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 import { useHistory } from "react-router-dom";
@@ -131,7 +138,11 @@ function DoctorRegister({ setSafeRedirect }) {
           openingHours: openingHours,
           closingHours: closingHours,
         };
+        
         await setDoc(doc(db, "users", newUserUID), userData);
+        const updateDocList = doc(db, "search", "doctorList");
+        await updateDoc(updateDocList, { doctors: arrayUnion(newUserUID) });
+
         const setURLs = [];
         let imgNum = 0;
         await Promise.all(
@@ -156,9 +167,13 @@ function DoctorRegister({ setSafeRedirect }) {
             setURLs.push(getDownloadableURL);
           })
         );
-        await setDoc(doc(db, "users", newUserUID), {
-          clinicImgURLs: setURLs,
-        },{ merge: true });
+        await setDoc(
+          doc(db, "users", newUserUID),
+          {
+            clinicImgURLs: setURLs,
+          },
+          { merge: true }
+        );
         setIsUserCreated(true);
       } catch (e) {
         console.log(e);
@@ -340,4 +355,3 @@ function DoctorRegister({ setSafeRedirect }) {
 }
 
 export default DoctorRegister;
-
