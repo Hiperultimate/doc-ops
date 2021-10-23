@@ -1,4 +1,4 @@
-function ValidationContext(schema, inputFields) {
+function inputValidation(schema, inputFields) {
   if (schema !== undefined && inputFields !== undefined) {
     const errorList = {};
     Object.keys(inputFields).forEach((key) => {
@@ -77,4 +77,4 @@ function ValidationContext(schema, inputFields) {
   }
 }
 
-export default ValidationContext;
+export default inputValidation;

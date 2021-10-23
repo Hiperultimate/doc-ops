@@ -5,7 +5,7 @@ import LoginNavOptions from "./navComponents/loginNavOptions/LoginNavOptions.jsx
 import PopUpMenu from "./navComponents/popUpMenu/PopUpMenu.jsx";
 import "./navbar.css";
 
-import { useAuth } from "../../contexts/AuthContext.js";
+import { useAuth } from "../../utils/contexts/AuthContext.js";
 
 function Navbar({ isFixed }) {
   const { currentUser } = useAuth();

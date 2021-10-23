@@ -20,7 +20,7 @@ function DoctorForm() {
   const [clinicOnlineConsultation, setClinicOnlineConsultation] =
     useState("False");
   const [treatmentsOffered, setTreatmentsOffered] = useState([]);
-  const [specilization, setSpecilization] = useState([]);
+  const [specialization, setSpecialization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState();
@@ -81,9 +81,9 @@ function DoctorForm() {
                   treatmentsOffered: treatmentsOffered,
                   setTreatmentsOffered: setTreatmentsOffered,
                 }}
-                specilizationHook={{
-                  specilization: specilization,
-                  setSpecilization: setSpecilization,
+                specializationHook={{
+                  specialization: specialization,
+                  setSpecialization: setSpecialization,
                 }}
                 openingHoursHook={{
                   openingHours: openingHours,
@@ -127,3 +127,4 @@ function DoctorForm() {
 }
 
 export default DoctorForm;
+

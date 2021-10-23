@@ -5,13 +5,13 @@ import DoctorInfo from "../../../../components/doctorComponents/doctorForm/docto
 import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
 import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
 
-import ValidationContext from "../../../../contexts/ValidationContext.js";
-import { userType } from "../../../../dataModel.js";
+import inputValidation from "../../../../utils/validations/inputValidation.js";
+import { userType } from "../../../../utils/constants/dataModel.js";
 import { doc, getDoc , setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../../contexts/AuthContext.js";
+import { useAuth } from "../../../../utils/contexts/AuthContext.js";
 
 function DoctorRegister({ setSafeRedirect }) {
   const [doctorName, setDoctorName] = useState("");
@@ -26,7 +26,7 @@ function DoctorRegister({ setSafeRedirect }) {
   const [clinicOnlineConsultation, setClinicOnlineConsultation] =
     useState("False");
   const [treatmentsOffered, setTreatmentsOffered] = useState([]);
-  const [specilization, setSpecilization] = useState([]);
+  const [specialization, setSpecialization] = useState([]);
   const [openingHours, setOpeningHours] = useState("");
   const [closingHours, setClosingHours] = useState("");
   const [clinicPictures, setClinicPictures] = useState([]);
@@ -51,7 +51,7 @@ function DoctorRegister({ setSafeRedirect }) {
     clinicConsultationFee: [],
     clinicOnlineConsultation: [],
     treatmentsOffered: [],
-    specilization: [],
+    specialization: [],
     openingHours: [],
     closingHours: [],
     clinicPictures: [],
@@ -69,7 +69,7 @@ function DoctorRegister({ setSafeRedirect }) {
     clinicConsultationFee: ["required", "integer"],
     clinicOnlineConsultation: ["required"],
     treatmentsOffered: ["required"],
-    specilization: ["required"],
+    specialization: ["required"],
     openingHours: ["required", "openingHours"],
     closingHours: ["required", "closingHours"],
   };
@@ -89,13 +89,13 @@ function DoctorRegister({ setSafeRedirect }) {
       clinicConsultationFee: clinicConsultationFee,
       clinicOnlineConsultation: clinicOnlineConsultation,
       treatmentsOffered: treatmentsOffered,
-      specilization: specilization,
+      specialization: specialization,
       openingHours: openingHours,
       closingHours: closingHours,
     };
 
     let newErrorList = {
-      ...ValidationContext(validationSchema, inputFields),
+      ...inputValidation(validationSchema, inputFields),
       clinicPictures: errorList.clinicPictures,
     };
     let isValid = Object.keys(newErrorList).every(
@@ -127,7 +127,7 @@ function DoctorRegister({ setSafeRedirect }) {
           clinicConsultationFee: Number(clinicConsultationFee),
           clinicOnlineConsultation: clinicOnlineConsultation,
           treatmentsOffered: treatmentsOffered,
-          specilization: specilization,
+          specialization: specialization,
           openingHours: openingHours,
           closingHours: closingHours,
         };
@@ -294,10 +294,10 @@ function DoctorRegister({ setSafeRedirect }) {
                 treatmentsErrorMsg: errorList.treatmentsOffered,
                 treatmentOptions: treatmentOptions,
               }}
-              specilizationHook={{
-                specilization: specilization,
-                setSpecilization: setSpecilization,
-                specializationErrorMsg: errorList.specilization,
+              specializationHook={{
+                specialization: specialization,
+                setSpecialization: setSpecialization,
+                specializationErrorMsg: errorList.specialization,
                 specializationOptions: specializationOptions,
               }}
               openingHoursHook={{
@@ -340,3 +340,4 @@ function DoctorRegister({ setSafeRedirect }) {
 }
 
 export default DoctorRegister;
+

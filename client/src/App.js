@@ -12,7 +12,7 @@ import DoctorForm from "./pages/doctorForm/DoctorForm.jsx";
 import PatientForm from "./pages/patientForm/PatientForm.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 
-import { useAuth } from "./contexts/AuthContext.js";
+import { useAuth } from "./utils/contexts/AuthContext.js";
 
 function App() {
   const { currentUser } = useAuth();

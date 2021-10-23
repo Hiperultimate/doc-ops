@@ -6,7 +6,7 @@ import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
 import Eye from "../../svgs/Eye.svg";
 
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext.js";
+import { useAuth } from "../../utils/contexts/AuthContext.js";
 
 function Login() {
   const [email, setEmail] = useState("");

@@ -6,7 +6,7 @@
 .doctor-detail-container {
   display: grid;
   grid-template-columns: 2fr 1.2fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(4,auto);
   gap: 0px 0px;
   grid-template-areas:
     "experience . consultation-fee"

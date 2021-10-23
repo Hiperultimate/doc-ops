@@ -6,9 +6,9 @@ import PatientRegister from "./registationForms/patientRegister/PatientRegister.
 import DoctorRegister from "./registationForms/doctorRegister/DoctorRegister.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 
-import { userType } from "../../dataModel.js";
+import { userType } from "../../utils/constants/dataModel.js";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext.js";
+import { useAuth } from "../../utils/contexts/AuthContext.js";
 
 function Registration() {
   const [formType, setFormType] = useState(userType.DOCTOR);

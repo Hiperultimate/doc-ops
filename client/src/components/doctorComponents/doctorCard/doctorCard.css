@@ -37,14 +37,14 @@
 
 .treatments {
   grid-area: treatments;
-  white-space: nowrap; 
+  white-space: wrap; 
   overflow: hidden;
   text-overflow: ellipsis; 
 }
 
 .specialization {
   grid-area: specialization;
-  white-space: nowrap; 
+  white-space: wrap; 
   overflow: hidden;
   text-overflow: ellipsis; 
 }
