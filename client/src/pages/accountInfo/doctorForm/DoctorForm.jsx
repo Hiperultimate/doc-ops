@@ -1,32 +1,24 @@
+import "./doctorForm.css";
 import { useState, useEffect } from "react";
-import MainContainer from "../../../../components/mainContainer/MainContainer.jsx";
-import MainContHead from "../../../../components/mainContHead/MainContHead.jsx";
-import DoctorInfo from "../../../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
-import ClinicInfo from "../../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
-import ImageSlider from "../../../../components/imageSlider/ImageSlider.jsx";
+import MainContainer from "../../../components/mainContainer/MainContainer.jsx";
+import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
+import DoctorInfo from "../../../components/doctorComponents/doctorForm/doctorInfo/DoctorInfo.jsx";
+import ClinicInfo from "../../../components/doctorComponents/doctorForm/clinicInfo/ClinicInfo.jsx";
+import ImageSlider from "../../../components/imageSlider/ImageSlider.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import inputValidation from "../../../../utils/validations/inputValidation.js";
-import { userType } from "../../../../utils/constants/dataModel.js";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  GeoPoint,
-  updateDoc,
-  arrayUnion,
-} from "firebase/firestore";
+import inputValidation from "../../../utils/validations/inputValidation.js";
+import { userType } from "../../../utils/constants/dataModel.js";
+import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../../../firebase.js";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "../../../../utils/contexts/AuthContext.js";
+import { db, storage } from "../../../firebase.js";
+import { useAuth } from "../../../utils/contexts/AuthContext.js";
 
-function DoctorRegister({ setSafeRedirect }) {
+function DoctorForm() {
   const [doctorName, setDoctorName] = useState("");
-  const [doctorEmail, setDoctorEmail] = useState("");
   const [doctorPhone, setDoctorPhone] = useState("");
   const [doctorExperience, setDoctorExperience] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [clinicName, setClinicName] = useState("");
   const [clinicAddress, setClinicAddress] = useState("");
   const [clinicConsultationFee, setClinicConsultationFee] = useState("");
@@ -39,20 +31,16 @@ function DoctorRegister({ setSafeRedirect }) {
   const [clinicPictures, setClinicPictures] = useState([]);
 
   const [loading, setLoading] = useState(false);
-  const { signup, logout } = useAuth();
-  const history = useHistory();
-  const [isUserCreated, setIsUserCreated] = useState(false);
+  const { currentUser, currentUserData } = useAuth();
+  const successMsg = () => toast("Updated Successfully");
 
   const [displayImage, setDisplayImage] = useState([]);
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [specializationOptions, setSpecializationOptions] = useState([]);
   const [errorList, setErrorList] = useState({
     doctorName: [],
-    doctorEmail: [],
     doctorPhone: [],
     doctorExperience: [],
-    password: [],
-    confirmPassword: [],
     clinicName: [],
     clinicAddress: [],
     clinicConsultationFee: [],
@@ -66,11 +54,8 @@ function DoctorRegister({ setSafeRedirect }) {
 
   const validationSchema = {
     doctorName: ["required"],
-    doctorEmail: ["required", "email"],
     doctorPhone: ["required", "integer", "lengthEqual 10"],
     doctorExperience: ["required", "integer"],
-    password: ["required", "<= 8"],
-    confirmPassword: ["required", "<= 8", "matchPassword"],
     clinicName: ["required"],
     clinicAddress: ["required"],
     clinicConsultationFee: ["required", "integer"],
@@ -79,114 +64,6 @@ function DoctorRegister({ setSafeRedirect }) {
     specialization: ["required"],
     openingHours: ["required", "openingHours"],
     closingHours: ["required", "closingHours"],
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    const inputFields = {
-      doctorName: doctorName,
-      doctorEmail: doctorEmail,
-      doctorPhone: doctorPhone,
-      doctorExperience: doctorExperience,
-      password: password,
-      confirmPassword: confirmPassword,
-      clinicName: clinicName,
-      clinicAddress: clinicAddress,
-      clinicConsultationFee: clinicConsultationFee,
-      clinicOnlineConsultation: clinicOnlineConsultation,
-      treatmentsOffered: treatmentsOffered,
-      specialization: specialization,
-      openingHours: openingHours,
-      closingHours: closingHours,
-    };
-
-    let newErrorList = {
-      ...inputValidation(validationSchema, inputFields),
-      clinicPictures: errorList.clinicPictures,
-    };
-    let isValid = Object.keys(newErrorList).every(
-      (item) => newErrorList[item].length === 0
-    );
-
-    if (displayImage.length === 0) {
-      newErrorList.clinicPictures = ["Clinic images is required"];
-      isValid = false;
-    }
-    setErrorList(newErrorList);
-
-    if (isValid) {
-      try {
-        setSafeRedirect(false);
-        setLoading(true);
-        const newUser = await signup(doctorEmail, password);
-        await logout();
-        const newUserUID = newUser.user.uid;
-        const userData = {
-          doctorName: doctorName,
-          type: userType.DOCTOR,
-          doctorEmail: doctorEmail,
-          doctorPhone: doctorPhone,
-          doctorExperience: Number(doctorExperience),
-          geoLocation: new GeoPoint(1.3521, 103.8198),
-          clinicName: clinicName,
-          clinicAddress: clinicAddress,
-          clinicConsultationFee: Number(clinicConsultationFee),
-          clinicOnlineConsultation: clinicOnlineConsultation,
-          treatmentsOffered: treatmentsOffered,
-          specialization: specialization,
-          openingHours: openingHours,
-          closingHours: closingHours,
-        };
-        
-        await setDoc(doc(db, "users", newUserUID), userData);
-        const updateDocList = doc(db, "search", "doctorList");
-        await updateDoc(updateDocList, { doctors: arrayUnion(newUserUID) });
-
-        const setURLs = [];
-        let imgNum = 0;
-        await Promise.all(
-          displayImage.map(async (imgLink) => {
-            const imgObj = await fetch(imgLink)
-              .then((r) => r.blob())
-              .then(
-                (blobFile) =>
-                  new File(
-                    [blobFile],
-                    new Date().getTime().toString() +
-                      newUserUID +
-                      `${imgNum++}`,
-                    { type: blobFile.type }
-                  )
-              );
-            const uploadImgRef = ref(storage, `images/${imgObj.name}`);
-            await uploadBytes(uploadImgRef, imgObj);
-            const getDownloadableURL = await getDownloadURL(
-              ref(storage, `images/${imgObj.name}`)
-            );
-            setURLs.push(getDownloadableURL);
-          })
-        );
-        await setDoc(
-          doc(db, "users", newUserUID),
-          {
-            clinicImgURLs: setURLs,
-          },
-          { merge: true }
-        );
-        setIsUserCreated(true);
-      } catch (e) {
-        console.log(e);
-        if (e.code === "auth/email-already-in-use") {
-          const oldErrorList = errorList;
-          oldErrorList["doctorEmail"] = ["Email ID already in use"];
-          setErrorList(oldErrorList);
-        } else {
-          throw e;
-        }
-      }
-      setLoading(false);
-    }
   };
 
   const ValidateImage = (e) => {
@@ -221,7 +98,122 @@ function DoctorRegister({ setSafeRedirect }) {
     }
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const inputFields = {
+      doctorName: doctorName,
+      doctorPhone: doctorPhone,
+      doctorExperience: doctorExperience,
+      clinicName: clinicName,
+      clinicAddress: clinicAddress,
+      clinicConsultationFee: clinicConsultationFee,
+      clinicOnlineConsultation: clinicOnlineConsultation,
+      treatmentsOffered: treatmentsOffered,
+      specialization: specialization,
+      openingHours: openingHours,
+      closingHours: closingHours,
+    };
+
+    let newErrorList = {
+      ...inputValidation(validationSchema, inputFields),
+      clinicPictures: errorList.clinicPictures,
+    };
+    let isValid = Object.keys(newErrorList).every(
+      (item) => newErrorList[item].length === 0
+    );
+
+    if (displayImage.length === 0) {
+      newErrorList.clinicPictures = ["Clinic images is required"];
+      isValid = false;
+    }
+    setErrorList(newErrorList);
+
+    if (isValid) {
+      try {
+        setLoading(true);
+        const thisUserUID = currentUser.uid;
+        const userData = {
+          doctorName: doctorName,
+          type: userType.DOCTOR,
+          doctorPhone: doctorPhone,
+          doctorExperience: Number(doctorExperience),
+          geoLocation: new GeoPoint(1.3521, 103.8198),
+          clinicName: clinicName,
+          clinicAddress: clinicAddress,
+          clinicConsultationFee: Number(clinicConsultationFee),
+          clinicOnlineConsultation: clinicOnlineConsultation,
+          treatmentsOffered: treatmentsOffered,
+          specialization: specialization,
+          openingHours: openingHours,
+          closingHours: closingHours,
+        };
+        await setDoc(doc(db, "users", thisUserUID), userData, { merge: true });
+        const setURLs = [];
+        let imgNum = 0;
+        await Promise.all(
+          displayImage.map(async (imgLink) => {
+            if(!imgLink.includes("firebasestorage")){
+              const imgObj = await fetch(imgLink)
+                .then((r) => r.blob())
+                .then(
+                  (blobFile) =>
+                    new File(
+                      [blobFile],
+                      new Date().getTime().toString() +
+                        thisUserUID +
+                        `${imgNum++}`,
+                      { type: blobFile.type }
+                    )
+                );
+              const uploadImgRef = ref(storage, `images/${imgObj.name}`);
+              await uploadBytes(uploadImgRef, imgObj);
+              const getDownloadableURL = await getDownloadURL(
+                ref(storage, `images/${imgObj.name}`)
+              );
+              setURLs.push(getDownloadableURL);
+            }else{
+              setURLs.push(imgLink);
+            }
+          })
+        );
+        await setDoc(
+          doc(db, "users", thisUserUID),
+          {
+            clinicImgURLs: setURLs,
+          },
+          { merge: true }
+        );
+        successMsg();
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    async function fetchCurrentDoctorData() {
+      try {
+        const retrievedData = currentUserData;
+        setDoctorName(retrievedData.doctorName);
+        setDoctorPhone(retrievedData.doctorPhone);
+        setDoctorExperience(retrievedData.doctorExperience);
+        setClinicName(retrievedData.clinicName);
+        setClinicAddress(retrievedData.clinicAddress);
+        setClinicConsultationFee(retrievedData.clinicConsultationFee);
+        setClinicOnlineConsultation(retrievedData.clinicOnlineConsultation);
+        setTreatmentsOffered(retrievedData.treatmentsOffered);
+        setSpecialization(retrievedData.specialization);
+        setOpeningHours(retrievedData.openingHours);
+        setClosingHours(retrievedData.closingHours);
+        setClinicPictures(retrievedData.clinicImgURLs);
+        setDisplayImage(retrievedData.clinicImgURLs);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     async function fetchClinicOptions() {
       try {
         let retrievedData = await getDoc(doc(db, "formInputs", "doctorForm"));
@@ -231,18 +223,23 @@ function DoctorRegister({ setSafeRedirect }) {
         console.log(error);
       }
     }
+    fetchCurrentDoctorData();
     fetchClinicOptions();
   }, []);
 
-  useEffect(() => {
-    if (!loading && isUserCreated) {
-      setSafeRedirect(true);
-      history.push("/login");
-    }
-  }, [loading, isUserCreated, history, setSafeRedirect]);
-
   return (
     <form onSubmit={handleFormSubmit}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="doctor-form">
         <MainContainer
           mainWrapperClass="main-container"
@@ -254,11 +251,6 @@ function DoctorRegister({ setSafeRedirect }) {
                 setDoctorName: setDoctorName,
                 nameErrorMsg: errorList.doctorName,
               }}
-              doctorEmailHook={{
-                doctorEmail: doctorEmail,
-                setDoctorEmail: setDoctorEmail,
-                emailErrorMsg: errorList.doctorEmail,
-              }}
               doctorPhoneHook={{
                 doctorPhone: doctorPhone,
                 setDoctorPhone: setDoctorPhone,
@@ -268,16 +260,6 @@ function DoctorRegister({ setSafeRedirect }) {
                 doctorExperience: doctorExperience,
                 setDoctorExperience: setDoctorExperience,
                 experienceErrorMsg: errorList.doctorExperience,
-              }}
-              doctorPasswordHook={{
-                password: password,
-                setPassword: setPassword,
-                passwordErrorMsg: errorList.password,
-              }}
-              doctorConfirmPasswordHook={{
-                confirmPassword: confirmPassword,
-                setConfirmPassword: setConfirmPassword,
-                confirmPasswordErrorMsg: errorList.confirmPassword,
               }}
               key={2}
             />,
@@ -345,7 +327,7 @@ function DoctorRegister({ setSafeRedirect }) {
               disabled={loading}
               key={6}
             >
-              Register
+              Update
             </button>,
           ]}
         />
@@ -354,4 +336,4 @@ function DoctorRegister({ setSafeRedirect }) {
   );
 }
 
-export default DoctorRegister;
+export default DoctorForm;

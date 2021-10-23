@@ -7,15 +7,15 @@ import MultiSelect from "../../../multiSelect/MultiSelect.jsx";
 
 // Have to set name for Multiselect field for forms
 function ClinicInfo({
-  clinicNameHook,
-  clinicAddressHook,
-  clinicConsultationFeeHook,
-  clinicOnlineConsultationHook,
-  treatmentsOfferedHook,
-  specializationHook,
-  openingHoursHook,
-  closingHoursHook,
-  clinicPicturesHook,
+  clinicNameHook={},
+  clinicAddressHook={},
+  clinicConsultationFeeHook={},
+  clinicOnlineConsultationHook={},
+  treatmentsOfferedHook={},
+  specializationHook={},
+  openingHoursHook={},
+  closingHoursHook={},
+  clinicPicturesHook={},
 }) {
   const { clinicName, setClinicName, clinicNameErrorMsg } = clinicNameHook;
   const { clinicAddress, setClinicAddress, clinicAddressErrorMsg } =
@@ -119,7 +119,7 @@ function ClinicInfo({
               <span className="input-heading">Treatments Offered</span>
               <div className="input-container">
                 <MultiSelect
-                  options={[...treatmentOptions]}
+                  options={treatmentOptions}
                   placeholder={"Enter Treatments"}
                   stateValue={treatmentsOffered}
                   handleState={setTreatmentsOffered}
@@ -133,7 +133,7 @@ function ClinicInfo({
               <span className="input-heading">Specializations</span>
               <div className="input-container">
                 <MultiSelect
-                  options={[...specializationOptions]}
+                  options={specializationOptions}
                   placeholder={"Enter Specializations"}
                   stateValue={specialization}
                   handleState={setSpecialization}

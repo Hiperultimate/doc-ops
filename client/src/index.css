@@ -14,6 +14,13 @@
   --font-inter: "Inter", sans-serif;
   --font-saira: "Saira", sans-serif;
   --font-saira-semi: "Saira Semi Condensed", sans-serif;
+
+  --toastify-color-progress-light: var(--green-third);
+  --toastify-font-family: var(--font-saira);
+}
+
+.Toastify__toast-container--top-right {
+  top: 5em;
 }
 
 .global-box-shadow {

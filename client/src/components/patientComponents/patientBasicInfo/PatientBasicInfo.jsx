@@ -3,13 +3,13 @@ import DisplayMap from "../../displayMap/DisplayMap.jsx";
 import InputField from "../../inputField/InputField.jsx";
 
 function PatientBasicInfo({
-  patientNameState,
-  patientDOBState,
-  patientAddressState,
-  patientEmailState,
-  patientPhoneState,
-  patientPasswordHook,
-  patientConfirmPasswordHook,
+  patientNameState = {},
+  patientDOBState = {},
+  patientAddressState = {},
+  patientEmailState = {},
+  patientPhoneState = {},
+  patientPasswordHook = {},
+  patientConfirmPasswordHook = {},
 }) {
   const { patientName, setPatientName, nameErrorMsg } = patientNameState;
   const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
@@ -75,17 +75,21 @@ function PatientBasicInfo({
               )}
             </div>
             <div className="patient-email">
-              <InputField
-                heading={"Email"}
-                placeholder={"Enter email"}
-                type={"email"}
-                wrapperClass={"input-dimension"}
-                fieldName={"patient-email"}
-                setChange={setPatientEmail}
-                value={patientEmail}
-              />
-              {emailErrorMsg.length !== 0 && (
-                <div className="error-msg">{emailErrorMsg[0]}</div>
+              {setPatientEmail && (
+                <div>
+                  <InputField
+                    heading={"Email"}
+                    placeholder={"Enter email"}
+                    type={"email"}
+                    wrapperClass={"input-dimension"}
+                    fieldName={"patient-email"}
+                    setChange={setPatientEmail}
+                    value={patientEmail}
+                  />
+                  {emailErrorMsg.length !== 0 && (
+                    <div className="error-msg">{emailErrorMsg[0]}</div>
+                  )}
+                </div>
               )}
             </div>
             <div className="patient-phone">
@@ -103,31 +107,39 @@ function PatientBasicInfo({
               )}
             </div>
             <div className="password-field">
-              <InputField
-                wrapperClass={"input-dimension"}
-                heading={"Password"}
-                placeholder={"Enter password"}
-                type={"password"}
-                fieldName={"password1"}
-                setChange={setPassword}
-                value={password}
-              />
-              {passwordErrorMsg.length !== 0 && (
-                <div className="error-msg">{passwordErrorMsg[0]}</div>
+              {setPassword && (
+                <div>
+                  <InputField
+                    wrapperClass={"input-dimension"}
+                    heading={"Password"}
+                    placeholder={"Enter password"}
+                    type={"password"}
+                    fieldName={"password1"}
+                    setChange={setPassword}
+                    value={password}
+                  />
+                  {passwordErrorMsg.length !== 0 && (
+                    <div className="error-msg">{passwordErrorMsg[0]}</div>
+                  )}
+                </div>
               )}
             </div>
             <div className="confirm-password-field">
-              <InputField
-                wrapperClass={"input-dimension"}
-                heading={"Confirm Password"}
-                placeholder={"Enter password"}
-                type={"password"}
-                fieldName={"password2"}
-                setChange={setConfirmPassword}
-                value={confirmPassword}
-              />
-              {confPasswordErrorMsg.length !== 0 && (
-                <div className="error-msg">{confPasswordErrorMsg[0]}</div>
+              {setConfirmPassword && (
+                <div>
+                  <InputField
+                    wrapperClass={"input-dimension"}
+                    heading={"Confirm Password"}
+                    placeholder={"Enter password"}
+                    type={"password"}
+                    fieldName={"password2"}
+                    setChange={setConfirmPassword}
+                    value={confirmPassword}
+                  />
+                  {confPasswordErrorMsg.length !== 0 && (
+                    <div className="error-msg">{confPasswordErrorMsg[0]}</div>
+                  )}
+                </div>
               )}
             </div>
           </div>

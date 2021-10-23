@@ -5,7 +5,7 @@ import Multiselect from "react-widgets/Multiselect";
 function MultiSelect({ options, placeholder, stateValue, handleState }) {
   return (
     <Multiselect
-      defaultValue={stateValue}
+      value={stateValue}
       data={options}
       placeholder={placeholder}
       onChange={(value) => handleState(value)}

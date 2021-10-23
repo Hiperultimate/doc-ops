@@ -60,6 +60,7 @@ function PatientMedicalInfo({
             placeholder={"Enter your gender"}
             data={["Male", "Female", "Prefer not to say"]}
             onChange={(value) => setPatientGender(value)}
+            value={patientGender}
           />
           {genderErrorMsg.length !== 0 && (
             <div className="error-msg">{genderErrorMsg[0]}</div>
@@ -71,6 +72,7 @@ function PatientMedicalInfo({
             placeholder={"Enter your bloodgroup"}
             data={["A", "A+", "AB+", "B", "B+", "B-"]}
             onChange={(value) => setPatientBloodgroup(value)}
+            value={patientBloodgroup}
           />
           {bloodgroupErrorMsg.length !== 0 && (
             <div className="error-msg">{bloodgroupErrorMsg[0]}</div>
