@@ -1,10 +1,13 @@
 import "./filterSearch.css";
+import { useState, useEffect } from "react";
 import { Slider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import MapIconSvg from "../../../svgs/map-pin.svg";
 import FilterArrowSvg from "../../../svgs/filter-arrow.svg";
 import Button from "../../mainButton/MainButton.jsx";
 import MultiSelect from "../../multiSelect/MultiSelect.jsx";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase.js";
 
 const ThemedSlider = withStyles({
   root: {
@@ -21,15 +24,16 @@ function FilterSearch({
   FeeState,
   SpecializationState,
   TreatmentState,
-  SpecializationsData,
-  TreatmentsData,
+
 }) {
   const { FilterOption, SwitchFilterOption } = FilterState;
   const { SwitchSortOption } = SortState;
   const { location, setLocation } = LocationState;
   const { feeValue, changeFee } = FeeState;
-  const { specializations, EditSpecializations } = SpecializationState;
-  const { treatments, EditTreatments } = TreatmentState;
+  const { specializations, setSpecializations } = SpecializationState;
+  const { treatments, setTreatments } = TreatmentState;
+  const [treatmentOptions, setTreatmentOptions] = useState([]);
+  const [specializationOptions, setSpecializationOptions] = useState([]);
   const locationChangeHandler = (e) => {
     setLocation(e.currentTarget.value);
   };
@@ -42,6 +46,19 @@ function FilterSearch({
     SwitchFilterOption(!FilterOption);
     SwitchSortOption(false);
   };
+
+  useEffect(() => {
+    async function fetchClinicOptions() {
+      try {
+        let retrievedData = await getDoc(doc(db, "formInputs", "doctorForm"));
+        setTreatmentOptions(retrievedData.data().treatments);
+        setSpecializationOptions(retrievedData.data().specializations);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchClinicOptions();
+  }, []);
 
   return (
     <div className="filter-search-container">
@@ -105,20 +122,20 @@ function FilterSearch({
           <div className="specialization-input">
             <div className="specialization-row input-bg-style">
               <MultiSelect
-                options={SpecializationsData}
+                options={specializationOptions}
                 placeholder={"Enter Specialization..."}
                 stateValue={specializations}
-                handleState={EditSpecializations}
+                handleState={setSpecializations}
               />
             </div>
           </div>
           <div className="treatment-input">
             <div className="treatment-row input-bg-style">
               <MultiSelect
-                options={TreatmentsData}
+                options={treatmentOptions}
                 placeholder={"Enter Treatments..."}
                 stateValue={treatments}
-                handleState={EditTreatments}
+                handleState={setTreatments}
               />
             </div>
           </div>

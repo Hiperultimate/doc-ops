@@ -11,8 +11,7 @@ function Search({
   FeeState,
   SpecializationState,
   TreatmentState,
-  SpecializationsData,
-  TreatmentsData,
+
 }) {
   return (
     <div className="search-content-space">
@@ -30,8 +29,6 @@ function Search({
           FeeState={FeeState}
           SpecializationState={SpecializationState}
           TreatmentState={TreatmentState}
-          SpecializationsData={SpecializationsData}
-          TreatmentsData={TreatmentsData}
         />
       </div>
     </div>
