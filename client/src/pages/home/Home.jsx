@@ -1,10 +1,13 @@
 import "./home.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import MainContainer from "../../components/mainContainer/MainContainer.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import DoctorCard from "../../components/doctorComponents/doctorCard/DoctorCard.jsx";
 import Search from "../../components/search/Search.jsx";
+
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase.js";
 
 function Home() {
   // NOTE: doc1, doc2 are temporary for front-end development purposes
@@ -56,6 +59,25 @@ function Home() {
   //Fetch data from database in these values.
   const [specializations, EditSpecializations] = useState([]);
   const [treatments, EditTreatments] = useState([]);
+  const [displayDoctors, setDisplayDoctors] = useState([]);
+
+  useEffect(() => {
+    async function fetchDoctorList() {
+      try {
+        const doctorObjects = [];
+        let doctorList = await getDoc(doc(db, "search", "doctorList"));
+        doctorList = doctorList.data().doctors;
+        doctorList.forEach(async (docUID) => {
+          let doctor = await getDoc(doc(db, "users", docUID));
+          doctorObjects.push(doctor.data());
+        });
+        setDisplayDoctors(doctorObjects);
+      } catch (error) {
+        console.log("Error fetching doctor data. ", error);
+      }
+    }
+    fetchDoctorList();
+  }, []);
 
   return (
     <div className="home-page">
