@@ -25,9 +25,9 @@ function Home() {
   //Fetch data from database in these values.
   const [specializations, EditSpecializations] = useState([]);
   const [treatments, EditTreatments] = useState([]);
-  const [doctorList, setDoctorList] = useState([]);
-  const [displayDoctors, setDisplayDoctors] = useState([]);
-  const [displayList, setDisplayList] = useState([]);
+  const [doctorList, setDoctorList] = useState([]); // Used for storing all doctors in one place
+  const [displayDoctors, setDisplayDoctors] = useState([]); // Stores doctors in the format which homepage needs
+  const [displayList, setDisplayList] = useState([]); // Used to display all doctors
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(doctorPerPage);
 
