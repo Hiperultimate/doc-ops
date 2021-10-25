@@ -8,6 +8,7 @@ import Search from "../../components/search/Search.jsx";
 
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
+import { async } from "@firebase/util";
 
 function Home() {
   // NOTE: doc1, doc2 are temporary for front-end development purposes
@@ -59,25 +60,52 @@ function Home() {
   //Fetch data from database in these values.
   const [specializations, EditSpecializations] = useState([]);
   const [treatments, EditTreatments] = useState([]);
+  const [doctorList, setDoctorList] = useState([]);
   const [displayDoctors, setDisplayDoctors] = useState([]);
 
   useEffect(() => {
     async function fetchDoctorList() {
       try {
         const doctorObjects = [];
-        let doctorList = await getDoc(doc(db, "search", "doctorList"));
-        doctorList = doctorList.data().doctors;
-        doctorList.forEach(async (docUID) => {
+        let doctorArray = await getDoc(doc(db, "search", "doctorList"));
+        doctorArray = doctorArray.data().doctors;
+        for(let i = 0 ; i < doctorArray.length; i++){
+          const docUID = doctorArray[i] 
           let doctor = await getDoc(doc(db, "users", docUID));
           doctorObjects.push(doctor.data());
-        });
-        setDisplayDoctors(doctorObjects);
+        }
+        setDoctorList(doctorObjects);
       } catch (error) {
         console.log("Error fetching doctor data. ", error);
       }
     }
     fetchDoctorList();
   }, []);
+
+  useEffect(() => {
+    const setDoctors = [];
+    for(let i = 0 ; i < doctorList.length; i++){
+      const doctorObject = doctorList[i];
+      const {
+        doctorName,
+        clinicAddress,
+        clinicOnlineConsultation,
+        clinicConsultationFee,
+        treatmentsOffered,
+        specialization,
+      } = doctorObject;
+      const doctorCardData = {doctorName : doctorName,
+        clinicAddress : clinicAddress,
+        onlineConsulation : clinicOnlineConsultation,
+        consultationFee : clinicConsultationFee,
+        treatments : treatmentsOffered,
+        specialization : specialization,
+      };
+      setDoctors.push(doctorCardData);
+    }
+    setDisplayDoctors(setDoctors);
+  }, [doctorList]);
+
 
   return (
     <div className="home-page">
@@ -117,6 +145,7 @@ function Home() {
         }}
       />
       <div style={{ paddingBottom: "1em" }} />
+      {console.log("HERE : ", doctorObjects , displayDoctors)}
       <MainContainer
         mainWrapperClass="main-container"
         mainContainerStyle={{
@@ -124,7 +153,8 @@ function Home() {
           width: "75vw",
           padding: "0.5em 0.5em",
         }}
-        AddComponents={doctorObjects.map((doctor) => (
+        
+        AddComponents={displayDoctors.length && displayDoctors.map((doctor) => (
           <DoctorCard
             addCardClass={"added-item"}
             doctorObject={doctor}
