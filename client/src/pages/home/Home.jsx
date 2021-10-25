@@ -8,45 +8,9 @@ import Search from "../../components/search/Search.jsx";
 
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
-import { async } from "@firebase/util";
 
 function Home() {
-  // NOTE: doc1, doc2 are temporary for front-end development purposes
-  // , use database entries as objects to pass in "users"
-
-  const doc1 = {
-    doctorName: "Kalameet The Dragon",
-    clinicAddress: "Rotripur-2301 New Delhi",
-    onlineConsulation: true,
-    treatments: [
-      "Wisdom tooth removal",
-      "Plaq Cleaning",
-      " Wonder tooth removal",
-      "tendon surgery",
-      "bone lengthening surgery",
-      "plastic surgery",
-    ],
-    specialization: [
-      "Surgeries",
-      "Allergy & Clinical Immunology",
-      "Anesthesiology",
-      "Community Medicine/Public Health",
-      "Dermatology, Venereology and Leprosy",
-    ],
-    consultationFee: 9000,
-  };
-
-  const doc2 = {
-    doctorName: "Sekiro",
-    clinicAddress: "Sempo Temple Column - 98123 ",
-    onlineConsulation: false,
-    treatments: ["Plastic Surgery"],
-    specialization: ["Surgeries", "Allergy Immunology"],
-    consultationFee: 700,
-  };
   let doctorKey = 0;
-
-  const doctorObjects = [doc1, doc2];
 
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
@@ -145,7 +109,6 @@ function Home() {
         }}
       />
       <div style={{ paddingBottom: "1em" }} />
-      {console.log("HERE : ", doctorObjects , displayDoctors)}
       <MainContainer
         mainWrapperClass="main-container"
         mainContainerStyle={{
