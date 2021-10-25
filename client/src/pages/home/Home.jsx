@@ -26,6 +26,32 @@ function Home() {
   const [treatments, EditTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
   const [displayDoctors, setDisplayDoctors] = useState([]);
+  const [low, setLow] = useState(0);
+  const [high, setHigh] = useState(2);
+
+  const handleList = (e) => {
+    const buttonName = e.target.name;
+    const totalDoctors = displayDoctors.length;
+    if (buttonName === "high") {
+      if (high+2 > totalDoctors) {
+        return;
+      } else {
+        setHigh(high + 2);
+        setLow(low + 2);
+      }
+    } else if (buttonName === "low") {
+      if (low === 0 || low < 0) {
+        return;
+      } else {
+        setHigh(high - 2);
+        setLow(low - 2);
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log(low,high);
+  })
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -33,8 +59,8 @@ function Home() {
         const doctorObjects = [];
         let doctorArray = await getDoc(doc(db, "search", "doctorList"));
         doctorArray = doctorArray.data().doctors;
-        for(let i = 0 ; i < doctorArray.length; i++){
-          const docUID = doctorArray[i] 
+        for (let i = 0; i < doctorArray.length; i++) {
+          const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
           doctorObjects.push(doctor.data());
         }
@@ -48,7 +74,7 @@ function Home() {
 
   useEffect(() => {
     const setDoctors = [];
-    for(let i = 0 ; i < doctorList.length; i++){
+    for (let i = 0; i < doctorList.length; i++) {
       const doctorObject = doctorList[i];
       const {
         doctorName,
@@ -58,18 +84,18 @@ function Home() {
         treatmentsOffered,
         specialization,
       } = doctorObject;
-      const doctorCardData = {doctorName : doctorName,
-        clinicAddress : clinicAddress,
-        onlineConsulation : clinicOnlineConsultation,
-        consultationFee : clinicConsultationFee,
-        treatments : treatmentsOffered,
-        specialization : specialization,
+      const doctorCardData = {
+        doctorName: doctorName,
+        clinicAddress: clinicAddress,
+        onlineConsulation: clinicOnlineConsultation,
+        consultationFee: clinicConsultationFee,
+        treatments: treatmentsOffered,
+        specialization: specialization,
       };
       setDoctors.push(doctorCardData);
     }
     setDisplayDoctors(setDoctors);
   }, [doctorList]);
-
 
   return (
     <div className="home-page">
@@ -116,15 +142,26 @@ function Home() {
           width: "75vw",
           padding: "0.5em 0.5em",
         }}
-        
-        AddComponents={displayDoctors.length && displayDoctors.map((doctor) => (
-          <DoctorCard
-            addCardClass={"added-item"}
-            doctorObject={doctor}
-            key={doctorKey++}
-          />
-        ))}
+        AddComponents={
+          displayDoctors.length &&
+          displayDoctors.map((doctor) => (
+            <DoctorCard
+              addCardClass={"added-item"}
+              doctorObject={doctor}
+              key={doctorKey++}
+            />
+          ))
+        }
       />
+      <div className="adjust-doctor-list">
+        <button type="button" name="low" onClick={handleList}>
+          &lt;
+        </button>
+        <span>{low}-{high}</span>
+        <button type="button" name="high" onClick={handleList}>
+          &gt;
+        </button>
+      </div>
       <div style={{ paddingBottom: "5em" }} />
       <Footer />
     </div>
