@@ -11,6 +11,7 @@ import { db } from "../../firebase.js";
 
 function Home() {
   let doctorKey = 0;
+  const doctorPerPage = 4;
 
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
@@ -26,32 +27,29 @@ function Home() {
   const [treatments, EditTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
   const [displayDoctors, setDisplayDoctors] = useState([]);
+  const [displayList, setDisplayList] = useState([]);
   const [low, setLow] = useState(0);
-  const [high, setHigh] = useState(2);
+  const [high, setHigh] = useState(doctorPerPage);
 
   const handleList = (e) => {
     const buttonName = e.target.name;
     const totalDoctors = displayDoctors.length;
     if (buttonName === "high") {
-      if (high+2 > totalDoctors) {
+      if (high + doctorPerPage > totalDoctors + doctorPerPage) {
         return;
       } else {
-        setHigh(high + 2);
-        setLow(low + 2);
+        setHigh(high + doctorPerPage);
+        setLow(low + doctorPerPage);
       }
     } else if (buttonName === "low") {
       if (low === 0 || low < 0) {
         return;
       } else {
-        setHigh(high - 2);
-        setLow(low - 2);
+        setHigh(high - doctorPerPage);
+        setLow(low - doctorPerPage);
       }
     }
   };
-
-  useEffect(() => {
-    console.log(low,high);
-  })
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -96,6 +94,12 @@ function Home() {
     }
     setDisplayDoctors(setDoctors);
   }, [doctorList]);
+
+  useEffect(() => {
+    if (doctorList.length !== 0) {
+      setDisplayList(displayDoctors.slice(low, high));
+    }
+  }, [low, high, doctorList, displayDoctors]);
 
   return (
     <div className="home-page">
@@ -143,8 +147,8 @@ function Home() {
           padding: "0.5em 0.5em",
         }}
         AddComponents={
-          displayDoctors.length &&
-          displayDoctors.map((doctor) => (
+          displayList.length &&
+          displayList.map((doctor) => (
             <DoctorCard
               addCardClass={"added-item"}
               doctorObject={doctor}
@@ -157,7 +161,9 @@ function Home() {
         <button type="button" name="low" onClick={handleList}>
           &lt;
         </button>
-        <span>{low}-{high}</span>
+        <span>
+          {low}-{high}
+        </span>
         <button type="button" name="high" onClick={handleList}>
           &gt;
         </button>
