@@ -9,6 +9,8 @@ import Search from "../../components/search/Search.jsx";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
 
+import filterDoctors from "../../utils/filters/filterDoctors.js";
+
 function Home() {
   let doctorKey = 0;
   const doctorPerPage = 4;
@@ -27,6 +29,7 @@ function Home() {
   const [treatments, setTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
   const [displayList, setDisplayList] = useState([]); // Used to display all doctors
+  const [filterList, setFilterList] = useState([]);
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(doctorPerPage);
 
@@ -88,6 +91,18 @@ function Home() {
     }
     fetchDoctorList();
   }, []);
+
+  useEffect(() => {
+    const getFilteredData = filterDoctors(
+      doctorList,
+      location,
+      feeValue,
+      specializations,
+      treatments
+    );
+
+    console.log("Filtered Data : ", getFilteredData);
+  }, [doctorList, location, feeValue, specializations, treatments]);
 
   useEffect(() => {
     if (doctorList.length !== 0) {
