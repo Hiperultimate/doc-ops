@@ -23,8 +23,8 @@ function Home() {
   const [feeValue, changeFee] = useState([0, 500]);
 
   //Fetch data from database in these values.
-  const [specializations, EditSpecializations] = useState([]);
-  const [treatments, EditTreatments] = useState([]);
+  const [specializations, setSpecializations] = useState([]);
+  const [treatments, setTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
   const [displayList, setDisplayList] = useState([]); // Used to display all doctors
   const [low, setLow] = useState(0);
@@ -49,6 +49,10 @@ function Home() {
       }
     }
   };
+
+  useEffect(() => {
+    console.log(location, feeValue, specializations, treatments);
+  });
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -121,11 +125,11 @@ function Home() {
         }}
         SpecializationState={{
           specializations: specializations,
-          EditSpecializations: EditSpecializations,
+          setSpecializations: setSpecializations,
         }}
         TreatmentState={{
           treatments: treatments,
-          EditTreatments: EditTreatments,
+          setTreatments: setTreatments,
         }}
       />
       <div style={{ paddingBottom: "1em" }} />
