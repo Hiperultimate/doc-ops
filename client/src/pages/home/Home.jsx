@@ -25,15 +25,14 @@ function Home() {
   //Fetch data from database in these values.
   const [specializations, EditSpecializations] = useState([]);
   const [treatments, EditTreatments] = useState([]);
-  const [doctorList, setDoctorList] = useState([]); // Used for storing all doctors in one place
-  const [displayDoctors, setDisplayDoctors] = useState([]); // Stores doctors in the format which homepage needs
+  const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
   const [displayList, setDisplayList] = useState([]); // Used to display all doctors
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(doctorPerPage);
 
   const handleList = (e) => {
     const buttonName = e.target.name;
-    const totalDoctors = displayDoctors.length;
+    const totalDoctors = doctorList.length;
     if (buttonName === "high") {
       if (high + doctorPerPage > totalDoctors + doctorPerPage) {
         return;
@@ -60,7 +59,23 @@ function Home() {
         for (let i = 0; i < doctorArray.length; i++) {
           const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
-          doctorObjects.push(doctor.data());
+          const {
+            doctorName,
+            clinicAddress,
+            clinicOnlineConsultation,
+            clinicConsultationFee,
+            treatmentsOffered,
+            specialization,
+          } = doctor.data();
+          const doctorCardData = {
+            doctorName: doctorName,
+            clinicAddress: clinicAddress,
+            onlineConsulation: clinicOnlineConsultation,
+            consultationFee: clinicConsultationFee,
+            treatments: treatmentsOffered,
+            specialization: specialization,
+          };
+          doctorObjects.push(doctorCardData);
         }
         setDoctorList(doctorObjects);
       } catch (error) {
@@ -71,35 +86,10 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const setDoctors = [];
-    for (let i = 0; i < doctorList.length; i++) {
-      const doctorObject = doctorList[i];
-      const {
-        doctorName,
-        clinicAddress,
-        clinicOnlineConsultation,
-        clinicConsultationFee,
-        treatmentsOffered,
-        specialization,
-      } = doctorObject;
-      const doctorCardData = {
-        doctorName: doctorName,
-        clinicAddress: clinicAddress,
-        onlineConsulation: clinicOnlineConsultation,
-        consultationFee: clinicConsultationFee,
-        treatments: treatmentsOffered,
-        specialization: specialization,
-      };
-      setDoctors.push(doctorCardData);
-    }
-    setDisplayDoctors(setDoctors);
-  }, [doctorList]);
-
-  useEffect(() => {
     if (doctorList.length !== 0) {
-      setDisplayList(displayDoctors.slice(low, high));
+      setDisplayList(doctorList.slice(low, high));
     }
-  }, [low, high, doctorList, displayDoctors]);
+  }, [low, high, doctorList]);
 
   return (
     <div className="home-page">
