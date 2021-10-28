@@ -28,8 +28,8 @@ function Home() {
   const [specializations, setSpecializations] = useState([]);
   const [treatments, setTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
-  const [displayList, setDisplayList] = useState([]); // Used to display all doctors
-  const [filterList, setFilterList] = useState([]);
+  const [filterList, setFilterList] = useState([]);  // Used to add filtered data from doctorList
+  const [displayList, setDisplayList] = useState([]); // Used to display all filtered data
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(doctorPerPage);
 
@@ -52,10 +52,6 @@ function Home() {
       }
     }
   };
-
-  useEffect(() => {
-    console.log(location, feeValue, specializations, treatments);
-  });
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -85,6 +81,7 @@ function Home() {
           doctorObjects.push(doctorCardData);
         }
         setDoctorList(doctorObjects);
+        setFilterList(doctorObjects);
       } catch (error) {
         console.log("Error fetching doctor data. ", error);
       }
@@ -101,14 +98,14 @@ function Home() {
       treatments
     );
 
-    console.log("Filtered Data : ", getFilteredData);
+    setFilterList(getFilteredData);
   }, [doctorList, location, feeValue, specializations, treatments]);
 
   useEffect(() => {
-    if (doctorList.length !== 0) {
-      setDisplayList(doctorList.slice(low, high));
+    if (filterList.length !== 0) {
+      setDisplayList(filterList.slice(low, high));
     }
-  }, [low, high, doctorList]);
+  }, [low, high, filterList]);
 
   return (
     <div className="home-page">

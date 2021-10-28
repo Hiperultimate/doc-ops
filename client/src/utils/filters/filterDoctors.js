@@ -30,6 +30,8 @@ function hasTreatment(filterTreatment, doctorTreatment){
     return true;
 }
 
+// Location filter logic is on hold. Can do with geo location or comparing strings
+
 function filterDoctors(
   doctorList,
   location,
