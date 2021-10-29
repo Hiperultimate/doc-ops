@@ -28,7 +28,7 @@ function Home() {
   const [specializations, setSpecializations] = useState([]);
   const [treatments, setTreatments] = useState([]);
   const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
-  const [filterList, setFilterList] = useState([]);  // Used to add filtered data from doctorList
+  const [filterList, setFilterList] = useState([]); // Used to add filtered data from doctorList
   const [displayList, setDisplayList] = useState([]); // Used to display all filtered data
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(doctorPerPage);
@@ -52,6 +52,8 @@ function Home() {
       }
     }
   };
+
+  // Fix a bug where adding all treatments and specializations breaks filtering
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -99,11 +101,15 @@ function Home() {
     );
 
     setFilterList(getFilteredData);
+    setLow(0);
+    setHigh(doctorPerPage);
   }, [doctorList, location, feeValue, specializations, treatments]);
 
   useEffect(() => {
     if (filterList.length !== 0) {
       setDisplayList(filterList.slice(low, high));
+    }else{
+      setDisplayList([]);
     }
   }, [low, high, filterList]);
 
