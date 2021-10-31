@@ -174,7 +174,7 @@ function Home() {
           &lt;
         </button>
         <span>
-          {low}-{high}
+          {low === 0 ? 1 : low }-{high}
         </span>
         <button type="button" name="high" onClick={handleList}>
           &gt;
