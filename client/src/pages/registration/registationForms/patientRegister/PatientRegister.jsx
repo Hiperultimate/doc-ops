@@ -124,6 +124,23 @@ function PatientRegister({ setSafeRedirect }) {
   };
 
   useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      console.log(patientAddress);
+      
+      // Send request here
+      if(patientAddress){
+        const getAddressResult = await fetch(
+          `https://geocoder.ls.hereapi.com/search/6.2/geocode.json?languages=en-US&maxresults=4&searchtext=${patientAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`
+        );
+        const searchLocation = await getAddressResult.json();
+        console.log(searchLocation.Response.View[0].Result);
+      }
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [patientAddress]);
+
+  useEffect(() => {
     if (loading === false && isUserCreated) {
       setSafeRedirect(true);
       history.push("/login");
