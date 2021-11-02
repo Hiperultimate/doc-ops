@@ -16,6 +16,9 @@ function PatientRegister({ setSafeRedirect }) {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
   const [patientAddress, setPatientAddress] = useState("");
+  const [chooseAddress, setChooseAddress] = useState([]); 
+  const [addressGeoLocation, setAddressGeoLocation] = useState([0,0]); 
+  const [addressPairGeo, setAddressPairGeo] = useState({}); 
   const [patientEmail, setPatientEmail] = useState("");
   const [patientPhone, setPatientPhone] = useState("");
   const [patientWeight, setPatientWeight] = useState("");
@@ -99,7 +102,7 @@ function PatientRegister({ setSafeRedirect }) {
           address: patientAddress,
           email: patientEmail,
           phone: patientPhone,
-          geoLocation: new GeoPoint(1.3521, 103.8198),
+          geoLocation: new GeoPoint(addressGeoLocation[0], addressGeoLocation[1]),
           weight: Number(patientWeight),
           height: Number(patientHeight),
           gender: patientGender,
@@ -125,15 +128,24 @@ function PatientRegister({ setSafeRedirect }) {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
-      console.log(patientAddress);
-      
       // Send request here
-      if(patientAddress){
+      if (patientAddress) {
         const getAddressResult = await fetch(
           `https://geocoder.ls.hereapi.com/search/6.2/geocode.json?languages=en-US&maxresults=4&searchtext=${patientAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`
         );
         const searchLocation = await getAddressResult.json();
-        console.log(searchLocation.Response.View[0].Result);
+        const searchResults = searchLocation.Response.View[0].Result; // Array of objects
+        const locationObj = {};
+        const addressList = [];
+        for (let i = 0; i < searchResults.length; i++) {
+          addressList.push(searchResults[i].Location.Address.Label);
+          locationObj[searchResults[i].Location.Address.Label] = [
+            searchResults[i].Location.DisplayPosition.Latitude,
+            searchResults[i].Location.DisplayPosition.Longitude,
+          ];
+        }
+        setChooseAddress(addressList);
+        setAddressPairGeo(locationObj);
       }
     }, 1500);
 
@@ -181,6 +193,10 @@ function PatientRegister({ setSafeRedirect }) {
               patientAddressState={{
                 patientAddress: patientAddress,
                 setPatientAddress: setPatientAddress,
+                chooseAddress: chooseAddress,
+                addressPairGeo:addressPairGeo,
+                addressGeoLocation:addressGeoLocation,
+                setAddressGeoLocation:setAddressGeoLocation,
                 addressErrorMsg: errorList.patientAddress,
               }}
               patientEmailState={{

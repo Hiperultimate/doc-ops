@@ -1,4 +1,5 @@
 import "./patientBasicInfo.css";
+import Combobox from "react-widgets/Combobox";
 import DisplayMap from "../../displayMap/DisplayMap.jsx";
 import InputField from "../../inputField/InputField.jsx";
 
@@ -13,7 +14,7 @@ function PatientBasicInfo({
 }) {
   const { patientName, setPatientName, nameErrorMsg } = patientNameState;
   const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
-  const { patientAddress, setPatientAddress, addressErrorMsg } =
+  const { patientAddress, setPatientAddress, chooseAddress,addressPairGeo,addressGeoLocation,setAddressGeoLocation, addressErrorMsg } =
     patientAddressState;
   const { patientEmail, setPatientEmail, emailErrorMsg } = patientEmailState;
   const { patientPhone, setPatientPhone, phoneErrorMsg } = patientPhoneState;
@@ -26,7 +27,7 @@ function PatientBasicInfo({
       <div className="patient-map-grid">
         <div className="patient-address-map">
           <DisplayMap
-            addressLatLong={[1.3521, 103.8198]}
+            addressLatLong={addressGeoLocation}
             mapBorderRadius={"0 10px 10px 0"}
           />
         </div>
@@ -61,7 +62,20 @@ function PatientBasicInfo({
               )}
             </div>
             <div className="patient-address">
-              <InputField
+              <span className="input-heading">Address</span>
+              <Combobox
+                placeholder={"Enter your address"}
+                data={chooseAddress}
+                onChange={(value) => {
+                  if(addressPairGeo[value]){
+                    setAddressGeoLocation(addressPairGeo[value]);
+                  }
+                  setPatientAddress(value)
+                }
+              }
+                value={patientAddress}
+              />
+              {/* <InputField
                 heading={"Address"}
                 placeholder={"Enter your address"}
                 type={"text"}
@@ -69,7 +83,7 @@ function PatientBasicInfo({
                 fieldName={"patient-address"}
                 setChange={setPatientAddress}
                 value={patientAddress}
-              />
+              /> */}
               {addressErrorMsg.length !== 0 && (
                 <div className="error-msg">{addressErrorMsg[0]}</div>
               )}
