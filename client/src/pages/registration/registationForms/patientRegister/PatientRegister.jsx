@@ -9,6 +9,7 @@ import { db } from "../../../../firebase.js";
 import { userType } from "../../../../utils/constants/dataModel.js";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../utils/contexts/AuthContext.js";
+import { searchToAddressResults } from "../../../../utils/contexts/MapContext.js";
 
 import inputValidation from "../../../../utils/validations/inputValidation.js";
 
@@ -133,9 +134,7 @@ function PatientRegister({ setSafeRedirect }) {
     const delayDebounceFn = setTimeout(async () => {
       // Send request here
       if (patientAddress) {
-        const getAddressResult = await fetch(
-          `https://geocoder.ls.hereapi.com/search/6.2/geocode.json?languages=en-US&maxresults=4&searchtext=${patientAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`
-        );
+        const getAddressResult = await searchToAddressResults(patientAddress);
         const searchLocation = await getAddressResult.json();
         if (searchLocation.Response.View[0] !== undefined ) {
           const searchResults = searchLocation.Response.View[0].Result; // Array of objects
