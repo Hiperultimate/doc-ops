@@ -14,8 +14,15 @@ function PatientBasicInfo({
 }) {
   const { patientName, setPatientName, nameErrorMsg } = patientNameState;
   const { patientDOB, setPatientDOB, dobErrorMsg } = patientDOBState;
-  const { patientAddress, setPatientAddress, chooseAddress,addressPairGeo,addressGeoLocation,setAddressGeoLocation, addressErrorMsg } =
-    patientAddressState;
+  const {
+    patientAddress,
+    setPatientAddress,
+    chooseAddress,
+    addressPairGeo,
+    addressGeoLocation,
+    setAddressGeoLocation,
+    addressErrorMsg,
+  } = patientAddressState;
   const { patientEmail, setPatientEmail, emailErrorMsg } = patientEmailState;
   const { patientPhone, setPatientPhone, phoneErrorMsg } = patientPhoneState;
   const { password, setPassword, passwordErrorMsg } = patientPasswordHook;
@@ -67,12 +74,11 @@ function PatientBasicInfo({
                 placeholder={"Enter your address"}
                 data={chooseAddress}
                 onChange={(value) => {
-                  if(addressPairGeo[value]){
+                  if (addressPairGeo[value]) {
                     setAddressGeoLocation(addressPairGeo[value]);
                   }
-                  setPatientAddress(value)
-                }
-              }
+                  setPatientAddress(value);
+                }}
                 value={patientAddress}
               />
               {/* <InputField

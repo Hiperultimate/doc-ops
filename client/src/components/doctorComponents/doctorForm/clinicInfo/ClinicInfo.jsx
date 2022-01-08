@@ -1,25 +1,33 @@
 import "./clinicInfo.css";
 import InputField from "../../../inputField/InputField.jsx";
 import MainButton from "../../../mainButton/MainButton.jsx";
+import Combobox from "react-widgets/Combobox";
 import DisplayMap from "../../../displayMap/DisplayMap.jsx";
 import DropdownList from "react-widgets/DropdownList";
 import MultiSelect from "../../../multiSelect/MultiSelect.jsx";
 
 // Have to set name for Multiselect field for forms
 function ClinicInfo({
-  clinicNameHook={},
-  clinicAddressHook={},
-  clinicConsultationFeeHook={},
-  clinicOnlineConsultationHook={},
-  treatmentsOfferedHook={},
-  specializationHook={},
-  openingHoursHook={},
-  closingHoursHook={},
-  clinicPicturesHook={},
+  clinicNameHook = {},
+  clinicAddressHook = {},
+  clinicConsultationFeeHook = {},
+  clinicOnlineConsultationHook = {},
+  treatmentsOfferedHook = {},
+  specializationHook = {},
+  openingHoursHook = {},
+  closingHoursHook = {},
+  clinicPicturesHook = {},
 }) {
   const { clinicName, setClinicName, clinicNameErrorMsg } = clinicNameHook;
-  const { clinicAddress, setClinicAddress, clinicAddressErrorMsg } =
-    clinicAddressHook;
+  const {
+    clinicAddress,
+    setClinicAddress,
+    chooseClinicAddress,
+    clinicAddressPairGeo,
+    clinicAddressGeoLocation,
+    setClinicAddressGeoLocation,
+    clinicAddressErrorMsg,
+  } = clinicAddressHook;
   const {
     clinicConsultationFee,
     setClinicConsultationFee,
@@ -73,7 +81,18 @@ function ClinicInfo({
               )}
             </div>
             <div className="clinic-address">
-              <InputField
+              <Combobox
+                placeholder={"Enter your address"}
+                data={chooseClinicAddress}
+                onChange={(value) => {
+                  if (clinicAddressPairGeo[value]) {
+                    setClinicAddressGeoLocation(clinicAddressPairGeo[value]);
+                  }
+                  setClinicAddress(value);
+                }}
+                value={clinicAddress}
+              />
+              {/* <InputField
                 wrapperClass={"input-dimension"}
                 heading={"Address"}
                 placeholder={"Enter address"}
@@ -81,7 +100,7 @@ function ClinicInfo({
                 fieldName={"clinicAddress"}
                 setChange={setClinicAddress}
                 value={clinicAddress}
-              />
+              /> */}
               {clinicAddressErrorMsg && (
                 <div className="error-msg">{clinicAddressErrorMsg[0]}</div>
               )}
@@ -193,7 +212,7 @@ function ClinicInfo({
         </div>
         <div className="map-part">
           <DisplayMap
-            addressLatLong={[1.3521, 103.8198]}
+            addressLatLong={clinicAddressGeoLocation}
             mapBorderRadius={"0px 10px 10px 0px"}
           />
         </div>
