@@ -151,6 +151,7 @@ function PatientRegister({ setSafeRedirect }) {
           setAddressPairGeo(locationObj);
         } else {
           console.log("Unable to identify location");
+          setAddressGeoLocation([0,0]);
         }
       }
     }, 1500);

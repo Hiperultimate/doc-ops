@@ -5,6 +5,7 @@ import MainContHead from "../../../components/mainContHead/MainContHead.jsx";
 import PatientBasicInfo from "../../../components/patientComponents/patientBasicInfo/PatientBasicInfo.jsx";
 import PatientMedicalInfo from "../../../components/patientComponents/patientMedicalInfo/PatientMedicalInfo.jsx";
 import { ToastContainer, toast } from "react-toastify";
+import { searchToAddressResults } from "../../../utils/contexts/MapContext.js";
 import "react-toastify/dist/ReactToastify.css";
 
 import { doc, getDoc, setDoc, GeoPoint } from "firebase/firestore";
@@ -17,6 +18,9 @@ function PatientForm() {
   const [patientName, setPatientName] = useState("");
   const [patientDOB, setPatientDOB] = useState("");
   const [patientAddress, setPatientAddress] = useState("");
+  const [chooseAddress, setChooseAddress] = useState([]);
+  const [addressGeoLocation, setAddressGeoLocation] = useState([0, 0]);
+  const [addressPairGeo, setAddressPairGeo] = useState({});
   const [patientPhone, setPatientPhone] = useState("");
   const [patientWeight, setPatientWeight] = useState("");
   const [patientHeight, setPatientHeight] = useState("");
@@ -85,7 +89,10 @@ function PatientForm() {
           dob: new Date(patientDOB),
           address: patientAddress,
           phone: patientPhone,
-          geoLocation: new GeoPoint(1.3521, 103.8198),
+          geoLocation: new GeoPoint(
+            addressGeoLocation[0],
+            addressGeoLocation[1]
+          ),
           weight: Number(patientWeight),
           height: Number(patientHeight),
           gender: patientGender,
@@ -117,6 +124,10 @@ function PatientForm() {
             .split("T")[0]
         );
         setPatientAddress(retrievedData.address);
+        setAddressGeoLocation([
+          retrievedData.geoLocation._lat,
+          retrievedData.geoLocation._long,
+        ]);
         setPatientPhone(retrievedData.phone);
         setPatientWeight(retrievedData.weight);
         setPatientHeight(retrievedData.height);
@@ -139,6 +150,35 @@ function PatientForm() {
     fetchOldPatientData();
     fetchClinicOptions();
   }, []);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      // Send request here
+      if (patientAddress) {
+        const getAddressResult = await searchToAddressResults(patientAddress);
+        const searchLocation = await getAddressResult.json();
+        if (searchLocation.Response.View[0] !== undefined ) {
+          const searchResults = searchLocation.Response.View[0].Result; // Array of objects
+          const locationObj = {};
+          const addressList = [];
+          for (let i = 0; i < searchResults.length; i++) {
+            addressList.push(searchResults[i].Location.Address.Label);
+            locationObj[searchResults[i].Location.Address.Label] = [
+              searchResults[i].Location.DisplayPosition.Latitude,
+              searchResults[i].Location.DisplayPosition.Longitude,
+            ];
+          }
+          setChooseAddress(addressList);
+          setAddressPairGeo(locationObj);
+        } else {
+          console.log("Unable to identify location");
+          setAddressGeoLocation([0,0]);
+        }
+      }
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [patientAddress]);
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -172,7 +212,11 @@ function PatientForm() {
               }}
               patientAddressState={{
                 patientAddress: patientAddress,
+                addressGeoLocation: addressGeoLocation,
+                chooseAddress:chooseAddress,
+                addressPairGeo:addressPairGeo,
                 setPatientAddress: setPatientAddress,
+                setAddressGeoLocation: setAddressGeoLocation,
                 addressErrorMsg: errorList.patientAddress,
               }}
               patientPhoneState={{
