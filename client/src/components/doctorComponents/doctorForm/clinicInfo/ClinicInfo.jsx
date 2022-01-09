@@ -81,6 +81,7 @@ function ClinicInfo({
               )}
             </div>
             <div className="clinic-address">
+              <span className="input-heading">Address</span>
               <Combobox
                 placeholder={"Enter your address"}
                 data={chooseClinicAddress}
