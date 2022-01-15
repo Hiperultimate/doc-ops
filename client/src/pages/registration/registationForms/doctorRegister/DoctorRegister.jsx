@@ -138,7 +138,6 @@ function DoctorRegister({ setSafeRedirect }) {
             clinicAddressGeoLocation[0],
             clinicAddressGeoLocation[1]
           ),
-          // geoLocation: new GeoPoint(1.3521, 103.8198),
           clinicName: clinicName,
           clinicAddress: clinicAddress,
           clinicConsultationFee: Number(clinicConsultationFee),

@@ -93,15 +93,6 @@ function ClinicInfo({
                 }}
                 value={clinicAddress}
               />
-              {/* <InputField
-                wrapperClass={"input-dimension"}
-                heading={"Address"}
-                placeholder={"Enter address"}
-                type={"text"}
-                fieldName={"clinicAddress"}
-                setChange={setClinicAddress}
-                value={clinicAddress}
-              /> */}
               {clinicAddressErrorMsg && (
                 <div className="error-msg">{clinicAddressErrorMsg[0]}</div>
               )}
