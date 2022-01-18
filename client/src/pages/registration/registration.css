@@ -30,3 +30,20 @@
 .patientFormBtn{
     border-radius: 0px 5px 5px 0px;
 }
+
+.rw-widget-picker{
+    border:none;
+}
+
+.rw-combobox-input{
+    padding-left: 1.5em;
+}
+
+.rw-input-addon{
+    border-left: none !important;
+}
+
+.rw-state-focus, .rw-widget-picker{
+    border-color: none !important;
+    box-shadow: none !important;
+}

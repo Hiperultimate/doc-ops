@@ -19,6 +19,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../../firebase.js";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../utils/contexts/AuthContext.js";
+import { searchToAddressResults } from "../../../../utils/contexts/MapContext.js";
 
 function DoctorRegister({ setSafeRedirect }) {
   const [doctorName, setDoctorName] = useState("");
@@ -28,7 +29,12 @@ function DoctorRegister({ setSafeRedirect }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [clinicName, setClinicName] = useState("");
+
   const [clinicAddress, setClinicAddress] = useState("");
+  const [chooseClinicAddress, setChooseClinicAddress] = useState([]);
+  const [clinicAddressGeoLocation, setClinicAddressGeoLocation] = useState([0,0]);
+  const [clinicAddressPairGeo, setclinicAddressPairGeo] = useState({});
+
   const [clinicConsultationFee, setClinicConsultationFee] = useState("");
   const [clinicOnlineConsultation, setClinicOnlineConsultation] =
     useState("False");
@@ -128,7 +134,10 @@ function DoctorRegister({ setSafeRedirect }) {
           doctorEmail: doctorEmail,
           doctorPhone: doctorPhone,
           doctorExperience: Number(doctorExperience),
-          geoLocation: new GeoPoint(1.3521, 103.8198),
+          geoLocation: new GeoPoint(
+            clinicAddressGeoLocation[0],
+            clinicAddressGeoLocation[1]
+          ),
           clinicName: clinicName,
           clinicAddress: clinicAddress,
           clinicConsultationFee: Number(clinicConsultationFee),
@@ -188,6 +197,35 @@ function DoctorRegister({ setSafeRedirect }) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      // Send request here
+      if (clinicAddress) {
+        const getAddressResult = await searchToAddressResults(clinicAddress);
+        const searchLocation = await getAddressResult.json();
+        if (searchLocation.Response.View[0] !== undefined ) {
+          const searchResults = searchLocation.Response.View[0].Result; // Array of objects
+          const locationObj = {};
+          const addressList = [];
+          for (let i = 0; i < searchResults.length; i++) {
+            addressList.push(searchResults[i].Location.Address.Label);
+            locationObj[searchResults[i].Location.Address.Label] = [
+              searchResults[i].Location.DisplayPosition.Latitude,
+              searchResults[i].Location.DisplayPosition.Longitude,
+            ];
+          }
+          setChooseClinicAddress(addressList);
+          setclinicAddressPairGeo(locationObj);
+        } else {
+          console.log("Unable to identify location");
+          setClinicAddressGeoLocation([0,0]);
+        }
+      }
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [clinicAddress]);
 
   const ValidateImage = (e) => {
     const images = e.target.files;
@@ -291,6 +329,10 @@ function DoctorRegister({ setSafeRedirect }) {
               clinicAddressHook={{
                 clinicAddress: clinicAddress,
                 setClinicAddress: setClinicAddress,
+                chooseClinicAddress: chooseClinicAddress,
+                clinicAddressPairGeo: clinicAddressPairGeo,
+                clinicAddressGeoLocation: clinicAddressGeoLocation,
+                setClinicAddressGeoLocation : setClinicAddressGeoLocation,
                 clinicAddressErrorMsg: errorList.clinicAddress,
               }}
               clinicConsultationFeeHook={{

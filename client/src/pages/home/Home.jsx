@@ -9,8 +9,11 @@ import Search from "../../components/search/Search.jsx";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
 
+import filterDoctors from "../../utils/filters/filterDoctors.js";
+
 function Home() {
   let doctorKey = 0;
+  const doctorPerPage = 4;
 
   // States for Search.jsx
   const [SortOption, SwitchSortOption] = useState(false);
@@ -22,10 +25,35 @@ function Home() {
   const [feeValue, changeFee] = useState([0, 500]);
 
   //Fetch data from database in these values.
-  const [specializations, EditSpecializations] = useState([]);
-  const [treatments, EditTreatments] = useState([]);
-  const [doctorList, setDoctorList] = useState([]);
-  const [displayDoctors, setDisplayDoctors] = useState([]);
+  const [specializations, setSpecializations] = useState([]);
+  const [treatments, setTreatments] = useState([]);
+  const [doctorList, setDoctorList] = useState([]); // Stores doctors in the format which homepage needs
+  const [filterList, setFilterList] = useState([]); // Used to add filtered data from doctorList
+  const [displayList, setDisplayList] = useState([]); // Used to display all filtered data
+  const [low, setLow] = useState(0);
+  const [high, setHigh] = useState(doctorPerPage);
+
+  const handleList = (e) => {
+    const buttonName = e.target.name;
+    const totalDoctors = doctorList.length;
+    if (buttonName === "high") {
+      if (high + doctorPerPage > totalDoctors + doctorPerPage) {
+        return;
+      } else {
+        setHigh(high + doctorPerPage);
+        setLow(low + doctorPerPage);
+      }
+    } else if (buttonName === "low") {
+      if (low === 0 || low < 0) {
+        return;
+      } else {
+        setHigh(high - doctorPerPage);
+        setLow(low - doctorPerPage);
+      }
+    }
+  };
+
+  // Fix a bug where adding all treatments and specializations breaks filtering
 
   useEffect(() => {
     async function fetchDoctorList() {
@@ -33,12 +61,32 @@ function Home() {
         const doctorObjects = [];
         let doctorArray = await getDoc(doc(db, "search", "doctorList"));
         doctorArray = doctorArray.data().doctors;
-        for(let i = 0 ; i < doctorArray.length; i++){
-          const docUID = doctorArray[i] 
+        for (let i = 0; i < doctorArray.length; i++) {
+          const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
-          doctorObjects.push(doctor.data());
+          
+          const {
+            doctorName,
+            clinicAddress,
+            clinicOnlineConsultation,
+            clinicConsultationFee,
+            treatmentsOffered,
+            specialization,
+          } = doctor.data();
+          const doctorCardData = {
+            doctorName: doctorName,
+            clinicAddress: clinicAddress,
+            onlineConsulation: clinicOnlineConsultation,
+            consultationFee: clinicConsultationFee,
+            treatments: treatmentsOffered,
+            specialization: specialization,
+          };
+          console.log("DOCTOR CARD ARRAY -- : ", doctorCardData);
+          doctorObjects.push(doctorCardData);
         }
         setDoctorList(doctorObjects);
+        setFilterList(doctorObjects);
+
       } catch (error) {
         console.log("Error fetching doctor data. ", error);
       }
@@ -47,29 +95,31 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const setDoctors = [];
-    for(let i = 0 ; i < doctorList.length; i++){
-      const doctorObject = doctorList[i];
-      const {
-        doctorName,
-        clinicAddress,
-        clinicOnlineConsultation,
-        clinicConsultationFee,
-        treatmentsOffered,
-        specialization,
-      } = doctorObject;
-      const doctorCardData = {doctorName : doctorName,
-        clinicAddress : clinicAddress,
-        onlineConsulation : clinicOnlineConsultation,
-        consultationFee : clinicConsultationFee,
-        treatments : treatmentsOffered,
-        specialization : specialization,
-      };
-      setDoctors.push(doctorCardData);
-    }
-    setDisplayDoctors(setDoctors);
-  }, [doctorList]);
+    console.log("DOCTOR ARRAY : ", doctorList);
+    
+  })
 
+  useEffect(() => {
+    const getFilteredData = filterDoctors(
+      doctorList,
+      location,
+      feeValue,
+      specializations,
+      treatments
+    );
+
+    setFilterList(getFilteredData);
+    setLow(0);
+    setHigh(doctorPerPage);
+  }, [doctorList, location, feeValue, specializations, treatments]);
+
+  useEffect(() => {
+    if (filterList.length !== 0) {
+      setDisplayList(filterList.slice(low, high));
+    }else{
+      setDisplayList([]);
+    }
+  }, [low, high, filterList]);
 
   return (
     <div className="home-page">
@@ -101,11 +151,11 @@ function Home() {
         }}
         SpecializationState={{
           specializations: specializations,
-          EditSpecializations: EditSpecializations,
+          setSpecializations: setSpecializations,
         }}
         TreatmentState={{
           treatments: treatments,
-          EditTreatments: EditTreatments,
+          setTreatments: setTreatments,
         }}
       />
       <div style={{ paddingBottom: "1em" }} />
@@ -116,15 +166,28 @@ function Home() {
           width: "75vw",
           padding: "0.5em 0.5em",
         }}
-        
-        AddComponents={displayDoctors.length && displayDoctors.map((doctor) => (
-          <DoctorCard
-            addCardClass={"added-item"}
-            doctorObject={doctor}
-            key={doctorKey++}
-          />
-        ))}
+        AddComponents={
+          displayList.length &&
+          displayList.map((doctor) => (
+            <DoctorCard
+              addCardClass={"added-item"}
+              doctorObject={doctor}
+              key={doctorKey++}
+            />
+          ))
+        }
       />
+      <div className="doctor-list">
+        <button type="button" name="low" onClick={handleList}>
+          &lt;
+        </button>
+        <span>
+          {low === 0 ? 1 : low }-{high}
+        </span>
+        <button type="button" name="high" onClick={handleList}>
+          &gt;
+        </button>
+      </div>
       <div style={{ paddingBottom: "5em" }} />
       <Footer />
     </div>

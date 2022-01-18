@@ -50,7 +50,7 @@ function DoctorCard({ addCardClass, doctorObject }) {
         <div className="clinic-address">{clinicAddress}</div>
         <div className="online-consultation">
           <span>Online Consultation:</span>
-          {onlineConsulation ? (
+          {onlineConsulation === "True" ? (
             <img src={CheckSvg} className="align-check-cross" alt="check-icon" style={{ marginLeft: "4px" }}/>
           ) : (
             <img src={CrossSvg} className="align-check-cross" alt="cross-icon" style={{ marginLeft: "4px" }}/>
