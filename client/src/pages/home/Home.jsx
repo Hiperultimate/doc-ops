@@ -16,6 +16,7 @@ function Home() {
   const doctorPerPage = 4;
 
   // States for Search.jsx
+  const [searchDoctor, setSearchDoctor] = useState("");
   const [SortOption, SwitchSortOption] = useState(false);
   const [FilterOption, SwitchFilterOption] = useState(false);
   const [SortBy, setSortBy] = useState("");
@@ -81,7 +82,6 @@ function Home() {
             treatments: treatmentsOffered,
             specialization: specialization,
           };
-          console.log("DOCTOR CARD ARRAY -- : ", doctorCardData);
           doctorObjects.push(doctorCardData);
         }
         setDoctorList(doctorObjects);
@@ -93,11 +93,6 @@ function Home() {
     }
     fetchDoctorList();
   }, []);
-
-  useEffect(() => {
-    console.log("DOCTOR ARRAY : ", doctorList);
-    
-  })
 
   useEffect(() => {
     const getFilteredData = filterDoctors(
@@ -128,6 +123,10 @@ function Home() {
       <Search
         searchStyle={{
           width: "45vw",
+        }}
+        SearchState={{
+          searchDoctor: searchDoctor,
+          setSearchDoctor: setSearchDoctor
         }}
         SortState={{
           SortOption: SortOption,

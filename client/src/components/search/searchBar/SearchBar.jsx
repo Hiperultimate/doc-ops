@@ -3,14 +3,15 @@ import SearchSvg from "../../../svgs/search.svg";
 import SortSvg from "../../../svgs/bi_sort-down-alt.svg";
 import SortBy from "./sortBy/SortBy.jsx";
 
-function SearchBar({SortState, FilterState, SortByState}) {
-  const {SortOption, SwitchSortOption} = SortState;
-  const {SwitchFilterOption} = FilterState;
+function SearchBar({ SearchState, SortState, FilterState, SortByState }) {
+  const { searchDoctor, setSearchDoctor } = SearchState;
+  const { SortOption, SwitchSortOption } = SortState;
+  const { SwitchFilterOption } = FilterState;
 
   const onClickHandler = () => {
     SwitchSortOption(!SortOption);
     SwitchFilterOption(false);
-  }
+  };
 
   return (
     <div className="search-bar-flex">
@@ -23,9 +24,18 @@ function SearchBar({SortState, FilterState, SortByState}) {
           id="search-input-field"
           className="search-bar-style"
           placeholder="Search"
+          onChange={(event) => setSearchDoctor(event.target.value)}
+          value={searchDoctor}
         />
-        <img onClick={onClickHandler} src={SortSvg} className="bar-sort-icon" alt="sort-icon" />
-        {SortOption && <SortBy SortState={SortState} SortByState={SortByState}/>}
+        <img
+          onClick={onClickHandler}
+          src={SortSvg}
+          className="bar-sort-icon"
+          alt="sort-icon"
+        />
+        {SortOption && (
+          <SortBy SortState={SortState} SortByState={SortByState} />
+        )}
       </div>
     </div>
   );
