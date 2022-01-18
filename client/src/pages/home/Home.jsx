@@ -64,6 +64,7 @@ function Home() {
         for (let i = 0; i < doctorArray.length; i++) {
           const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
+          
           const {
             doctorName,
             clinicAddress,
@@ -80,16 +81,23 @@ function Home() {
             treatments: treatmentsOffered,
             specialization: specialization,
           };
+          console.log("DOCTOR CARD ARRAY -- : ", doctorCardData);
           doctorObjects.push(doctorCardData);
         }
         setDoctorList(doctorObjects);
         setFilterList(doctorObjects);
+
       } catch (error) {
         console.log("Error fetching doctor data. ", error);
       }
     }
     fetchDoctorList();
   }, []);
+
+  useEffect(() => {
+    console.log("DOCTOR ARRAY : ", doctorList);
+    
+  })
 
   useEffect(() => {
     const getFilteredData = filterDoctors(
@@ -169,7 +177,7 @@ function Home() {
           ))
         }
       />
-      <div className="adjust-doctor-list">
+      <div className="doctor-list">
         <button type="button" name="low" onClick={handleList}>
           &lt;
         </button>

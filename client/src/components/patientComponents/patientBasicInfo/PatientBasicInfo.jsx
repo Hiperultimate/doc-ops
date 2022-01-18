@@ -81,15 +81,6 @@ function PatientBasicInfo({
                 }}
                 value={patientAddress}
               />
-              {/* <InputField
-                heading={"Address"}
-                placeholder={"Enter your address"}
-                type={"text"}
-                wrapperClass={"input-dimension"}
-                fieldName={"patient-address"}
-                setChange={setPatientAddress}
-                value={patientAddress}
-              /> */}
               {addressErrorMsg.length !== 0 && (
                 <div className="error-msg">{addressErrorMsg[0]}</div>
               )}
