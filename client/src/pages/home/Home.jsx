@@ -96,6 +96,7 @@ function Home() {
 
   useEffect(() => {
     const getFilteredData = filterDoctors(
+      searchDoctor,
       doctorList,
       location,
       feeValue,
@@ -106,7 +107,7 @@ function Home() {
     setFilterList(getFilteredData);
     setLow(0);
     setHigh(doctorPerPage);
-  }, [doctorList, location, feeValue, specializations, treatments]);
+  }, [searchDoctor, doctorList, location, feeValue, specializations, treatments]);
 
   useEffect(() => {
     if (filterList.length !== 0) {
