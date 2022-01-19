@@ -38,7 +38,8 @@ function filterDoctors(
   location,
   feeValue,
   specializations,
-  treatments
+  treatments,
+  SortBy
 ) {
   const doctorCount = doctorList.length;
   const filteredList = [];
@@ -58,6 +59,12 @@ function filterDoctors(
       continue;
     }
     filteredList.push(filterDoc);
+  }
+
+  if(SortBy === "Lowest"){
+      filteredList.sort(function(first,second) {
+          return first.consultationFee - second.consultationFee 
+      })
   }
 
   return filteredList;

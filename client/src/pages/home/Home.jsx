@@ -101,13 +101,14 @@ function Home() {
       location,
       feeValue,
       specializations,
-      treatments
+      treatments,
+      SortBy
     );
 
     setFilterList(getFilteredData);
     setLow(0);
     setHigh(doctorPerPage);
-  }, [searchDoctor, doctorList, location, feeValue, specializations, treatments]);
+  }, [SortBy,searchDoctor, doctorList, location, feeValue, specializations, treatments]);
 
   useEffect(() => {
     if (filterList.length !== 0) {
