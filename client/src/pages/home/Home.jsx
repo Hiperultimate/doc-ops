@@ -8,10 +8,13 @@ import Search from "../../components/search/Search.jsx";
 
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
+import { useAuth } from "../../utils/contexts/AuthContext.js";
 
 import filterDoctors from "../../utils/filters/filterDoctors.js";
 
 function Home() {
+  const { currentUser, currentUserData } = useAuth();
+  
   let doctorKey = 0;
   const doctorPerPage = 4;
 
@@ -65,10 +68,11 @@ function Home() {
         for (let i = 0; i < doctorArray.length; i++) {
           const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
-          
+
           const {
             doctorName,
             clinicAddress,
+            geoLocation,
             clinicOnlineConsultation,
             clinicConsultationFee,
             treatmentsOffered,
@@ -77,6 +81,7 @@ function Home() {
           const doctorCardData = {
             doctorName: doctorName,
             clinicAddress: clinicAddress,
+            geoLocation: geoLocation,
             onlineConsulation: clinicOnlineConsultation,
             consultationFee: clinicConsultationFee,
             treatments: treatmentsOffered,
@@ -86,7 +91,6 @@ function Home() {
         }
         setDoctorList(doctorObjects);
         setFilterList(doctorObjects);
-
       } catch (error) {
         console.log("Error fetching doctor data. ", error);
       }
@@ -96,6 +100,8 @@ function Home() {
 
   useEffect(() => {
     const getFilteredData = filterDoctors(
+      currentUser,
+      currentUserData,
       searchDoctor,
       doctorList,
       location,
@@ -108,12 +114,22 @@ function Home() {
     setFilterList(getFilteredData);
     setLow(0);
     setHigh(doctorPerPage);
-  }, [SortBy,searchDoctor, doctorList, location, feeValue, specializations, treatments]);
+  }, [
+    currentUser,
+    currentUserData,
+    SortBy,
+    searchDoctor,
+    doctorList,
+    location,
+    feeValue,
+    specializations,
+    treatments,
+  ]);
 
   useEffect(() => {
     if (filterList.length !== 0) {
       setDisplayList(filterList.slice(low, high));
-    }else{
+    } else {
       setDisplayList([]);
     }
   }, [low, high, filterList]);
@@ -128,7 +144,7 @@ function Home() {
         }}
         SearchState={{
           searchDoctor: searchDoctor,
-          setSearchDoctor: setSearchDoctor
+          setSearchDoctor: setSearchDoctor,
         }}
         SortState={{
           SortOption: SortOption,
@@ -183,7 +199,7 @@ function Home() {
           &lt;
         </button>
         <span>
-          {low === 0 ? 1 : low }-{high}
+          {low === 0 ? 1 : low}-{high}
         </span>
         <button type="button" name="high" onClick={handleList}>
           &gt;

@@ -1,3 +1,5 @@
+import distanceBetweenGeoPoints from "../functions/GeoDistance.js";
+
 function withinFee(feeValue, doctorFee) {
   if (doctorFee <= feeValue[1] && doctorFee >= feeValue[0]) {
     return true;
@@ -33,6 +35,8 @@ function hasTreatment(filterTreatment, doctorTreatment) {
 // Location filter logic is on hold. Can do with geo location or comparing strings
 
 function filterDoctors(
+  currentUser,
+  currentUserData,
   searchDoctor,
   doctorList,
   location,
@@ -41,6 +45,7 @@ function filterDoctors(
   treatments,
   SortBy
 ) {
+
   const doctorCount = doctorList.length;
   const filteredList = [];
 
@@ -65,6 +70,11 @@ function filterDoctors(
       filteredList.sort(function(first,second) {
           return first.consultationFee - second.consultationFee 
       })
+  }
+
+  if(SortBy === "Nearest" && currentUser){
+    console.log(currentUserData.geoLocation._lat , ":" , currentUserData.geoLocation._long)
+    console.log(filteredList[0])
   }
 
   return filteredList;
