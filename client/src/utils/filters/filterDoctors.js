@@ -73,8 +73,12 @@ function filterDoctors(
   }
 
   if(SortBy === "Nearest" && currentUser){
-    console.log(currentUserData.geoLocation._lat , ":" , currentUserData.geoLocation._long)
-    console.log(filteredList[0])
+    const userLatitude = currentUserData.geoLocation._lat;
+    const userLongitude = currentUserData.geoLocation._lat;
+
+    filteredList.sort((first,second) => {
+      return distanceBetweenGeoPoints(userLatitude,userLongitude,first.geoLocation._lat,first.geoLocation._long,"N") - distanceBetweenGeoPoints(userLatitude,userLongitude,second.geoLocation._lat,second.geoLocation._long,"N")
+    })
   }
 
   return filteredList;
