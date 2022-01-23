@@ -26,6 +26,7 @@
 
 .sort-by-items {
   color: black;
+  padding:0.3em;
 }
 
 .sort-by-list li:last-child {
@@ -41,4 +42,9 @@
   left: 17px;
   height: 1px;
   width: 80%;
+}
+
+.sort-selected{
+  background-color: #5FCF80;
+  border-radius: 0.5em;
 }
