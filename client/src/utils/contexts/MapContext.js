@@ -5,14 +5,21 @@ class MapSearchInstance{
       this.long = long;
     }
 }
-
+// FIX LATE ADDRESS DISPLAY IN DOCTOR REGISTER PAGE
 export async function searchToAddressResults(searchAddress) {
     try {
-        const getAddressResult = await fetch(
-          `https://geocoder.ls.hereapi.com/search/6.2/geocode.json?languages=en-US&maxresults=4&searchtext=${searchAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`
-        );
-        // const test = await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${searchAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`); // USE THIS INSTEAD
-        return getAddressResult;
+        searchAddress = searchAddress.replaceAll(' ', '+');
+        const getAddressResult = await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${searchAddress}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`); // USE THIS INSTEAD
+        const searchResult = await getAddressResult.json(); // Search result list
+        
+        const returnList = [];
+        
+        for (let i = 0; i < searchResult.items.length; i++){
+          const searchItem = searchResult.items[i];
+          console.log(searchItem.address.label , searchItem.position.lat, searchItem.position.lng);
+          returnList.push(new MapSearchInstance(searchItem.address.label , searchItem.position.lat, searchItem.position.lng))
+        }
+        return returnList;
     } catch (error) {
         throw new Error(error);
     }
