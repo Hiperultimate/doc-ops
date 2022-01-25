@@ -204,23 +204,22 @@ function DoctorForm() {
       // Send request here
       if (clinicAddress) {
         const getAddressResult = await searchToAddressResults(clinicAddress);
-        const searchLocation = await getAddressResult.json();
-        if (searchLocation.Response.View[0] !== undefined ) {
-          const searchResults = searchLocation.Response.View[0].Result; // Array of objects
+        if (getAddressResult.length !== 0  ) {
+          const searchResults = getAddressResult; // Array of objects
           const locationObj = {};
           const addressList = [];
           for (let i = 0; i < searchResults.length; i++) {
-            addressList.push(searchResults[i].Location.Address.Label);
-            locationObj[searchResults[i].Location.Address.Label] = [
-              searchResults[i].Location.DisplayPosition.Latitude,
-              searchResults[i].Location.DisplayPosition.Longitude,
+            addressList.push(searchResults[i].locationName);
+            locationObj[searchResults[i].locationName] = [
+              searchResults[i].lat,
+              searchResults[i].long,
             ];
           }
           setChooseClinicAddress(addressList);
           setclinicAddressPairGeo(locationObj);
         } else {
           console.log("Unable to identify location");
-          setClinicAddressGeoLocation([0,0]);
+          // setClinicAddressGeoLocation([0,0]);   // FIX GEO RESET LOGIC
         }
       }
     }, 1500);

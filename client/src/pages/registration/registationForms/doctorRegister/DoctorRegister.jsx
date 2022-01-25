@@ -218,7 +218,7 @@ function DoctorRegister({ setSafeRedirect }) {
           setclinicAddressPairGeo(locationObj);
         } else {
           console.log("Unable to identify location");
-          setClinicAddressGeoLocation([0,0]);
+          // setClinicAddressGeoLocation([0,0]);   // FIX GEO RESET LOGIC
         }
       }
     }, 1500);
