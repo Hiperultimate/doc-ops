@@ -219,7 +219,6 @@ function DoctorForm() {
           setclinicAddressPairGeo(locationObj);
         } else {
           console.log("Unable to identify location");
-          // setClinicAddressGeoLocation([0,0]);   // FIX GEO RESET LOGIC
         }
       }
     }, 1500);
@@ -238,6 +237,7 @@ function DoctorForm() {
         setClinicAddress(retrievedData.clinicAddress);
         setClinicConsultationFee(retrievedData.clinicConsultationFee);
         setClinicOnlineConsultation(retrievedData.clinicOnlineConsultation);
+        setClinicAddressGeoLocation([retrievedData.geoLocation._lat, retrievedData.geoLocation._long]);
         setTreatmentsOffered(retrievedData.treatmentsOffered);
         setSpecialization(retrievedData.specialization);
         setOpeningHours(retrievedData.openingHours);

@@ -16,7 +16,6 @@ export async function searchToAddressResults(searchAddress) {
         
         for (let i = 0; i < searchResult.items.length; i++){
           const searchItem = searchResult.items[i];
-          console.log(searchItem.address.label , searchItem.position.lat, searchItem.position.lng);
           returnList.push(new MapSearchInstance(searchItem.address.label , searchItem.position.lat, searchItem.position.lng))
         }
         return returnList;

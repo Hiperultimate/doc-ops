@@ -89,7 +89,9 @@ function ClinicInfo({
                 onChange={(value) => {
                   if (clinicAddressPairGeo[value]) {
                     setClinicAddressGeoLocation(clinicAddressPairGeo[value]);
-                  }
+                  } else {
+                    setClinicAddressGeoLocation([0,0]);
+                  } 
                   setClinicAddress(value);
                 }}
                 value={clinicAddress}
