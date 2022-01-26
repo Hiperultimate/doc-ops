@@ -20,6 +20,9 @@ function SortBy({ SortByState, SortState }) {
         <li>
           <div
             onClick={onClickNearest}
+            style={
+              SortBy === "Nearest" ? { color: "white" } : { color: "black" }
+            }
             className={
               SortBy === "Nearest"
                 ? "sort-by-items sort-selected"
@@ -32,6 +35,9 @@ function SortBy({ SortByState, SortState }) {
         <li>
           <div
             onClick={onClickLowest}
+            style={
+              SortBy === "Lowest" ? { color: "white" } : { color: "black" }
+            }
             className={
               SortBy === "Lowest"
                 ? "sort-by-items sort-selected"
