@@ -39,7 +39,7 @@ function Home() {
 
   const handleList = (e) => {
     const buttonName = e.target.name;
-    const totalDoctors = doctorList.length;
+    const totalDoctors = filterList.length;
     if (buttonName === "high") {
       if (high + doctorPerPage > totalDoctors + doctorPerPage) {
         return;
@@ -56,8 +56,6 @@ function Home() {
       }
     }
   };
-
-  // Fix a bug where adding all treatments and specializations breaks filtering
 
   useEffect(() => {
     async function fetchDoctorList() {

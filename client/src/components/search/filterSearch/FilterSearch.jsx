@@ -34,6 +34,7 @@ function FilterSearch({
   const { treatments, setTreatments } = TreatmentState;
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [specializationOptions, setSpecializationOptions] = useState([]);
+  
   const locationChangeHandler = (e) => {
     setLocation(e.currentTarget.value);
   };

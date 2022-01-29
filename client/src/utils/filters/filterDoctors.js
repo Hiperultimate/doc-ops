@@ -1,11 +1,7 @@
 import distanceBetweenGeoPoints from "../functions/GeoDistance.js";
 
 function withinFee(feeValue, doctorFee) {
-  if (doctorFee <= feeValue[1] && doctorFee >= feeValue[0]) {
-    return true;
-  } else {
-    return false;
-  }
+  return doctorFee <= feeValue[1] && doctorFee >= feeValue[0];
 }
 
 function hasSpecialization(filterSpecialization, doctorSpecialization) {
@@ -32,8 +28,6 @@ function hasTreatment(filterTreatment, doctorTreatment) {
   return true;
 }
 
-// Location filter logic is on hold. Can do with geo location or comparing strings
-
 function filterDoctors(
   currentUser,
   currentUserData,
@@ -45,40 +39,54 @@ function filterDoctors(
   treatments,
   SortBy
 ) {
-
   const doctorCount = doctorList.length;
   const filteredList = [];
 
   for (let i = 0; i < doctorCount; i++) {
     const filterDoc = doctorList[i];
-    if(!searchDoctor === "" || !filterDoc.doctorName.toLowerCase().includes(searchDoctor.toLowerCase())) {
-        continue;
-    }
-    if (!withinFee(feeValue, filterDoc.consultationFee)) {
-      continue;
-    }
-    if (!hasSpecialization(specializations, filterDoc.specialization)) {
-      continue;
-    }
-    if (!hasTreatment(treatments, filterDoc.treatments)) {
+    if (
+      !searchDoctor === "" ||
+      !filterDoc.clinicAddress.toLowerCase().includes(location.toLowerCase()) ||
+      !filterDoc.doctorName
+        .toLowerCase()
+        .includes(searchDoctor.toLowerCase()) ||
+      !withinFee(feeValue, filterDoc.consultationFee) ||
+      !hasSpecialization(specializations, filterDoc.specialization) ||
+      !hasTreatment(treatments, filterDoc.treatments)
+    ) {
       continue;
     }
     filteredList.push(filterDoc);
   }
 
-  if(SortBy === "Lowest"){
-      filteredList.sort(function(first,second) {
-          return first.consultationFee - second.consultationFee 
-      })
+  if (SortBy === "Lowest") {
+    filteredList.sort(function (first, second) {
+      return first.consultationFee - second.consultationFee;
+    });
   }
 
-  if(SortBy === "Nearest" && currentUser){
+  if (SortBy === "Nearest" && currentUser) {
     const userLatitude = currentUserData.geoLocation._lat;
     const userLongitude = currentUserData.geoLocation._lat;
 
-    filteredList.sort((first,second) => {
-      return distanceBetweenGeoPoints(userLatitude,userLongitude,first.geoLocation._lat,first.geoLocation._long,"N") - distanceBetweenGeoPoints(userLatitude,userLongitude,second.geoLocation._lat,second.geoLocation._long,"N")
-    })
+    filteredList.sort((first, second) => {
+      return (
+        distanceBetweenGeoPoints(
+          userLatitude,
+          userLongitude,
+          first.geoLocation._lat,
+          first.geoLocation._long,
+          "N"
+        ) -
+        distanceBetweenGeoPoints(
+          userLatitude,
+          userLongitude,
+          second.geoLocation._lat,
+          second.geoLocation._long,
+          "N"
+        )
+      );
+    });
   }
 
   return filteredList;
