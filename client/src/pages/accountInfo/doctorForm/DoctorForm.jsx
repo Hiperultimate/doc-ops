@@ -204,23 +204,21 @@ function DoctorForm() {
       // Send request here
       if (clinicAddress) {
         const getAddressResult = await searchToAddressResults(clinicAddress);
-        const searchLocation = await getAddressResult.json();
-        if (searchLocation.Response.View[0] !== undefined ) {
-          const searchResults = searchLocation.Response.View[0].Result; // Array of objects
+        if (getAddressResult.length !== 0  ) {
+          const searchResults = getAddressResult; // Array of objects
           const locationObj = {};
           const addressList = [];
           for (let i = 0; i < searchResults.length; i++) {
-            addressList.push(searchResults[i].Location.Address.Label);
-            locationObj[searchResults[i].Location.Address.Label] = [
-              searchResults[i].Location.DisplayPosition.Latitude,
-              searchResults[i].Location.DisplayPosition.Longitude,
+            addressList.push(searchResults[i].locationName);
+            locationObj[searchResults[i].locationName] = [
+              searchResults[i].lat,
+              searchResults[i].long,
             ];
           }
           setChooseClinicAddress(addressList);
           setclinicAddressPairGeo(locationObj);
         } else {
           console.log("Unable to identify location");
-          setClinicAddressGeoLocation([0,0]);
         }
       }
     }, 1500);
@@ -239,6 +237,7 @@ function DoctorForm() {
         setClinicAddress(retrievedData.clinicAddress);
         setClinicConsultationFee(retrievedData.clinicConsultationFee);
         setClinicOnlineConsultation(retrievedData.clinicOnlineConsultation);
+        setClinicAddressGeoLocation([retrievedData.geoLocation._lat, retrievedData.geoLocation._long]);
         setTreatmentsOffered(retrievedData.treatmentsOffered);
         setSpecialization(retrievedData.specialization);
         setOpeningHours(retrievedData.openingHours);

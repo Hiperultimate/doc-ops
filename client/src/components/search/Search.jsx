@@ -4,6 +4,7 @@ import FilterSearch from "./filterSearch/FilterSearch.jsx";
 
 function Search({
   searchStyle,
+  SearchState,
   SortState,
   FilterState,
   SortValState,
@@ -17,6 +18,7 @@ function Search({
     <div className="search-content-space">
       <div className="search-align" style={searchStyle}>
         <SearchBar
+          SearchState={SearchState}
           SortState={SortState}
           FilterState={FilterState}
           SortByState={SortValState}

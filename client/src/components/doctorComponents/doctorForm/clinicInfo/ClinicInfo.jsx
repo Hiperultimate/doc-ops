@@ -84,11 +84,14 @@ function ClinicInfo({
               <span className="input-heading">Address</span>
               <Combobox
                 placeholder={"Enter your address"}
+                filter={() => true}
                 data={chooseClinicAddress}
                 onChange={(value) => {
                   if (clinicAddressPairGeo[value]) {
                     setClinicAddressGeoLocation(clinicAddressPairGeo[value]);
-                  }
+                  } else {
+                    setClinicAddressGeoLocation([0,0]);
+                  } 
                   setClinicAddress(value);
                 }}
                 value={clinicAddress}
