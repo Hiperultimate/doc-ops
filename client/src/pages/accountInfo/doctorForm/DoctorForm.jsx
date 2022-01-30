@@ -203,7 +203,10 @@ function DoctorForm() {
     const delayDebounceFn = setTimeout(async () => {
       // Send request here
       if (clinicAddress) {
-        const getAddressResult = await searchToAddressResults(clinicAddress);
+        let getAddressResult = await searchToAddressResults(clinicAddress);
+        if(typeof(getAddressResult) === "undefined") {
+          getAddressResult = [];
+        }
         if (getAddressResult.length !== 0  ) {
           const searchResults = getAddressResult; // Array of objects
           const locationObj = {};
