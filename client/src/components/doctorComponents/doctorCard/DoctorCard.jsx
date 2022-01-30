@@ -3,6 +3,8 @@ import CheckSvg from "../../../svgs/check.svg";
 import CrossSvg from "../../../svgs/cross.svg";
 import CardArrowSvg from "../../../svgs/card-arrow.svg";
 
+import { useHistory } from "react-router-dom";
+
 /* 
 To display doctor information in homepage in a card style layout
 
@@ -27,7 +29,10 @@ and displays important information about the doctor
 
 */
 function DoctorCard({ addCardClass, doctorObject }) {
+  const history = useHistory();
+
   const {
+    docUID,
     doctorName,
     clinicAddress,
     onlineConsulation,
@@ -36,39 +41,64 @@ function DoctorCard({ addCardClass, doctorObject }) {
     consultationFee,
   } = doctorObject;
 
-  const displayTreatments = treatments.slice(0,3).join(", ");
-  const displaySpecialization = specialization.slice(0,3).join(", ");
+  const displayTreatments = treatments.slice(0, 3).join(", ");
+  const displaySpecialization = specialization.slice(0, 3).join(", ");
 
   const onClickHandler = () => {
-    console.log("To doctor about page.");
+    history.push(`about/1/${docUID}`);
   };
 
   return (
-    <div className={`${addCardClass} card-style global-box-shadow`} onClick={onClickHandler}>
+    <div
+      className={`${addCardClass} card-style global-box-shadow`}
+      onClick={onClickHandler}
+    >
       <div className="card-grid">
         <div className="card-doctor-name">{doctorName}</div>
         <div className="clinic-address">{clinicAddress}</div>
         <div className="online-consultation">
           <span>Online Consultation:</span>
           {onlineConsulation === "True" ? (
-            <img src={CheckSvg} className="align-check-cross" alt="check-icon" style={{ marginLeft: "4px" }}/>
+            <img
+              src={CheckSvg}
+              className="align-check-cross"
+              alt="check-icon"
+              style={{ marginLeft: "4px" }}
+            />
           ) : (
-            <img src={CrossSvg} className="align-check-cross" alt="cross-icon" style={{ marginLeft: "4px" }}/>
+            <img
+              src={CrossSvg}
+              className="align-check-cross"
+              alt="cross-icon"
+              style={{ marginLeft: "4px" }}
+            />
           )}
         </div>
         <div className="treatments">
           <span>Treatments:</span>
-          <span className="card-pad-style">{displayTreatments}{treatments.length > 3 ? <span>, ...</span> : <span>.</span> } </span>
+          <span className="card-pad-style">
+            {displayTreatments}
+            {treatments.length > 3 ? <span>, ...</span> : <span>.</span>}{" "}
+          </span>
         </div>
         <div className="specialization">
           <span>Specialization:</span>
-          <span className="card-pad-style">{displaySpecialization}{specialization.length > 3 ? <span>, ...</span> : <span>.</span> }</span>
+          <span className="card-pad-style">
+            {displaySpecialization}
+            {specialization.length > 3 ? <span>, ...</span> : <span>.</span>}
+          </span>
         </div>
         <div className="consultation-fee">
           <span>Consultation Fee:</span>
           <span className="consult-fee-style">₹ {consultationFee}</span>
         </div>
-        <div className="card-btn"><img src={CardArrowSvg} className="card-btn-style" alt="doctor-about-btn" /></div>
+        <div className="card-btn">
+          <img
+            src={CardArrowSvg}
+            className="card-btn-style"
+            alt="doctor-about-btn"
+          />
+        </div>
       </div>
     </div>
   );

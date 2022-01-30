@@ -77,6 +77,7 @@ function Home() {
             specialization,
           } = doctor.data();
           const doctorCardData = {
+            docUID: docUID,
             doctorName: doctorName,
             clinicAddress: clinicAddress,
             geoLocation: geoLocation,
