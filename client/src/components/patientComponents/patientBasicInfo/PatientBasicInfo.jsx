@@ -72,6 +72,7 @@ function PatientBasicInfo({
               <span className="input-heading">Address</span>
               <Combobox
                 placeholder={"Enter your address"}
+                filter={() => true}
                 data={chooseAddress}
                 onChange={(value) => {
                   if (addressPairGeo[value]) {
