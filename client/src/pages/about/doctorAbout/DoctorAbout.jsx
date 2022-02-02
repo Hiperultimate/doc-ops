@@ -69,6 +69,7 @@ function DoctorAbout() {
             specialization={aboutUserData.specialization} //Might need to parse according to the input later on
             treatments={aboutUserData.treatmentsOffered}
             consultationFee={aboutUserData.clinicConsultationFee}
+            docUID = {UID}
             key={2}
           />,
           <DoctorClinicDetails

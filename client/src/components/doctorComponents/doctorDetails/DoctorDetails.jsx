@@ -1,6 +1,15 @@
 import "./doctorDetails.css";
 import MainButton from "../../mainButton/MainButton.jsx";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+
+import { db } from "../../../firebase.js";
+import {
+  setDoc,
+  doc,
+  arrayUnion,
+} from "firebase/firestore";
+
+import { useAuth } from "../../../utils/contexts/AuthContext.js";
 
 function DoctorDetails({
   experience,
@@ -9,11 +18,20 @@ function DoctorDetails({
   specialization,
   treatments,
   consultationFee,
+  docUID,
 }) {
+  const { currentUser } = useAuth();
   const history = useHistory();
 
-  const onClickHandler = () => {
-    history.push("/chat");
+  const onClickHandler = async () => {
+    // Creates a firebase collection and redirecting it to the sessions page
+    const userUID = currentUser.uid;
+    await setDoc(
+      doc(db, "chattingWith", userUID),
+      { users: arrayUnion(docUID) },
+      { merge: true }
+    );
+    history.push("/sessions");
   };
 
   return (
