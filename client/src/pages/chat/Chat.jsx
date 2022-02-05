@@ -41,12 +41,23 @@ function Chat() {
   let chatID = 0;
 
   const { currentUser, currentUserData } = useAuth();
-  const displayType = currentUserData.type === 1 ? DisplayType.DOCTOR : DisplayType.PATIENT;
+  const displayType =
+    currentUserData.type === 1 ? DisplayType.DOCTOR : DisplayType.Patient;
   const [closeSessionState, setCloseSessionState] = useState(false);
   const [closeSessionDiagnosis, setCloseSessionDiagnosis] = useState("");
   const [closeSessionComments, setCloseSessionComments] = useState("");
   const [addPrescriptionState, setAddPrescriptionState] = useState(false);
   const [fetchChatUsers, setFetchChatUsers] = useState([]);
+
+  // States for component : ChatHead
+  const [chatHeadInfo, setChatHeadInfo] = useState("");
+  const [selectedUserType, setSelectedUserType] = useState(null);
+  const [selectedUserUID, setSelectedUserUID] = useState(null);
+  const [chatHeadAboutLink, setChatHeadAboutLink] = useState("");
+
+  // States for component : TypingBar
+  const [typeInput, setTypeInput] = useState("");
+
   // const fetchChatUsers = [
   //   {
   //     userName: "Alanakov Bavonoichi",
@@ -65,6 +76,8 @@ function Chat() {
           userName: userInfo.doctorName,
           unreadMessageCount: "5",
           displayInfo: userInfo.specialization,
+          userUID: userUID,
+          userType: userInfo.type,
         };
         returnData = parsedData;
       } else {
@@ -72,6 +85,8 @@ function Chat() {
           userName: userInfo.name,
           unreadMessageCount: "5",
           displayInfo: userInfo.diagnosis, // Discuss what to do here
+          userUID: userUID,
+          userType: userInfo.type,
         };
         returnData = parsedData;
       }
@@ -82,7 +97,7 @@ function Chat() {
 
       let selectChatUser = [];
       const chattingWithList = chattingWith.data().users;
-      for( let i = 0 ; i < chattingWithList.length; i++){
+      for (let i = 0; i < chattingWithList.length; i++) {
         let chattingWithUser = await fetchChatUserInfo(chattingWithList[i]);
         selectChatUser.push(chattingWithUser);
       }
@@ -92,6 +107,12 @@ function Chat() {
     fetchChattingWithUsers();
   }, []);
 
+  // Set about me URL
+  useEffect(() => {
+    if (chatHeadInfo) {
+      setChatHeadAboutLink(`/about/${selectedUserType}/${selectedUserUID}`);
+    }
+  }, [chatHeadInfo, selectedUserType, selectedUserUID]);
 
   return (
     <>
@@ -131,6 +152,11 @@ function Chat() {
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
                   viewType={displayType}
+                  userUID={chatUsers.userUID}
+                  userType={chatUsers.userType}
+                  setChatHeadInfo={setChatHeadInfo}
+                  setSelectedUserType={setSelectedUserType}
+                  setSelectedUserUID={setSelectedUserUID}
                   key={chatID++}
                 />
               );
@@ -138,9 +164,14 @@ function Chat() {
           )}
         </div>
         <div className="chat-text-area">
-          <ChatHead userName={"Alanakov Banovoichi"} />
+          <ChatHead userName={chatHeadInfo} aboutMeURL={chatHeadAboutLink} />
           <DisplayMessages />
-          <TypingBar />
+          <TypingBar
+            typeMessageState={{
+              typeInput: { typeInput },
+              setTypeInput: { setTypeInput },
+            }}
+          />
         </div>
         <div className="set-prescription">
           <ChatPrescriptions

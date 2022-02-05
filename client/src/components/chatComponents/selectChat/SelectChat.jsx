@@ -1,5 +1,5 @@
 import "./selectChat.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 /* 
@@ -14,12 +14,15 @@ import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 */
 
-function SelectChat({ userName, unreadMessageCount, viewType, displayInfo }) {
+function SelectChat({ userName, unreadMessageCount, viewType, displayInfo,setChatHeadInfo,userType,setSelectedUserType, userUID, setSelectedUserUID  }) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
 
   const onClickHandler = () => {
     setisSelected((prevState) => !prevState);
+    setChatHeadInfo(userName);
+    setSelectedUserType(userType);
+    setSelectedUserUID(userUID);
   };
   return (
     <>
