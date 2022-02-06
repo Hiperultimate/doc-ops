@@ -107,7 +107,7 @@ function Chat() {
     fetchChattingWithUsers();
   }, []);
 
-  // Set about me URL
+  // Logic to set chatHeadAboutLink
   useEffect(() => {
     if (chatHeadInfo) {
       setChatHeadAboutLink(`/about/${selectedUserType}/${selectedUserUID}`);
@@ -165,13 +165,15 @@ function Chat() {
         </div>
         <div className="chat-text-area">
           <ChatHead userName={chatHeadInfo} aboutMeURL={chatHeadAboutLink} />
-          <DisplayMessages />
-          <TypingBar
-            typeMessageState={{
-              typeInput: { typeInput },
-              setTypeInput: { setTypeInput },
-            }}
-          />
+          {selectedUserUID ? <DisplayMessages /> : <div className="unselected-user-msg"> Select a user to chat with. </div>}
+          {selectedUserUID && (
+            <TypingBar
+              typeMessageState={{
+                typeInput: { typeInput },
+                setTypeInput: { setTypeInput },
+              }}
+            />
+          )}
         </div>
         <div className="set-prescription">
           <ChatPrescriptions
