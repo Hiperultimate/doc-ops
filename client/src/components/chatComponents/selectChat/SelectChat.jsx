@@ -14,7 +14,18 @@ import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 */
 
-function SelectChat({ userName, unreadMessageCount, viewType, displayInfo,setChatHeadInfo,userType,setSelectedUserType, userUID, setSelectedUserUID,selectedUserUID  }) {
+function SelectChat({
+  userName,
+  unreadMessageCount,
+  viewType,
+  displayInfo,
+  setChatHeadInfo,
+  userType,
+  setSelectedUserType,
+  userUID,
+  setSelectedUserUID,
+  selectedUserUID,
+}) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
 
@@ -24,13 +35,14 @@ function SelectChat({ userName, unreadMessageCount, viewType, displayInfo,setCha
     setSelectedUserUID(userUID);
   };
 
-  useEffect(()=>{
-    if(selectedUserUID === userUID){
+  // State change logic for selected chat user.
+  useEffect(() => {
+    if (selectedUserUID === userUID) {
       setisSelected(true);
-    }else{
+    } else {
       setisSelected(false);
     }
-  },[selectedUserUID,userUID])
+  }, [selectedUserUID, userUID]);
 
   return (
     <>

@@ -102,7 +102,6 @@ function Chat() {
         selectChatUser.push(chattingWithUser);
       }
       setFetchChatUsers(selectChatUser);
-      console.log(chattingWith.data().users);
     }
     fetchChattingWithUsers();
   }, []);
@@ -166,13 +165,22 @@ function Chat() {
         </div>
         <div className="chat-text-area">
           <ChatHead userName={chatHeadInfo} aboutMeURL={chatHeadAboutLink} />
-          {selectedUserUID ? <DisplayMessages /> : <div className="unselected-user-msg"> Select a user to chat with. </div>}
+          {selectedUserUID ? (
+            <DisplayMessages />
+          ) : (
+            <div className="unselected-user-msg">
+              Select a user to chat with.
+            </div>
+          )}
+          {/* Sending text logic is in TypingBar component */}
           {selectedUserUID && (
             <TypingBar
               typeMessageState={{
-                typeInput: { typeInput },
-                setTypeInput: { setTypeInput },
+                typeInput: typeInput,
+                setTypeInput: setTypeInput,
               }}
+              selectedUserUID={selectedUserUID}
+              currentUserUID={currentUser.uid}
             />
           )}
         </div>

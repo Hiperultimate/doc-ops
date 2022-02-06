@@ -16,6 +16,7 @@
 }
 
 .send-icon-container{
+    cursor: pointer;
     background-color: #5FCF80;
     width: 60px;
     border-radius:0px 10px 10px 0px;
