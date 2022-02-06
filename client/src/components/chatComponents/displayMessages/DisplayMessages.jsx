@@ -2,7 +2,7 @@ import "./displayMessages.css";
 import { useEffect, useRef } from "react";
 import SingleChat from "./singleChat/SingleChat.jsx";
 
-function DisplayMessages() {
+function DisplayMessages({ selectedUserUID, currentUserUID }) {
   const fieldRef = useRef(null);
 
   useEffect(() => {

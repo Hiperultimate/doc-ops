@@ -58,6 +58,9 @@ function Chat() {
   // States for component : TypingBar
   const [typeInput, setTypeInput] = useState("");
 
+  // States to display messages 
+  const [messages, setMessages ] = useState([]);
+
   // const fetchChatUsers = [
   //   {
   //     userName: "Alanakov Bavonoichi",
@@ -65,6 +68,10 @@ function Chat() {
   //     displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
   //   },
   // ];
+
+  useEffect(()=> {
+    console.log("Updating messages : " ,messages)
+  },[messages])
 
   useEffect(() => {
     async function fetchChatUserInfo(userUID) {
@@ -151,12 +158,14 @@ function Chat() {
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
                   viewType={displayType}
+                  currentUserUID={currentUser.uid}
                   userUID={chatUsers.userUID}
                   userType={chatUsers.userType}
                   setChatHeadInfo={setChatHeadInfo}
                   setSelectedUserType={setSelectedUserType}
                   setSelectedUserUID={setSelectedUserUID}
                   selectedUserUID={selectedUserUID}
+                  setMessages={setMessages}
                   key={chatID++}
                 />
               );
@@ -166,7 +175,10 @@ function Chat() {
         <div className="chat-text-area">
           <ChatHead userName={chatHeadInfo} aboutMeURL={chatHeadAboutLink} />
           {selectedUserUID ? (
-            <DisplayMessages />
+            <DisplayMessages
+              selectedUserUID={selectedUserUID}
+              currentUserUID={currentUser.uid}
+            />
           ) : (
             <div className="unselected-user-msg">
               Select a user to chat with.
