@@ -157,6 +157,7 @@ function Chat() {
                   setChatHeadInfo={setChatHeadInfo}
                   setSelectedUserType={setSelectedUserType}
                   setSelectedUserUID={setSelectedUserUID}
+                  selectedUserUID={selectedUserUID}
                   key={chatID++}
                 />
               );
