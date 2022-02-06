@@ -26,9 +26,18 @@ function DoctorDetails({
   const onClickHandler = async () => {
     // Creates a firebase collection and redirecting it to the sessions page
     const userUID = currentUser.uid;
+
+    // Creating chat instance for logged in user in firebase
     await setDoc(
       doc(db, "chattingWith", userUID),
       { users: arrayUnion(docUID) },
+      { merge: true }
+    );
+
+    // Creating chat instance for targeted user in firebase
+    await setDoc(
+      doc(db, "chattingWith",docUID ),
+      { users: arrayUnion(userUID) },
       { merge: true }
     );
     history.push("/sessions");
