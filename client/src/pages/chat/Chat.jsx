@@ -69,10 +69,6 @@ function Chat() {
   //   },
   // ];
 
-  useEffect(()=> {
-    console.log("Updating messages : " ,messages)
-  },[messages])
-
   useEffect(() => {
     async function fetchChatUserInfo(userUID) {
       let fetchUserData = await getDoc(doc(db, "users", userUID));
@@ -176,6 +172,7 @@ function Chat() {
           <ChatHead userName={chatHeadInfo} aboutMeURL={chatHeadAboutLink} />
           {selectedUserUID ? (
             <DisplayMessages
+              messages={messages}
               selectedUserUID={selectedUserUID}
               currentUserUID={currentUser.uid}
             />

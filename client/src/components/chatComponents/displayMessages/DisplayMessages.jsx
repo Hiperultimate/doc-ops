@@ -1,64 +1,44 @@
 import "./displayMessages.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SingleChat from "./singleChat/SingleChat.jsx";
 
-function DisplayMessages({ selectedUserUID, currentUserUID }) {
+function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
   const fieldRef = useRef(null);
+  const [displayMessage, setDisplayMessage] = useState([]);
+
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
 
   useEffect(() => {
     fieldRef.current.scrollIntoView();
   });
 
-  let dummyChatData = [
-    {
-      whosChat: "sender",
-      sentAt: "6:54 AM",
-      messageText: "My name a jeff",
-      id: "12315986",
-    },
-    {
-      whosChat: "receiver",
-      sentAt: "7:10 AM",
-      messageText: "And my name a john LOLLLL",
-      id: "1123154",
-    },
-    {
-      whosChat: "sender",
-      sentAt: "6:54 AM",
-      messageText: "My name a jeff",
-      id: "543657",
-    },
-    {
-      whosChat: "receiver",
-      sentAt: "7:10 AM",
-      messageText: "And my name a john LOLLLL",
-      id: "6354789",
-    },
-    {
-      whosChat: "sender",
-      sentAt: "6:54 AM",
-      messageText: "My name a jeff",
-      id: "543342657",
-    },
-    {
-      whosChat: "receiver",
-      sentAt: "7:10 AM",
-      messageText:
-        "Officia cillum veniam officia Lorem labore sit adipisicing esse ea. Excepteur id enim ipsum excepteur eu commodo ut. Nostrud veniam non quis sunt reprehenderit ut pariatur irure aliqua tempor. Excepteur magna labore mollit nostrud esse consectetur. Minim exercitation officia eiusmod dolore adipisicing. Elit cillum qui aliquip id deserunt.",
-      id: "976856578",
-    },
-    {
-      whosChat: "sender",
-      sentAt: "6:54 AM",
-      messageText:
-        "Officia cillum veniam officia Lorem labore sit adipisicing esse ea. Excepteur id enim ipsum excepteur eu commodo ut. Nostrud veniam non quis sunt reprehenderit ut pariatur irure aliqua tempor. Excepteur magna labore mollit nostrud esse consectetur. Minim exercitation officia eiusmod dolore adipisicing. Elit cillum qui aliquip id deserunt.",
-      id: "6423453",
-    },
-  ];
+  useEffect(() => {
+    if (messages.length > 0) {
+      let tempList = [];
+      for (let i = 0; i < messages.length; i++) {
+        tempList.push({
+          whosChat: messages[i].from === currentUserUID ?  "receiver": "sender",
+          sentAt: formatAMPM(new Date(messages[i].createdAt.seconds * 1000)),
+          messageText: messages[i].typeInput,
+          id: messages[i].from+messages[i].createdAt.seconds,
+        })
+      }
+      setDisplayMessage(tempList);
+    }
+  }, [messages,currentUserUID]);
 
   return (
     <div className="chat-box">
-      {dummyChatData.map((messages) => {
+      {displayMessage.map((messages) => {
         return (
           <SingleChat
             whosChat={messages.whosChat}
