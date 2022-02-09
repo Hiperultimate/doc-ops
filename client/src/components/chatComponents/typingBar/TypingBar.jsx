@@ -11,15 +11,25 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
   const textSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const chatRoomString = currentUserUID > selectedUserUID ? `${currentUserUID + selectedUserUID}` : `${selectedUserUID + currentUserUID }`;
-    if(typeInput !== ""){
-      await addDoc(collection(db, 'chatRooms', chatRoomString, 'chat'),{
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+    if (typeInput !== "") {
+      await addDoc(collection(db, "chatRooms", chatRoomString, "chat"), {
         typeInput,
         from: currentUserUID,
         to: selectedUserUID,
         createdAt: Timestamp.fromDate(new Date()),
-      })
+      });
       setTypeInput("");
+    }
+  };
+
+  // Function that triggers by pressing the enter key
+  const enterSubmit = (e) => {
+    if (e.key === 'Enter') {
+      textSubmitHandler(e);
     }
   };
 
@@ -30,6 +40,7 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
         className="chat-type-bar global-box-shadow"
         placeholder="Type Something..."
         onChange={(event) => setTypeInput(event.target.value)}
+        onKeyPress={enterSubmit}
         value={typeInput}
       />
       <div
