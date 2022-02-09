@@ -10,7 +10,7 @@ import DisplayMessages from "../../components/chatComponents/displayMessages/Dis
 import ChatPrescriptions from "../../components/chatComponents/chatPrescriptions/ChatPrescriptions.jsx";
 import AddPrescription from "../../components/chatComponents/chatPrescriptions/addPrescription/AddPrescription.jsx";
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useAuth } from "../../utils/contexts/AuthContext.js";
 
@@ -96,15 +96,15 @@ function Chat() {
       return returnData;
     }
     async function fetchChattingWithUsers() {
-      let chattingWith = await getDoc(doc(db, "chattingWith", currentUser.uid));
-
-      let selectChatUser = [];
-      const chattingWithList = chattingWith.data().users;
-      for (let i = 0; i < chattingWithList.length; i++) {
-        let chattingWithUser = await fetchChatUserInfo(chattingWithList[i]);
-        selectChatUser.push(chattingWithUser);
-      }
-      setFetchChatUsers(selectChatUser);
+      onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
+        let chatUsers = [];
+        querySnapshot.data().users.forEach( async (user) => {
+          let chattingWithUser = await fetchChatUserInfo(user);
+          chatUsers.push(chattingWithUser);
+          setFetchChatUsers([ ...chatUsers]);
+        });
+        console.log("chatUsers : " , chatUsers);
+      });
     }
     fetchChattingWithUsers();
   }, []);
