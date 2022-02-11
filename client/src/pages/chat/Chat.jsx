@@ -98,12 +98,13 @@ function Chat() {
     async function fetchChattingWithUsers() {
       onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
         let chatUsers = [];
-        querySnapshot.data().users.forEach( async (user) => {
-          let chattingWithUser = await fetchChatUserInfo(user);
-          chatUsers.push(chattingWithUser);
-          setFetchChatUsers([ ...chatUsers]);
-        });
-        console.log("chatUsers : " , chatUsers);
+        if(querySnapshot.data()){
+          querySnapshot.data().users.forEach( async (user) => {
+            let chattingWithUser = await fetchChatUserInfo(user);
+            chatUsers.push(chattingWithUser);
+            setFetchChatUsers([ ...chatUsers]);
+          });
+        }
       });
     }
     fetchChattingWithUsers();

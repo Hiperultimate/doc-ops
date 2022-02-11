@@ -16,7 +16,7 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
         ? `${currentUserUID + selectedUserUID}`
         : `${selectedUserUID + currentUserUID}`;
     if (typeInput !== "") {
-      await addDoc(collection(db, "chatRooms", chatRoomString, "chat"), {
+      await addDoc(collection(db, "sessions", chatRoomString, "chat"), {
         typeInput,
         from: currentUserUID,
         to: selectedUserUID,

@@ -54,7 +54,7 @@ function SelectChat({
             ? `${currentUserUID + selectedUserUID}`
             : `${selectedUserUID + currentUserUID}`;
 
-        const chatRoomRef = collection(db, "chatRooms", chatRoomString, "chat");
+        const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
         const q = query(chatRoomRef, orderBy("createdAt", "asc"));
 
         onSnapshot(q, (querySnapshot) => {
