@@ -9,11 +9,11 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
   function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
+    var ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
     return strTime;
   }
 
@@ -26,15 +26,17 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
       let tempList = [];
       for (let i = 0; i < messages.length; i++) {
         tempList.push({
-          whosChat: messages[i].from === currentUserUID ?  "receiver": "sender",
+          whosChat: messages[i].from === currentUserUID ? "receiver" : "sender",
           sentAt: formatAMPM(new Date(messages[i].createdAt.seconds * 1000)),
           messageText: messages[i].typeInput,
-          id: messages[i].from+messages[i].createdAt.seconds,
-        })
+          id: messages[i].from + messages[i].createdAt.seconds,
+        });
       }
       setDisplayMessage(tempList);
+    } else {
+      setDisplayMessage([]);
     }
-  }, [messages,currentUserUID]);
+  }, [messages, currentUserUID]);
 
   return (
     <div className="chat-box">
