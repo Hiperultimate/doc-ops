@@ -8,8 +8,8 @@ import "./navbar.css";
 import { useAuth } from "../../utils/contexts/AuthContext.js";
 
 function Navbar({ isFixed }) {
-  const { currentUser } = useAuth();
-  const user = { username: currentUser ? currentUser.email : ""}; // Use username instead of currentUser.email
+  const { currentUserData } = useAuth();
+  const user = currentUserData ? currentUserData.type === 1 ? {username : currentUserData.doctorName} : {username: currentUserData.name} : "";
   let [popUp, popUpState] = useState(false);
 
   return (
