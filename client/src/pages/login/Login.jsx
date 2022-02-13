@@ -5,6 +5,8 @@ import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
 import Eye from "../../svgs/Eye.svg";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../utils/contexts/AuthContext.js";
 
@@ -18,6 +20,8 @@ function Login() {
   const history = useHistory();
   const { login } = useAuth();
 
+  const loginErrorMsg = () => toast("Email ID or Password is incorrect.");
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,13 +34,15 @@ function Login() {
       setEmail("");
       setPassword("");
       setErrorMsg("Unable to sign in");
-      setLoading(false)
+      setLoading(false);
     }
     loading && setLoading(false);
   };
 
   useEffect(() => {
-    console.log("Error message :", errorMsg ? errorMsg : "None");
+    if(errorMsg){
+      loginErrorMsg();
+    }
   }, [errorMsg]);
 
   return (
@@ -66,6 +72,17 @@ function Login() {
         alt="background-stethoscope"
       />
       <form onSubmit={handleLoginSubmit} className="login-section">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <div className="login-content">
           <img
             src={LifeSaversAvatar}
