@@ -3,6 +3,11 @@ import PlusSvg from "../../../svgs/plus.svg";
 import MedicineBox from "../../../svgs/medicine-box.svg";
 import PrescriptionCard from "./prescriptionCard/PrescriptionCard.jsx";
 
+import { useEffect } from "react";
+
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase.js";
+
 const DisplayType = Object.freeze({
   DOCTOR: 1,
   PATIENT: 2,
@@ -12,6 +17,10 @@ function ChatPrescriptions({
   displayType,
   setCloseSessionState,
   setAddPrescriptionState,
+  currentUserUID,
+  selectedUserUID,
+  prescriptionList,
+  setPrescriptionList,
 }) {
   // Dummy data
   let fetchPrescriptionData = [
@@ -37,6 +46,13 @@ function ChatPrescriptions({
       id: 3,
     },
   ];
+
+  const chatRoomString =
+    currentUserUID > selectedUserUID
+      ? `${currentUserUID + selectedUserUID}`
+      : `${selectedUserUID + currentUserUID}`;
+
+  // Fetch chat prescription data for selected user through UID
 
   return (
     <div>

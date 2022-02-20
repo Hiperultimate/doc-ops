@@ -58,18 +58,15 @@ function Chat() {
   // States for component : TypingBar
   const [typeInput, setTypeInput] = useState("");
 
-  // States to display messages 
-  const [messages, setMessages ] = useState([]);
+  // States to display messages
+  const [messages, setMessages] = useState([]);
 
-  // const fetchChatUsers = [
-  //   {
-  //     userName: "Alanakov Bavonoichi",
-  //     unreadMessageCount: "5",
-  //     displayInfo: ["Surgeries", "Anesthetics", "Valorant", "Punjabi"],
-  //   },
-  // ];
+  // States for prescription
+  const [prescriptionList, setPrescriptionList] = useState([]);
 
   useEffect(() => {
+
+    // Create logic for unreadMessageCount
     async function fetchChatUserInfo(userUID) {
       let fetchUserData = await getDoc(doc(db, "users", userUID));
       const userInfo = fetchUserData.data();
@@ -98,11 +95,11 @@ function Chat() {
     async function fetchChattingWithUsers() {
       onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
         let chatUsers = [];
-        if(querySnapshot.data()){
-          querySnapshot.data().users.forEach( async (user) => {
+        if (querySnapshot.data()) {
+          querySnapshot.data().users.forEach(async (user) => {
             let chattingWithUser = await fetchChatUserInfo(user);
             chatUsers.push(chattingWithUser);
-            setFetchChatUsers([ ...chatUsers]);
+            setFetchChatUsers([...chatUsers]);
           });
         }
       });
@@ -199,6 +196,10 @@ function Chat() {
             displayType={displayType}
             setCloseSessionState={setCloseSessionState}
             setAddPrescriptionState={setAddPrescriptionState}
+            currentUserUID={currentUser.uid}
+            selectedUserUID={selectedUserUID}
+            prescriptionList={prescriptionList}
+            setPrescriptionList={setPrescriptionList}
           />
         </div>
       </div>
