@@ -6,7 +6,7 @@ import PrescriptionCard from "./prescriptionCard/PrescriptionCard.jsx";
 import { useEffect } from "react";
 
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase.js";
+import { db } from "../../../firebase.js";
 
 const DisplayType = Object.freeze({
   DOCTOR: 1,

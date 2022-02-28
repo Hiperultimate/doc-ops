@@ -3,11 +3,7 @@ import MainButton from "../../mainButton/MainButton.jsx";
 import { useHistory } from "react-router-dom";
 
 import { db } from "../../../firebase.js";
-import {
-  setDoc,
-  doc,
-  arrayUnion,
-} from "firebase/firestore";
+import { setDoc, doc, arrayUnion } from "firebase/firestore";
 
 import { useAuth } from "../../../utils/contexts/AuthContext.js";
 
@@ -20,7 +16,7 @@ function DoctorDetails({
   consultationFee,
   docUID,
 }) {
-  const { currentUser } = useAuth();
+  const { currentUser, currentUserData } = useAuth();
   const history = useHistory();
 
   const onClickHandler = async () => {
@@ -36,7 +32,7 @@ function DoctorDetails({
 
     // Creating chat instance for targeted user in firebase
     await setDoc(
-      doc(db, "chattingWith",docUID ),
+      doc(db, "chattingWith", docUID),
       { users: arrayUnion(userUID) },
       { merge: true }
     );
@@ -73,11 +69,14 @@ function DoctorDetails({
         </div>
         <div className="chat-btn custom-info-padding">
           <span className="semi-title">
-            <MainButton
-              buttonText="Chat Now"
-              onClickHandler={onClickHandler}
-              arrow={false}
-            />
+            {/* Checks if current user is logged in and is not of the same type as doctor */}
+            {currentUserData.type && currentUserData.type !== 1 && (
+              <MainButton
+                buttonText="Chat Now"
+                onClickHandler={onClickHandler}
+                arrow={false}
+              />
+            )}
           </span>
         </div>
         <div className="consultation-fee info-padding">
