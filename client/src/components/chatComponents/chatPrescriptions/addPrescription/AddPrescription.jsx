@@ -2,9 +2,18 @@ import "./addPrescription.css";
 import CrossBgSvg from "../../../../svgs/cross-bg.svg";
 import { useState } from "react";
 
-function AddPrescription({ AddPrescriptionState }) {
-  const { addPrescriptionState, setAddPrescriptionState } =
-    AddPrescriptionState;
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { db } from "../../../../firebase.js";
+
+function AddPrescription({
+  AddPrescriptionState,
+}) {
+  const {
+    addPrescriptionState,
+    setAddPrescriptionState,
+    currentUserUID,
+    selectedUserUID,
+  } = AddPrescriptionState;
   const [medicineNameInput, setMedicineNameInput] = useState("");
   const [amountInput, setAmountInput] = useState("");
   const [frequencyInput, setFrequencyInput] = useState("");
@@ -16,7 +25,35 @@ function AddPrescription({ AddPrescriptionState }) {
   };
 
   const onSubmitHandler = (e) => {
+    async function addPrescription() {
+      const prescriptionDetails = {
+        medicineName: medicineNameInput,
+        medicineAmount: amountInput,
+        medicineFrequency: frequencyInput,
+        medicineDurationFrom: durationFromInput,
+        medicineDurationTo: durationToInput,
+      };
+
+      const chatRoomString =
+        currentUserUID > selectedUserUID
+          ? `${currentUserUID + selectedUserUID}`
+          : `${selectedUserUID + currentUserUID}`;
+      console.log(prescriptionDetails, currentUserUID, selectedUserUID);
+      await addDoc(collection(db, "sessions", chatRoomString, "prescription"), {
+        prescriptionDetails,
+        from: currentUserUID,
+        to: selectedUserUID,
+        createdAt: Timestamp.fromDate(new Date()),
+      });
+      setMedicineNameInput("");
+      setAmountInput("");
+      setFrequencyInput("");
+      setDurationFromInput("");
+      setDurationToInput("");
+    }
+
     e.preventDefault();
+    addPrescription();
   };
 
   return (

@@ -65,7 +65,6 @@ function Chat() {
   const [prescriptionList, setPrescriptionList] = useState([]);
 
   useEffect(() => {
-
     // Create logic for unreadMessageCount
     async function fetchChatUserInfo(userUID) {
       let fetchUserData = await getDoc(doc(db, "users", userUID));
@@ -135,6 +134,8 @@ function Chat() {
         AddPrescriptionState={{
           addPrescriptionState: addPrescriptionState,
           setAddPrescriptionState: setAddPrescriptionState,
+          currentUserUID: currentUser.uid,
+          selectedUserUID: selectedUserUID
         }}
       />
       <div className="chat-container">
