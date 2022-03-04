@@ -35,6 +35,7 @@ function SelectChat({
   selectedUserUID,
   currentUserUID,
   setMessages,
+  setPrescriptionList,
 }) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
@@ -48,12 +49,13 @@ function SelectChat({
   // State change logic for selected chat user.
   useEffect(() => {
     if (selectedUserUID === userUID) {
-      const fetchOldMessages = () => {
+      const fetchOldMessagesWithPrescription = () => {
         const chatRoomString =
           currentUserUID > selectedUserUID
             ? `${currentUserUID + selectedUserUID}`
             : `${selectedUserUID + currentUserUID}`;
-
+        
+            // Fetching chat messages
         const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
         const q = query(chatRoomRef, orderBy("createdAt", "asc"));
 
@@ -64,9 +66,24 @@ function SelectChat({
           });
           setMessages(msgs);
         });
+
+        // Note : This block of code does not create a collection in firebase. 
+        // Fetches existing prescription data for selected chat user for live data showcase.
+        const prescriptionRef = collection(db, "sessions", chatRoomString, "prescription");
+        const q2 = query(prescriptionRef, orderBy("createdAt", "asc"));
+
+        onSnapshot(q2, (querySnapshot) => {
+          let tempPrescription = [];
+          querySnapshot.forEach((doc) => {
+            var prescriptionData = doc.data();
+            prescriptionData.prescriptionDetails['id'] = doc.id;
+            tempPrescription.push(prescriptionData);
+          });
+          setPrescriptionList(tempPrescription);
+        });
       };
       setisSelected(true);
-      fetchOldMessages();
+      fetchOldMessagesWithPrescription();
     } else {
       setisSelected(false);
     }

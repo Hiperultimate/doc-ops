@@ -20,7 +20,6 @@ function ChatPrescriptions({
   currentUserUID,
   selectedUserUID,
   prescriptionList,
-  setPrescriptionList,
 }) {
   // Dummy data
   let fetchPrescriptionData = [
@@ -46,6 +45,11 @@ function ChatPrescriptions({
       id: 3,
     },
   ];
+
+  // Formatting Prescription Data before displaying 
+  useEffect(()=> {
+  //   console.log("In ChatPrescriptions : " , prescriptionList);
+  },[prescriptionList])
 
   const chatRoomString =
     currentUserUID > selectedUserUID

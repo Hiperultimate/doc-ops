@@ -134,8 +134,10 @@ function Chat() {
         AddPrescriptionState={{
           addPrescriptionState: addPrescriptionState,
           setAddPrescriptionState: setAddPrescriptionState,
+        }}
+        UserStates={{
           currentUserUID: currentUser.uid,
-          selectedUserUID: selectedUserUID
+          selectedUserUID: selectedUserUID,
         }}
       />
       <div className="chat-container">
@@ -161,6 +163,7 @@ function Chat() {
                   setSelectedUserUID={setSelectedUserUID}
                   selectedUserUID={selectedUserUID}
                   setMessages={setMessages}
+                  setPrescriptionList={setPrescriptionList}
                   key={chatID++}
                 />
               );
