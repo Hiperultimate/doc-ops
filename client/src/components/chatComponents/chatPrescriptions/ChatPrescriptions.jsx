@@ -3,10 +3,7 @@ import PlusSvg from "../../../svgs/plus.svg";
 import MedicineBox from "../../../svgs/medicine-box.svg";
 import PrescriptionCard from "./prescriptionCard/PrescriptionCard.jsx";
 
-import { useEffect } from "react";
-
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase.js";
+import { useEffect, useState } from "react";
 
 const DisplayType = Object.freeze({
   DOCTOR: 1,
@@ -46,17 +43,58 @@ function ChatPrescriptions({
     },
   ];
 
-  // Formatting Prescription Data before displaying 
-  useEffect(()=> {
-  //   console.log("In ChatPrescriptions : " , prescriptionList);
-  },[prescriptionList])
+  const [prescriptionData, setPrescriptionData] = useState([]);
+  
+  // Formatting Prescription Data before displaying
+  useEffect(() => {
+    const intToDate = {
+      1: "Jan",
+      2: "Feb",
+      3: "Mar",
+      4: "Apr",
+      5: "May",
+      6: "Jun",
+      7: "Jul",
+      8: "Aug",
+      9: "Sept",
+      10: "Oct",
+      11: "Nov",
+      12: "Dec",
+    };
 
-  const chatRoomString =
-    currentUserUID > selectedUserUID
-      ? `${currentUserUID + selectedUserUID}`
-      : `${selectedUserUID + currentUserUID}`;
+    if(prescriptionList.length === 0){
+      setPrescriptionData([]);
+    }else{
+      let prescriptionDataList = [];
+      for (let i = 0; i < prescriptionList.length; i++) {
+        let prescriptionObject = {};
+        let medicineFromDate = new Date(
+          prescriptionList[i].prescriptionDetails.medicineDurationFrom.seconds *
+            1000
+        );
+        let medicineToDate = new Date(
+          prescriptionList[i].prescriptionDetails.medicineDurationTo.seconds *
+            1000
+        );
+        let displayDate =
+          medicineFromDate.getDate().toString() +
+          " " +
+          intToDate[medicineFromDate.getMonth() + 1] +
+          " - " +
+          medicineToDate.getDate().toString() +
+          " " +
+          intToDate[medicineToDate.getMonth() + 1]; // getMonth uses 0 based index, so we use +1
+        prescriptionObject["medicineName"] = prescriptionList[i].prescriptionDetails.medicineName;
+        prescriptionObject["frequency"] = prescriptionList[i].prescriptionDetails.medicineName;
+        prescriptionObject["quantity"] = prescriptionList[i].prescriptionDetails.medicineFrequency;
+        prescriptionObject["duration"] = displayDate;
+        prescriptionObject["id"] = prescriptionList[i].prescriptionDetails.id;
+        prescriptionDataList.push(prescriptionObject);
+      }
+      setPrescriptionData(prescriptionDataList);
+    }
 
-  // Fetch chat prescription data for selected user through UID
+  }, [prescriptionList]);
 
   return (
     <div>
@@ -65,7 +103,7 @@ function ChatPrescriptions({
         <span className="prescription-line-seperator" />
       </div>
       <div className="prescription-container">
-        {fetchPrescriptionData.length === 0 ? (
+        {prescriptionData.length === 0 ? (
           <div className="empty-prescription-list">
             <img src={MedicineBox} alt="medicine-box-svg" />
             {displayType === DisplayType.DOCTOR ? (
@@ -75,7 +113,7 @@ function ChatPrescriptions({
             )}
           </div>
         ) : (
-          fetchPrescriptionData.map((prescription) => {
+          prescriptionData.map((prescription) => {
             return (
               <PrescriptionCard
                 medicineName={prescription.medicineName}
