@@ -75,7 +75,7 @@ function SelectChat({
         onSnapshot(q2, (querySnapshot) => {
           let tempPrescription = [];
           querySnapshot.forEach((doc) => {
-            var prescriptionData = doc.data();
+            let prescriptionData = doc.data();
             prescriptionData.prescriptionDetails['id'] = doc.id;
             tempPrescription.push(prescriptionData);
           });

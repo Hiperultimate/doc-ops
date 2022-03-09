@@ -14,8 +14,6 @@ function ChatPrescriptions({
   displayType,
   setCloseSessionState,
   setAddPrescriptionState,
-  currentUserUID,
-  selectedUserUID,
   prescriptionList,
 }) {
   // Dummy data
@@ -85,9 +83,11 @@ function ChatPrescriptions({
           " " +
           intToDate[medicineToDate.getMonth() + 1]; // getMonth uses 0 based index, so we use +1
         prescriptionObject["medicineName"] = prescriptionList[i].prescriptionDetails.medicineName;
-        prescriptionObject["frequency"] = prescriptionList[i].prescriptionDetails.medicineName;
-        prescriptionObject["quantity"] = prescriptionList[i].prescriptionDetails.medicineFrequency;
+        prescriptionObject["frequency"] = prescriptionList[i].prescriptionDetails.medicineFrequency;
+        prescriptionObject["quantity"] = prescriptionList[i].prescriptionDetails.medicineAmount;
         prescriptionObject["duration"] = displayDate;
+        prescriptionObject["durationFrom"] = medicineFromDate;
+        prescriptionObject["durationTo"] = medicineToDate;
         prescriptionObject["id"] = prescriptionList[i].prescriptionDetails.id;
         prescriptionDataList.push(prescriptionObject);
       }
@@ -96,6 +96,7 @@ function ChatPrescriptions({
 
   }, [prescriptionList]);
 
+  // create edit prescription data 
   return (
     <div>
       <div className="prescription-heading-container">
@@ -119,7 +120,9 @@ function ChatPrescriptions({
                 medicineName={prescription.medicineName}
                 frequency={prescription.frequency}
                 quantity={prescription.quantity}
-                duration={prescription.duration}
+                displayDuration={prescription.duration}
+                durationFrom={prescription.durationFrom}
+                durationTo={prescription.durationTo}
                 displayType={displayType}
                 key={prescription.id}
               />

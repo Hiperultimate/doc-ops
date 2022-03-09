@@ -16,8 +16,12 @@ function EditPrescriptionCard({
   );
   const [amountInput, setAmountInput] = useState(amount || "");
   const [frequencyInput, setFrequencyInput] = useState(frequency || "");
-  const [durationFromInput, setDurationFromInput] = useState(durationFrom);
-  const [durationToInput, setDurationToInput] = useState(durationTo);
+  const [durationFromInput, setDurationFromInput] = useState(
+    durationFrom.toISOString().split("T")[0]
+  );
+  const [durationToInput, setDurationToInput] = useState(
+    durationTo.toISOString().split("T")[0]
+  );
 
   const onChangeHandler = (e, setState) => {
     setState(e.target.value);

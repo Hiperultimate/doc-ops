@@ -200,8 +200,6 @@ function Chat() {
             displayType={displayType}
             setCloseSessionState={setCloseSessionState}
             setAddPrescriptionState={setAddPrescriptionState}
-            currentUserUID={currentUser.uid}
-            selectedUserUID={selectedUserUID}
             prescriptionList={prescriptionList}
             setPrescriptionList={setPrescriptionList}
           />
