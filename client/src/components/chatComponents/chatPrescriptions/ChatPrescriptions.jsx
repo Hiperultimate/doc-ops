@@ -15,6 +15,8 @@ function ChatPrescriptions({
   setCloseSessionState,
   setAddPrescriptionState,
   prescriptionList,
+  currentUserUID,
+  selectedUserUID
 }) {
   // Dummy data
   let fetchPrescriptionData = [
@@ -124,7 +126,10 @@ function ChatPrescriptions({
                 durationFrom={prescription.durationFrom}
                 durationTo={prescription.durationTo}
                 displayType={displayType}
-                key={prescription.id}
+                currentUserUID={currentUserUID}
+                selectedUserUID={selectedUserUID}
+                prescriptionID={prescription.id}  // Firebase collection id to select data
+                key={prescription.id} // React key
               />
             );
           })

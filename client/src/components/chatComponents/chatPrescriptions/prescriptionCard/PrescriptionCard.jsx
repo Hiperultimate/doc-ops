@@ -13,6 +13,9 @@ function PrescriptionCard({
   displayType,
   durationFrom,
   durationTo,
+  prescriptionID,
+  currentUserUID,
+  selectedUserUID,
 }) {
   const [editPrescription, setEditPrescription] = useState(false);
 
@@ -26,6 +29,9 @@ function PrescriptionCard({
             frequency={frequency}
             durationFrom={durationFrom}
             durationTo={durationTo}
+            prescriptionID={prescriptionID}
+            currentUserUID={currentUserUID}
+            selectedUserUID={selectedUserUID}
             editPrescriptionState={{
               editPrescription: editPrescription,
               setEditPrescription: setEditPrescription,

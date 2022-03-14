@@ -198,6 +198,8 @@ function Chat() {
         <div className="set-prescription">
           <ChatPrescriptions
             displayType={displayType}
+            currentUserUID={currentUser.uid}
+            selectedUserUID={selectedUserUID}
             setCloseSessionState={setCloseSessionState}
             setAddPrescriptionState={setAddPrescriptionState}
             prescriptionList={prescriptionList}
