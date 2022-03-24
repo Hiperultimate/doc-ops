@@ -91,16 +91,13 @@ function Chat() {
       }
       return returnData;
     }
-    // Fix unread message count ERROR : SENDERS CHAT COUNT IS BEING DISPLAYED TO THEMSELVES INSTEAD OF THE TARGET USER
+
     async function fetchChattingWithUsers() {
       onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
         let chatUsers = [];
         if (querySnapshot.data()) {
           querySnapshot.data().users.forEach(async (user) => {
             let chattingWithUser = await fetchChatUserInfo(user);
-            // console.log("Chatting with user  :" , chattingWithUser , user , currentUser.uid);
-            // console.log(querySnapshot.data().unreadMessage[user]);
-            
             chattingWithUser.unreadMessageCount = querySnapshot.data().unreadMessage[user] ? querySnapshot.data().unreadMessage[user].toString() : "0";
             chatUsers.push(chattingWithUser);
             setFetchChatUsers([...chatUsers]);
@@ -160,15 +157,12 @@ function Chat() {
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
                   viewType={displayType}
-                  currentUserUID={currentUser.uid}
                   userUID={chatUsers.userUID}
                   userType={chatUsers.userType}
                   setChatHeadInfo={setChatHeadInfo}
                   setSelectedUserType={setSelectedUserType}
                   setSelectedUserUID={setSelectedUserUID}
                   selectedUserUID={selectedUserUID}
-                  setMessages={setMessages}
-                  setPrescriptionList={setPrescriptionList}
                   key={chatID++}
                 />
               );
@@ -182,6 +176,7 @@ function Chat() {
               messages={messages}
               selectedUserUID={selectedUserUID}
               currentUserUID={currentUser.uid}
+              setMessages={setMessages}
             />
           ) : (
             <div className="unselected-user-msg">

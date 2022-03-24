@@ -2,7 +2,10 @@ import "./displayMessages.css";
 import { useEffect, useRef, useState } from "react";
 import SingleChat from "./singleChat/SingleChat.jsx";
 
-function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
+import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase.js";
+
+function DisplayMessages({ messages, selectedUserUID, currentUserUID, setMessages }) {
   const fieldRef = useRef(null);
   const [displayMessage, setDisplayMessage] = useState([]);
 
@@ -21,6 +24,29 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
     fieldRef.current.scrollIntoView();
   });
 
+  // Fetch chat data from Firebase
+  useEffect(() => {
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+
+    // Fetching chat messages
+    const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
+    const q = query(chatRoomRef, orderBy("createdAt", "asc"));
+
+    const unSubscribe = onSnapshot(q, (querySnapshot) => {
+      let msgs = [];
+      querySnapshot.forEach((doc) => {
+        msgs.push(doc.data());
+      });
+      setMessages(msgs);
+    })
+
+    // Unsubscribes after component unmount
+    return () => unSubscribe();
+  }, [selectedUserUID]);
+
   useEffect(() => {
     if (messages.length > 0) {
       let tempList = [];
@@ -37,11 +63,6 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
       setDisplayMessage([]);
     }
   }, [messages, currentUserUID]);
-
-  useEffect(() => {
-    console.log("mounted");
-    return () => {console.log("Unmounted")}
-  })
 
   return (
     <div className="chat-box">

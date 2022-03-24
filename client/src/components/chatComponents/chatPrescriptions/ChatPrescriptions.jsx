@@ -5,6 +5,9 @@ import PrescriptionCard from "./prescriptionCard/PrescriptionCard.jsx";
 
 import { useEffect, useState } from "react";
 
+import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase.js";
+
 const DisplayType = Object.freeze({
   DOCTOR: 1,
   PATIENT: 2,
@@ -16,7 +19,8 @@ function ChatPrescriptions({
   setAddPrescriptionState,
   prescriptionList,
   currentUserUID,
-  selectedUserUID
+  selectedUserUID,
+  setPrescriptionList
 }) {
   // Dummy data
   let fetchPrescriptionData = [
@@ -44,6 +48,35 @@ function ChatPrescriptions({
   ];
 
   const [prescriptionData, setPrescriptionData] = useState([]);
+
+  useEffect(()=> {
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+    
+    // Note : This block of code does not create a collection in firebase.
+    // Fetches existing prescription data for selected chat user for live data showcase.
+    const prescriptionRef = collection(
+      db,
+      "sessions",
+      chatRoomString,
+      "prescription"
+      );
+    const q2 = query(prescriptionRef, orderBy("createdAt", "asc"));
+      
+    const unSubscribe = onSnapshot(q2, (querySnapshot) => {
+      let tempPrescription = [];
+      querySnapshot.forEach((doc) => {
+        let prescriptionData = doc.data();
+        prescriptionData.prescriptionDetails["id"] = doc.id;
+        tempPrescription.push(prescriptionData);
+      });
+      setPrescriptionList(tempPrescription);
+    });
+
+    return () => {unSubscribe()}
+  }, [selectedUserUID, currentUserUID])
   
   // Formatting Prescription Data before displaying
   useEffect(() => {
