@@ -73,7 +73,7 @@ function Chat() {
       if (userInfo.type === 1) {
         let parsedData = {
           userName: userInfo.doctorName,
-          unreadMessageCount: "5",
+          unreadMessageCount: "0",
           displayInfo: userInfo.specialization,
           userUID: userUID,
           userType: userInfo.type,
@@ -82,7 +82,7 @@ function Chat() {
       } else {
         let parsedData = {
           userName: userInfo.name,
-          unreadMessageCount: "5",
+          unreadMessageCount: "0",
           displayInfo: userInfo.diagnosis, // Discuss what to do here
           userUID: userUID,
           userType: userInfo.type,
@@ -97,6 +97,7 @@ function Chat() {
         if (querySnapshot.data()) {
           querySnapshot.data().users.forEach(async (user) => {
             let chattingWithUser = await fetchChatUserInfo(user);
+            chattingWithUser.unreadMessageCount = querySnapshot.data().unreadMessage[user] ? querySnapshot.data().unreadMessage[user].toString() : "0";
             chatUsers.push(chattingWithUser);
             setFetchChatUsers([...chatUsers]);
           });

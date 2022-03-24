@@ -1,7 +1,14 @@
 import "./typingBar.css";
 import SendSvg from "../../../svgs/send.svg";
 
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  doc,
+  setDoc,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
 function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
@@ -22,6 +29,12 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
         to: selectedUserUID,
         createdAt: Timestamp.fromDate(new Date()),
       });
+
+      let fetchUnreadMsgs = await getDoc(doc(db, "chattingWith", selectedUserUID));
+      let updateUnreadMsg = {};
+      updateUnreadMsg["unreadMessage"] =  {[currentUserUID]: fetchUnreadMsgs.data().unreadMessage[currentUserUID] + 1};
+      await setDoc(doc(db, "chattingWith", selectedUserUID), updateUnreadMsg, { merge: true });
+
       setTypeInput("");
     }
   };

@@ -26,14 +26,14 @@ function DoctorDetails({
     // Creating chat instance for logged in user in firebase
     await setDoc(
       doc(db, "chattingWith", userUID),
-      { users: arrayUnion(docUID) },
+      { users: arrayUnion(docUID) , unreadMessage: {[docUID] : 0}},
       { merge: true }
     );
 
     // Creating chat instance for targeted user in firebase
     await setDoc(
       doc(db, "chattingWith", docUID),
-      { users: arrayUnion(userUID) },
+      { users: arrayUnion(userUID) , unreadMessage: {[userUID]: 0}},
       { merge: true }
     );
     history.push("/sessions");
