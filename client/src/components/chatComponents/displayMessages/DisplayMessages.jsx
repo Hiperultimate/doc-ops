@@ -38,6 +38,11 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
     }
   }, [messages, currentUserUID]);
 
+  useEffect(() => {
+    console.log("mounted");
+    return () => {console.log("Unmounted")}
+  })
+
   return (
     <div className="chat-box">
       {displayMessage.map((messages) => {

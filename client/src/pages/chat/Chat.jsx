@@ -73,7 +73,7 @@ function Chat() {
       if (userInfo.type === 1) {
         let parsedData = {
           userName: userInfo.doctorName,
-          unreadMessageCount: "5",
+          unreadMessageCount: "0",
           displayInfo: userInfo.specialization,
           userUID: userUID,
           userType: userInfo.type,
@@ -82,7 +82,7 @@ function Chat() {
       } else {
         let parsedData = {
           userName: userInfo.name,
-          unreadMessageCount: "5",
+          unreadMessageCount: "0",
           displayInfo: userInfo.diagnosis, // Discuss what to do here
           userUID: userUID,
           userType: userInfo.type,
@@ -91,12 +91,17 @@ function Chat() {
       }
       return returnData;
     }
+    // Fix unread message count ERROR : SENDERS CHAT COUNT IS BEING DISPLAYED TO THEMSELVES INSTEAD OF THE TARGET USER
     async function fetchChattingWithUsers() {
       onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
         let chatUsers = [];
         if (querySnapshot.data()) {
           querySnapshot.data().users.forEach(async (user) => {
             let chattingWithUser = await fetchChatUserInfo(user);
+            // console.log("Chatting with user  :" , chattingWithUser , user , currentUser.uid);
+            // console.log(querySnapshot.data().unreadMessage[user]);
+            
+            chattingWithUser.unreadMessageCount = querySnapshot.data().unreadMessage[user] ? querySnapshot.data().unreadMessage[user].toString() : "0";
             chatUsers.push(chattingWithUser);
             setFetchChatUsers([...chatUsers]);
           });

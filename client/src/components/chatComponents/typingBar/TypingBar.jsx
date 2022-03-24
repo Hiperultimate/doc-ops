@@ -1,7 +1,14 @@
 import "./typingBar.css";
 import SendSvg from "../../../svgs/send.svg";
 
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  doc,
+  setDoc,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
 function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
@@ -15,6 +22,7 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
       currentUserUID > selectedUserUID
         ? `${currentUserUID + selectedUserUID}`
         : `${selectedUserUID + currentUserUID}`;
+        
     if (typeInput !== "") {
       await addDoc(collection(db, "sessions", chatRoomString, "chat"), {
         typeInput,
@@ -22,13 +30,22 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
         to: selectedUserUID,
         createdAt: Timestamp.fromDate(new Date()),
       });
+
+      console.log(currentUserUID);
+      let fetchUnreadMsgs = await getDoc(doc(db, "chattingWith", selectedUserUID));
+      let updateUnreadMsg = {};
+      updateUnreadMsg["unreadMessage"] =  {[currentUserUID]: fetchUnreadMsgs.data().unreadMessage[currentUserUID] + 1};
+      // console.log("HERE",fetchUnreadMsgs.data().unreadMessage[currentUserUID]);
+      // console.log(updateUnreadMsg);
+      await setDoc(doc(db, "chattingWith", selectedUserUID), updateUnreadMsg, { merge: true });
+
       setTypeInput("");
     }
   };
 
   // Function that triggers by pressing the enter key
   const enterSubmit = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       textSubmitHandler(e);
     }
   };
