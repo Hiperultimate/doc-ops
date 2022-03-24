@@ -2,6 +2,14 @@ import "./selectChat.css";
 import { useState, useEffect } from "react";
 import ChatArrow from "../../../svgs/chat-arrow.svg";
 
+import {
+  getDoc,
+  doc,
+  setDoc,
+
+} from "firebase/firestore";
+import { db } from "../../../firebase.js";
+
 /* 
   viewType: 
   1: Doctors
@@ -25,6 +33,7 @@ function SelectChat({
   userUID,
   setSelectedUserUID,
   selectedUserUID,
+  currentUserUID,
 }) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
@@ -34,6 +43,18 @@ function SelectChat({
     setSelectedUserType(userType);
     setSelectedUserUID(userUID);
   };
+  
+  useEffect(() => {
+    if(selectedUserUID != null){
+      const resetUnreadMessageCount = async () => {
+        await getDoc(doc(db, "chattingWith", currentUserUID));
+        let updateUnreadMsg = {};
+        updateUnreadMsg["unreadMessage"] =  {[selectedUserUID]: 0};
+        await setDoc(doc(db, "chattingWith", currentUserUID), updateUnreadMsg, { merge: true });
+      }
+      resetUnreadMessageCount();
+    }
+  },[selectedUserUID, currentUserUID]);
 
   // State change logic for selected chat user.
   useEffect(() => {

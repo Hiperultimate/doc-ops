@@ -48,6 +48,7 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID, setMessage
   }, [selectedUserUID]);
 
   useEffect(() => {
+    let safetyCount = messages.length;
     if (messages.length > 0) {
       let tempList = [];
       for (let i = 0; i < messages.length; i++) {
@@ -55,8 +56,9 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID, setMessage
           whosChat: messages[i].from === currentUserUID ? "receiver" : "sender",
           sentAt: formatAMPM(new Date(messages[i].createdAt.seconds * 1000)),
           messageText: messages[i].typeInput,
-          id: messages[i].from + messages[i].createdAt.seconds,
+          id: messages[i].from + safetyCount + messages[i].createdAt.seconds,
         });
+        safetyCount++;
       }
       setDisplayMessage(tempList);
     } else {

@@ -156,6 +156,7 @@ function Chat() {
                   userName={chatUsers.userName}
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
+                  currentUserUID={currentUser.uid}
                   viewType={displayType}
                   userUID={chatUsers.userUID}
                   userType={chatUsers.userType}

@@ -31,12 +31,9 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
         createdAt: Timestamp.fromDate(new Date()),
       });
 
-      console.log(currentUserUID);
       let fetchUnreadMsgs = await getDoc(doc(db, "chattingWith", selectedUserUID));
       let updateUnreadMsg = {};
       updateUnreadMsg["unreadMessage"] =  {[currentUserUID]: fetchUnreadMsgs.data().unreadMessage[currentUserUID] + 1};
-      // console.log("HERE",fetchUnreadMsgs.data().unreadMessage[currentUserUID]);
-      // console.log(updateUnreadMsg);
       await setDoc(doc(db, "chattingWith", selectedUserUID), updateUnreadMsg, { merge: true });
 
       setTypeInput("");
