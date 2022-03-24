@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 import {
-  collection,
-  orderBy,
-  query,
-  onSnapshot,
+  getDoc,
+  doc,
+  setDoc,
+
 } from "firebase/firestore";
 import { db } from "../../../firebase.js";
 
@@ -34,8 +34,6 @@ function SelectChat({
   setSelectedUserUID,
   selectedUserUID,
   currentUserUID,
-  setMessages,
-  setPrescriptionList,
 }) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
@@ -45,49 +43,27 @@ function SelectChat({
     setSelectedUserType(userType);
     setSelectedUserUID(userUID);
   };
+  
+  useEffect(() => {
+    if(selectedUserUID != null){
+      const resetUnreadMessageCount = async () => {
+        await getDoc(doc(db, "chattingWith", currentUserUID));
+        let updateUnreadMsg = {};
+        updateUnreadMsg["unreadMessage"] =  {[selectedUserUID]: 0};
+        await setDoc(doc(db, "chattingWith", currentUserUID), updateUnreadMsg, { merge: true });
+      }
+      resetUnreadMessageCount();
+    }
+  },[selectedUserUID, currentUserUID]);
 
   // State change logic for selected chat user.
   useEffect(() => {
     if (selectedUserUID === userUID) {
-      const fetchOldMessagesWithPrescription = () => {
-        const chatRoomString =
-          currentUserUID > selectedUserUID
-            ? `${currentUserUID + selectedUserUID}`
-            : `${selectedUserUID + currentUserUID}`;
-        
-            // Fetching chat messages
-        const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
-        const q = query(chatRoomRef, orderBy("createdAt", "asc"));
-
-        onSnapshot(q, (querySnapshot) => {
-          let msgs = [];
-          querySnapshot.forEach((doc) => {
-            msgs.push(doc.data());
-          });
-          setMessages(msgs);
-        });
-
-        // Note : This block of code does not create a collection in firebase. 
-        // Fetches existing prescription data for selected chat user for live data showcase.
-        const prescriptionRef = collection(db, "sessions", chatRoomString, "prescription");
-        const q2 = query(prescriptionRef, orderBy("createdAt", "asc"));
-
-        onSnapshot(q2, (querySnapshot) => {
-          let tempPrescription = [];
-          querySnapshot.forEach((doc) => {
-            let prescriptionData = doc.data();
-            prescriptionData.prescriptionDetails['id'] = doc.id;
-            tempPrescription.push(prescriptionData);
-          });
-          setPrescriptionList(tempPrescription);
-        });
-      };
       setisSelected(true);
-      fetchOldMessagesWithPrescription();
     } else {
       setisSelected(false);
     }
-  }, [selectedUserUID, userUID, currentUserUID, setMessages]);
+  }, [selectedUserUID, userUID]);
 
   return (
     <>

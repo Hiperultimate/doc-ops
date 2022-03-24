@@ -22,6 +22,7 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
       currentUserUID > selectedUserUID
         ? `${currentUserUID + selectedUserUID}`
         : `${selectedUserUID + currentUserUID}`;
+        
     if (typeInput !== "") {
       await addDoc(collection(db, "sessions", chatRoomString, "chat"), {
         typeInput,
@@ -41,7 +42,7 @@ function TypingBar({ typeMessageState, selectedUserUID, currentUserUID }) {
 
   // Function that triggers by pressing the enter key
   const enterSubmit = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       textSubmitHandler(e);
     }
   };

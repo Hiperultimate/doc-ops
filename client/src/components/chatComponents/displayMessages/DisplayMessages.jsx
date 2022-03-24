@@ -2,7 +2,10 @@ import "./displayMessages.css";
 import { useEffect, useRef, useState } from "react";
 import SingleChat from "./singleChat/SingleChat.jsx";
 
-function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
+import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase.js";
+
+function DisplayMessages({ messages, selectedUserUID, currentUserUID, setMessages }) {
   const fieldRef = useRef(null);
   const [displayMessage, setDisplayMessage] = useState([]);
 
@@ -21,7 +24,31 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
     fieldRef.current.scrollIntoView();
   });
 
+  // Fetch chat data from Firebase
   useEffect(() => {
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+
+    // Fetching chat messages
+    const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
+    const q = query(chatRoomRef, orderBy("createdAt", "asc"));
+
+    const unSubscribe = onSnapshot(q, (querySnapshot) => {
+      let msgs = [];
+      querySnapshot.forEach((doc) => {
+        msgs.push(doc.data());
+      });
+      setMessages(msgs);
+    })
+
+    // Unsubscribes after component unmount
+    return () => unSubscribe();
+  }, [selectedUserUID]);
+
+  useEffect(() => {
+    let safetyCount = messages.length;
     if (messages.length > 0) {
       let tempList = [];
       for (let i = 0; i < messages.length; i++) {
@@ -29,8 +56,9 @@ function DisplayMessages({ messages, selectedUserUID, currentUserUID }) {
           whosChat: messages[i].from === currentUserUID ? "receiver" : "sender",
           sentAt: formatAMPM(new Date(messages[i].createdAt.seconds * 1000)),
           messageText: messages[i].typeInput,
-          id: messages[i].from + messages[i].createdAt.seconds,
+          id: messages[i].from + safetyCount + messages[i].createdAt.seconds,
         });
+        safetyCount++;
       }
       setDisplayMessage(tempList);
     } else {

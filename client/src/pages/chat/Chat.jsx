@@ -91,6 +91,7 @@ function Chat() {
       }
       return returnData;
     }
+
     async function fetchChattingWithUsers() {
       onSnapshot(doc(db, "chattingWith", currentUser.uid), (querySnapshot) => {
         let chatUsers = [];
@@ -155,16 +156,14 @@ function Chat() {
                   userName={chatUsers.userName}
                   unreadMessageCount={chatUsers.unreadMessageCount}
                   displayInfo={chatUsers.displayInfo}
-                  viewType={displayType}
                   currentUserUID={currentUser.uid}
+                  viewType={displayType}
                   userUID={chatUsers.userUID}
                   userType={chatUsers.userType}
                   setChatHeadInfo={setChatHeadInfo}
                   setSelectedUserType={setSelectedUserType}
                   setSelectedUserUID={setSelectedUserUID}
                   selectedUserUID={selectedUserUID}
-                  setMessages={setMessages}
-                  setPrescriptionList={setPrescriptionList}
                   key={chatID++}
                 />
               );
@@ -178,6 +177,7 @@ function Chat() {
               messages={messages}
               selectedUserUID={selectedUserUID}
               currentUserUID={currentUser.uid}
+              setMessages={setMessages}
             />
           ) : (
             <div className="unselected-user-msg">

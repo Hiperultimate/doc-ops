@@ -36,6 +36,20 @@ function DoctorDetails({
       { users: arrayUnion(userUID) , unreadMessage: {[userUID]: 0}},
       { merge: true }
     );
+
+    // Creating an unread messages collection in firebase
+    // const chatRoomString =
+    //   userUID > docUID ? `${userUID + docUID}` : `${docUID + userUID}`;
+    // let initUnreadMsgs = {} ;
+    // initUnreadMsgs[docUID] = 0;
+    // initUnreadMsgs[userUID] = 0;
+    
+    // await setDoc(
+    //   doc(db, "sessions", chatRoomString, "unreadMessages", chatRoomString),  // Using chatRoomString for object creation because of firebase limitation.
+    //   initUnreadMsgs,
+    //   { merge: true }
+    // );
+    
     history.push("/sessions");
   };
 
