@@ -5,12 +5,28 @@ function CloseSessionBox({
   closeSessionPassState,
   closeSessionDiagnosisState,
   closeSessionCommentsState,
+  prescriptionList,
 }) {
-  const {closeSessionState, setCloseSessionState} = closeSessionPassState;
+  const { closeSessionState, setCloseSessionState } = closeSessionPassState;
   const { closeSessionDiagnosis, setCloseSessionDiagnosis } =
     closeSessionDiagnosisState;
   const { closeSessionComments, setCloseSessionComments } =
     closeSessionCommentsState;
+
+  const intToDate = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sept",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
 
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
@@ -49,6 +65,7 @@ function CloseSessionBox({
                 placeholder="Enter diagnosis..."
               />
             </div>
+            {/*Set start and end date of session here, get chat's first message time and current date*/}
             <div className="end-date-text">21 Sept, 2021 - 30 December</div>
             <div className="medication-list">
               <table>
@@ -59,24 +76,30 @@ function CloseSessionBox({
                     <th>Amount</th>
                     <th>Duration</th>
                   </tr>
-                  <tr>
-                    <td>Chemo</td>
-                    <td>Once a day</td>
-                    <td>50ml Chocobar</td>
-                    <td>31 Oct - 30 Dec</td>
-                  </tr>
-                  <tr>
-                    <td>Pain Killers</td>
-                    <td>Once a week</td>
-                    <td>5 Tablets</td>
-                    <td>15 Oct - 30 Dec</td>
-                  </tr>
-                  <tr>
-                    <td>Drug 2</td>
-                    <td>3 times a day</td>
-                    <td>3 Cups with 200ml Water</td>
-                    <td>31 Sept - 30 Dec</td>
-                  </tr>
+                  {prescriptionList !== null && prescriptionList.map((prescriptionObj) => {
+                    let medicineFromDate = new Date(
+                      prescriptionObj.prescriptionDetails.medicineDurationFrom.seconds * 1000
+                    );
+                    let medicineToDate = new Date(
+                      prescriptionObj.prescriptionDetails.medicineDurationTo.seconds * 1000
+                    );
+                    let displayDate =
+                      medicineFromDate.getDate().toString() +
+                      " " +
+                      intToDate[medicineFromDate.getMonth() + 1] +
+                      " - " +
+                      medicineToDate.getDate().toString() +
+                      " " +
+                      intToDate[medicineToDate.getMonth() + 1]; // getMonth uses 0 based index, so we use +1
+                    return (
+                      <tr>
+                        <td>{prescriptionObj.prescriptionDetails.medicineName}</td>
+                        <td>{prescriptionObj.prescriptionDetails.medicineFrequency}</td>
+                        <td>{prescriptionObj.prescriptionDetails.medicineAmount}</td>
+                        <td>{displayDate}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

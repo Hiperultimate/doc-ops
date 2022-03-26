@@ -131,6 +131,7 @@ function Chat() {
           closeSessionState: closeSessionState,
           setCloseSessionState: setCloseSessionState,
         }}
+        prescriptionList={prescriptionList}
       />
       <AddPrescription
         AddPrescriptionState={{
