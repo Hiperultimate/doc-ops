@@ -98,7 +98,10 @@ function Chat() {
         if (querySnapshot.data()) {
           querySnapshot.data().users.forEach(async (user) => {
             let chattingWithUser = await fetchChatUserInfo(user);
-            chattingWithUser.unreadMessageCount = querySnapshot.data().unreadMessage[user] ? querySnapshot.data().unreadMessage[user].toString() : "0";
+            chattingWithUser.unreadMessageCount = querySnapshot.data()
+              .unreadMessage[user]
+              ? querySnapshot.data().unreadMessage[user].toString()
+              : "0";
             chatUsers.push(chattingWithUser);
             setFetchChatUsers([...chatUsers]);
           });
@@ -132,6 +135,8 @@ function Chat() {
           setCloseSessionState: setCloseSessionState,
         }}
         prescriptionList={prescriptionList}
+        currentUserUID={currentUser.uid}
+        selectedUserUID={selectedUserUID}
       />
       <AddPrescription
         AddPrescriptionState={{

@@ -1,17 +1,27 @@
 import "./closeSessionBox.css";
 import CrossBgSvg from "../../../../svgs/cross-bg.svg";
 
+import { useEffect, useState } from "react";
+
+import { collection, orderBy, query, getDocs, limit } from "firebase/firestore";
+import { db } from "../../../../firebase.js";
+
 function CloseSessionBox({
   closeSessionPassState,
   closeSessionDiagnosisState,
   closeSessionCommentsState,
   prescriptionList,
+  currentUserUID,
+  selectedUserUID,
 }) {
   const { closeSessionState, setCloseSessionState } = closeSessionPassState;
   const { closeSessionDiagnosis, setCloseSessionDiagnosis } =
     closeSessionDiagnosisState;
   const { closeSessionComments, setCloseSessionComments } =
     closeSessionCommentsState;
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const intToDate = {
     1: "Jan",
@@ -31,6 +41,42 @@ function CloseSessionBox({
   const handleInputChange = (e, setState) => {
     setState(e.target.value);
   };
+
+  const getChatCreatedDate = async () => {
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+
+    // Fetching chat messages
+    const chatRoomRef = collection(db, "sessions", chatRoomString, "chat");
+    const q = query(chatRoomRef, orderBy("createdAt", "asc"), limit(1));
+
+    const getFirstCreatedDate = await getDocs(q);
+    getFirstCreatedDate.forEach((doc) => {
+      let startfullYear = new Date(
+        doc.data().createdAt.seconds * 1000
+      ).getFullYear();
+      let startfullDate = new Date(
+        doc.data().createdAt.seconds * 1000
+      ).getDate();
+      let startmonth =
+        intToDate[new Date(doc.data().createdAt.seconds * 1000).getMonth()];
+      setStartDate(`${startfullDate} ${startmonth}, ${startfullYear}`);
+      setEndDate(
+        `${new Date().getDate()} ${
+          intToDate[new Date().getMonth()]
+        }, ${new Date().getFullYear()}`
+      );
+    });
+
+    return null;
+  };
+
+  // Initializes date when on page load
+  useEffect(() => {
+    getChatCreatedDate();
+  }, [selectedUserUID]);
 
   return (
     closeSessionState && (
@@ -65,8 +111,9 @@ function CloseSessionBox({
                 placeholder="Enter diagnosis..."
               />
             </div>
-            {/*Set start and end date of session here, get chat's first message time and current date*/}
-            <div className="end-date-text">21 Sept, 2021 - 30 December</div>
+            <div className="end-date-text">
+              {startDate} - {endDate}
+            </div>
             <div className="medication-list">
               <table>
                 <tbody>
@@ -76,30 +123,42 @@ function CloseSessionBox({
                     <th>Amount</th>
                     <th>Duration</th>
                   </tr>
-                  {prescriptionList !== null && prescriptionList.map((prescriptionObj) => {
-                    let medicineFromDate = new Date(
-                      prescriptionObj.prescriptionDetails.medicineDurationFrom.seconds * 1000
-                    );
-                    let medicineToDate = new Date(
-                      prescriptionObj.prescriptionDetails.medicineDurationTo.seconds * 1000
-                    );
-                    let displayDate =
-                      medicineFromDate.getDate().toString() +
-                      " " +
-                      intToDate[medicineFromDate.getMonth() + 1] +
-                      " - " +
-                      medicineToDate.getDate().toString() +
-                      " " +
-                      intToDate[medicineToDate.getMonth() + 1]; // getMonth uses 0 based index, so we use +1
-                    return (
-                      <tr>
-                        <td>{prescriptionObj.prescriptionDetails.medicineName}</td>
-                        <td>{prescriptionObj.prescriptionDetails.medicineFrequency}</td>
-                        <td>{prescriptionObj.prescriptionDetails.medicineAmount}</td>
-                        <td>{displayDate}</td>
-                      </tr>
-                    );
-                  })}
+                  {prescriptionList !== null &&
+                    prescriptionList.map((prescriptionObj, index) => {
+                      let medicineFromDate = new Date(
+                        prescriptionObj.prescriptionDetails.medicineDurationFrom
+                          .seconds * 1000
+                      );
+                      let medicineToDate = new Date(
+                        prescriptionObj.prescriptionDetails.medicineDurationTo
+                          .seconds * 1000
+                      );
+                      let displayDate =
+                        medicineFromDate.getDate().toString() +
+                        " " +
+                        intToDate[medicineFromDate.getMonth() + 1] +
+                        " - " +
+                        medicineToDate.getDate().toString() +
+                        " " +
+                        intToDate[medicineToDate.getMonth() + 1]; // getMonth uses 0 based index, so we use +1
+                      return (
+                        <tr key={index}>
+                          <td>
+                            {prescriptionObj.prescriptionDetails.medicineName}
+                          </td>
+                          <td>
+                            {
+                              prescriptionObj.prescriptionDetails
+                                .medicineFrequency
+                            }
+                          </td>
+                          <td>
+                            {prescriptionObj.prescriptionDetails.medicineAmount}
+                          </td>
+                          <td>{displayDate}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
