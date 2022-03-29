@@ -168,7 +168,7 @@ function ChatPrescriptions({
           })
         )}
       </div>
-      {displayType === DisplayType.DOCTOR && (
+      {displayType === DisplayType.DOCTOR && selectedUserUID !== null && (
         <div className="session-option-container">
           <span className="session-line-seperator" />
 

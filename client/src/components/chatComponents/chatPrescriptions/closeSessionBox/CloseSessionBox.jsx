@@ -77,28 +77,32 @@ function CloseSessionBox({
   const closeSession = async (e) => {
     e.preventDefault();
 
-    const storeData = {};
-    storeData.DiseaseName = closeSessionDiagnosis;
-    storeData.Comments = closeSessionComments;
-    storeData.Medication = []; // list of medicine objects
-    prescriptionList.map((prescriptionData) => {
-      let displayDate = databaseDateToStringDate(prescriptionData);
-      let medicineObj = {};
-      medicineObj["medicineName"] =
-        prescriptionData.prescriptionDetails.medicineName;
-      medicineObj["medicineFrequency"] =
-        prescriptionData.prescriptionDetails.medicineFrequency;
-      medicineObj["medicineDuration"] = displayDate;
-      storeData.Medication.push(medicineObj);
-    });
-    let saveObj = {};
-    saveObj["medicalHistory"] = [storeData];
-
-    await setDoc(
-      doc(db, "users", selectedUserUID),
-      { medicalHistory: arrayUnion(storeData) },
-      { merge: true }
-    );
+    // Adds medical information to user profile only if prescription list is there.
+    if(prescriptionList.length !== 0) {
+      const storeData = {};
+      storeData.DiseaseName = closeSessionDiagnosis;
+      storeData.Comments = closeSessionComments;
+      storeData.CureTimeTaken = `${startDate} - ${endDate}`;
+      storeData.Medication = []; // list of medicine objects
+      prescriptionList.map((prescriptionData) => {
+        let displayDate = databaseDateToStringDate(prescriptionData);
+        let medicineObj = {};
+        medicineObj["medicineName"] =
+          prescriptionData.prescriptionDetails.medicineName;
+        medicineObj["medicineFrequency"] =
+          prescriptionData.prescriptionDetails.medicineFrequency;
+        medicineObj["medicineDuration"] = displayDate;
+        storeData.Medication.push(medicineObj);
+      });
+      let saveObj = {};
+      saveObj["medicalHistory"] = [storeData];
+  
+      await setDoc(
+        doc(db, "users", selectedUserUID),
+        { medicalHistory: arrayUnion(storeData) },
+        { merge: true }
+      );
+    }
 
     // Delete chattingWith currentUserUID and selectedUserUID then reload page
 
@@ -169,7 +173,7 @@ function CloseSessionBox({
     return null;
   };
 
-  // Initializes date when on page load
+  // Initializes date on page load
   useEffect(() => {
     getChatCreatedDate();
   }, [selectedUserUID]);
