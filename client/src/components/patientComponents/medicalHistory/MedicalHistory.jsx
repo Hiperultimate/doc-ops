@@ -28,12 +28,12 @@ function MedicalHistory({ medicalHistory }) {
                     return (
                       <div key={medKeys++}>
                         <div className="medicine-grid">
-                          <div className="med-name">{medInfo.medName}</div>
+                          <div className="med-name">{medInfo.medicineName}</div>
                           <div className="med-frequency">
-                            {medInfo.medFrequency}
+                            {medInfo.medicineFrequency}
                           </div>
                           <div className="med-duration">
-                            {medInfo.medDuration}
+                            {medInfo.medicineDuration}
                           </div>
                         </div>
                       </div>

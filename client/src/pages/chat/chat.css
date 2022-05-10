@@ -46,3 +46,10 @@
   width: 35vw;
   background-color: #f1f1f1;
 }
+
+.unselected-user-msg{
+  display: flex;
+  justify-content:center;
+  padding: 1em;
+  color: var(--font-grey);
+}

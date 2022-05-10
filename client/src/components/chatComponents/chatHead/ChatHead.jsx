@@ -1,10 +1,13 @@
 import "./chatHead.css";
 
-function ChatHead({userName, aboutURL}) {
+function ChatHead({ userName, aboutMeURL }) {
   return (
-    <div className="chat-head-container global-box-shadow">
+    <div
+      style={userName !== "" ? { display: true } : { display: "none" }}
+      className="chat-head-container global-box-shadow"
+    >
       <div className="about-container">
-        <a className="chat-head-about" href="/about">
+        <a className="chat-head-about" href={aboutMeURL}>
           About me
         </a>
       </div>

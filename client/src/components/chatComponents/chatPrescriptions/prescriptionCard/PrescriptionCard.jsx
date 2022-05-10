@@ -9,8 +9,13 @@ function PrescriptionCard({
   medicineName,
   quantity,
   frequency,
-  duration,
+  displayDuration,
   displayType,
+  durationFrom,
+  durationTo,
+  prescriptionID,
+  currentUserUID,
+  selectedUserUID,
 }) {
   const [editPrescription, setEditPrescription] = useState(false);
 
@@ -20,10 +25,13 @@ function PrescriptionCard({
         {editPrescription && (
           <EditPrescriptionCard
             medicineName={medicineName}
-            quantity={quantity}
+            amount={quantity}
             frequency={frequency}
-            durationFrom={duration}
-            durationTo={duration}
+            durationFrom={durationFrom}
+            durationTo={durationTo}
+            prescriptionID={prescriptionID}
+            currentUserUID={currentUserUID}
+            selectedUserUID={selectedUserUID}
             editPrescriptionState={{
               editPrescription: editPrescription,
               setEditPrescription: setEditPrescription,
@@ -39,8 +47,8 @@ function PrescriptionCard({
           <img className="svg-icons" src={PillSvg} alt="pills-svg" />
           {frequency}
         </div>
-        <div className="duration">
-          <span className="duration-text">{duration}</span>
+        <div className="displayDuration">
+          <span className="displayDuration-text">{displayDuration}</span>
         </div>
         <div className="edit-icon">
           {displayType === 1 && (

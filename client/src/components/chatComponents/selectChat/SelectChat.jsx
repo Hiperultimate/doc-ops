@@ -1,6 +1,14 @@
 import "./selectChat.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatArrow from "../../../svgs/chat-arrow.svg";
+
+import {
+  getDoc,
+  doc,
+  setDoc,
+
+} from "firebase/firestore";
+import { db } from "../../../firebase.js";
 
 /* 
   viewType: 
@@ -14,13 +22,49 @@ import ChatArrow from "../../../svgs/chat-arrow.svg";
 
 */
 
-function SelectChat({ userName, unreadMessageCount, viewType, displayInfo }) {
+function SelectChat({
+  userName,
+  unreadMessageCount,
+  viewType,
+  displayInfo,
+  setChatHeadInfo,
+  userType,
+  setSelectedUserType,
+  userUID,
+  setSelectedUserUID,
+  selectedUserUID,
+  currentUserUID,
+}) {
   // A temporary solution for front end development
   const [isSelected, setisSelected] = useState(false);
 
   const onClickHandler = () => {
-    setisSelected((prevState) => !prevState);
+    setChatHeadInfo(userName);
+    setSelectedUserType(userType);
+    setSelectedUserUID(userUID);
   };
+  
+  useEffect(() => {
+    if(selectedUserUID != null){
+      const resetUnreadMessageCount = async () => {
+        await getDoc(doc(db, "chattingWith", currentUserUID));
+        let updateUnreadMsg = {};
+        updateUnreadMsg["unreadMessage"] =  {[selectedUserUID]: 0};
+        await setDoc(doc(db, "chattingWith", currentUserUID), updateUnreadMsg, { merge: true });
+      }
+      resetUnreadMessageCount();
+    }
+  },[selectedUserUID, currentUserUID]);
+
+  // State change logic for selected chat user.
+  useEffect(() => {
+    if (selectedUserUID === userUID) {
+      setisSelected(true);
+    } else {
+      setisSelected(false);
+    }
+  }, [selectedUserUID, userUID]);
+
   return (
     <>
       <div

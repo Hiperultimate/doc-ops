@@ -2,13 +2,19 @@ import "./editPrescriptionCard.css";
 import CrossBgSvg from "../../../../svgs/cross-bg.svg";
 import { useState } from "react";
 
+import { doc, setDoc,Timestamp } from "firebase/firestore";
+import { db } from "../../../../firebase.js";
+
 function EditPrescriptionCard({
   medicineName,
   amount,
   frequency,
   durationFrom,
   durationTo,
+  prescriptionID,
   editPrescriptionState,
+  currentUserUID,
+  selectedUserUID,
 }) {
   const { editPrescription, setEditPrescription } = editPrescriptionState;
   const [medicineNameInput, setMedicineNameInput] = useState(
@@ -16,15 +22,38 @@ function EditPrescriptionCard({
   );
   const [amountInput, setAmountInput] = useState(amount || "");
   const [frequencyInput, setFrequencyInput] = useState(frequency || "");
-  const [durationFromInput, setDurationFromInput] = useState(durationFrom);
-  const [durationToInput, setDurationToInput] = useState(durationTo);
+  const [durationFromInput, setDurationFromInput] = useState(
+    durationFrom.toISOString().split("T")[0]
+  );
+  const [durationToInput, setDurationToInput] = useState(
+    durationTo.toISOString().split("T")[0]
+  );
 
   const onChangeHandler = (e, setState) => {
     setState(e.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  // Implement firebase function to edit prescription data
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+    
+    const chatRoomString =
+      currentUserUID > selectedUserUID
+        ? `${currentUserUID + selectedUserUID}`
+        : `${selectedUserUID + currentUserUID}`;
+
+    let newPrescriptionData = {};
+    newPrescriptionData["prescriptionDetails"] = {
+      medicineAmount: amountInput,
+      medicineDurationFrom: Timestamp.fromDate(new Date(durationFromInput)),
+      medicineDurationTo: Timestamp.fromDate(new Date(durationToInput)),
+      medicineFrequency: frequencyInput,
+      medicineName: medicineNameInput,
+    };
+
+    // Setting new values to existing firebase object
+    await setDoc(doc(db, "sessions", chatRoomString,"prescription",prescriptionID), newPrescriptionData, { merge: true });
+    setEditPrescription(false);
   };
 
   return (
@@ -49,6 +78,7 @@ function EditPrescriptionCard({
               type="text"
               value={medicineNameInput}
               placeholder="Enter medicine name..."
+              required
             />
           </div>
           <div className="amount-input">
@@ -58,6 +88,7 @@ function EditPrescriptionCard({
               type="text"
               value={amountInput}
               placeholder="Enter amount..."
+              required
             />
           </div>
           <div className="frequency-input">
@@ -67,6 +98,7 @@ function EditPrescriptionCard({
               type="text"
               value={frequencyInput}
               placeholder="Enter frequency..."
+              required
             />
           </div>
           <div className="duration-date-from">
@@ -85,6 +117,7 @@ function EditPrescriptionCard({
               className="create-prescription-date-input"
               type="date"
               value={durationToInput}
+              required
             />
             <span>To </span>
           </div>
