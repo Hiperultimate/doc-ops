@@ -66,7 +66,6 @@ function Home() {
         for (let i = 0; i < doctorArray.length; i++) {
           const docUID = doctorArray[i];
           let doctor = await getDoc(doc(db, "users", docUID));
-
           const {
             doctorName,
             clinicAddress,

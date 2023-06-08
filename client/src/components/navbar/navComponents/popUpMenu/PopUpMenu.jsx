@@ -1,4 +1,5 @@
 import "./popUpMenu.css";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../../../utils/contexts/AuthContext.js";
 
@@ -7,29 +8,29 @@ function PopUpMenu() {
   const history = useHistory();
 
   const logOutHandler = async () => {
-    try{
+    try {
       await logout();
-    }catch{
+    } catch {
       history.push("/error-404"); // Something went wrong while logging out
     }
-  }
+  };
   return (
     <div className="popup-menu global-box-shadow">
       <ul className="popup-list">
         <li>
-          <a href="/" className="pop-up-items">
+          <Link to="/" className="pop-up-items">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="sessions" className="pop-up-items">
+          <Link to="/sessions" className="pop-up-items">
             Sessions
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="edit-details" className="pop-up-items">
+          <Link to="edit-details" className="pop-up-items">
             Edit Profile
-          </a>
+          </Link>
         </li>
         <li>
           <a onClick={logOutHandler} href="/" className="pop-up-items">

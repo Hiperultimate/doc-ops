@@ -1,5 +1,6 @@
 import "./login.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import TheLifeSavers from "../../svgs/The Lifesavers One on One.svg";
 import LifeSaversStethoscope from "../../svgs/The Lifesavers Stethoscope.svg";
 import LifeSaversAvatar from "../../svgs/Lifesavers Avatar.svg";
@@ -40,7 +41,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if(errorMsg){
+    if (errorMsg) {
       loginErrorMsg();
     }
   }, [errorMsg]);
@@ -110,9 +111,6 @@ function Login() {
             alt="show password"
             onClick={() => setPasswordVisible(!passwordVisible)}
           />
-          <a href="/" className="login-forgot-password login-link">
-            Forgot Password?
-          </a>
           <button
             className={"login-field login-button"}
             type="submit"
@@ -122,9 +120,9 @@ function Login() {
           </button>
           <div className="login-registration-prompt">
             Don't have an account? &nbsp;
-            <a href="/register" className="login-link">
+            <Link to="/register" className="login-link">
               Sign Up
-            </a>
+            </Link>
           </div>
         </div>
       </form>

@@ -1,4 +1,5 @@
 import "./chatHead.css";
+import { Link } from "react-router-dom";
 
 function ChatHead({ userName, aboutMeURL }) {
   return (
@@ -7,9 +8,7 @@ function ChatHead({ userName, aboutMeURL }) {
       className="chat-head-container global-box-shadow"
     >
       <div className="about-container">
-        <a className="chat-head-about" href={aboutMeURL}>
-          About me
-        </a>
+        <Link to={aboutMeURL} className="chat-head-about">About me</Link>
       </div>
       <span className="head-name">{userName}</span>
     </div>
