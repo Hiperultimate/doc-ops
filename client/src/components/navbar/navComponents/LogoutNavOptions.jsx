@@ -1,17 +1,18 @@
+import { Link } from "react-router-dom";
+
 function LogoutNavOptions() {
   return (
     <>
-      <a href="/" className="link items">
+      <Link to="/" className="link items">
         Home
-      </a>
-
-      <a href="/login" className="link items">
+      </Link>
+      <Link to="/login" className="link items">
         Login
-      </a>
+      </Link>
 
-      <a href="/register" className="link items">
+      <Link to="/register" className="link items">
         Create Account
-      </a>
+      </Link>
     </>
   );
 }
